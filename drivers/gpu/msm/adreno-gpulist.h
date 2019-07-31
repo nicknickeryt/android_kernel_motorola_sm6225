@@ -21,6 +21,7 @@ static const struct adreno_reglist a306_vbif_regs[] = {
 	{ A3XX_VBIF_OUT_WR_LIM_CONF0, 0x0000000A },
 };
 
+#if 0
 static const struct adreno_a3xx_core adreno_gpu_core_a306 = {
 	.base = {
 		DEFINE_ADRENO_REV(ADRENO_REV_A306, 3, 0, 6, 0),
@@ -624,7 +625,7 @@ static const struct adreno_a5xx_core adreno_gpu_core_a508 = {
 	.vbif = a530_vbif_regs,
 	.vbif_count = ARRAY_SIZE(a530_vbif_regs),
 };
-
+#endif
 DEFINE_DEPRECATED_CORE(a630v1, ADRENO_REV_A630, 6, 3, 0, 0);
 
 static const struct adreno_reglist a630_hwcg_regs[] = {
@@ -1498,6 +1499,8 @@ static const struct adreno_a6xx_core adreno_gpu_core_a702 = {
 };
 
 static const struct adreno_gpu_core *adreno_gpulist[] = {
+#if 0
+
 	&adreno_gpu_core_a306.base,
 	&adreno_gpu_core_a306a.base,
 	&adreno_gpu_core_a304.base,
@@ -1528,6 +1531,9 @@ static const struct adreno_gpu_core *adreno_gpulist[] = {
 	&adreno_gpu_core_a680.base,
 	&adreno_gpu_core_a612.base,
 	&adreno_gpu_core_a616.base,
+#endif
 	&adreno_gpu_core_a610.base,
+#if 0
 	&adreno_gpu_core_a702.base,
+#endif
 };
