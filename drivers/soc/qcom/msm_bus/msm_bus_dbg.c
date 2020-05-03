@@ -513,8 +513,6 @@ static int msm_bus_dbg_fill_cl_buffer(const struct msm_bus_scale_pdata *pdata,
 			pdata->usecase[index].vectors[j].ib);
 	i += scnprintf(buf + i, MAX_BUFF_SIZE - i, "\n");
 
-	for (j = 0; j < pdata->usecase->num_paths; j++)
-
 	cldata->index = index;
 	cldata->size = i;
 	rt_mutex_unlock(&msm_bus_dbg_cllist_lock);
@@ -746,15 +744,6 @@ static ssize_t msm_bus_dbg_dump_clients_read(struct file *file,
 	if (*ppos)
 		goto exit_dump_clients_read;
 
-	rt_mutex_lock(&msm_bus_dbg_cllist_lock);
-	list_for_each_entry(cldata, &cl_list, list) {
-		if (IS_ERR_OR_NULL(cldata->pdata))
-			continue;
-		for (j = 0; j < cldata->pdata->usecase->num_paths; j++) {
-			if (cldata->index == -1)
-				continue;
-		}
-	}
 	rt_mutex_unlock(&msm_bus_dbg_cllist_lock);
 exit_dump_clients_read:
 	return simple_read_from_buffer(buf, count, ppos, msg, cnt);
