@@ -68,8 +68,6 @@ TRACE_EVENT(adreno_cmdbatch_queued,
 	)
 );
 
-
-
 TRACE_EVENT(adreno_cmdbatch_retired,
 	TP_PROTO(struct kgsl_drawobj *drawobj, int inflight,
 		uint64_t start, uint64_t retire,

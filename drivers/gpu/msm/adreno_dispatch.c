@@ -2388,7 +2388,6 @@ static void retire_cmdobj(struct adreno_device *adreno_dev,
 			ADRENO_DRAWOBJ_RB(drawobj),
 			adreno_get_rptr(drawctxt->rb), cmdobj->fault_recovery);
         }
-        
 	kgsl_drawobj_destroy(drawobj);
 }
 
