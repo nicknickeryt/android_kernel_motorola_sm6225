@@ -328,7 +328,7 @@ static ssize_t debugfs_ep92_reg_show(struct snd_soc_component *component,
 
 	for (i = (int) *ppos / 11; i <= EP92_MAX_REGISTER_ADDR; i++) {
 		reg_val = snd_soc_component_read32(component, i);
-		len = snprintf(tmp_buf, 20, "0x%02X: 0x%02X\n", i,
+		len = scnprintf(tmp_buf, 20, "0x%02X: 0x%02X\n", i,
 			(reg_val & 0xFF));
 		if ((total + len) > count)
 			break;
@@ -967,7 +967,7 @@ static ssize_t ep92_sysfs_rda_chipid(struct device *dev,
 	reg2 = snd_soc_component_read32(ep92->component, EP92_BI_DEVICE_ID_0);
 	reg3 = snd_soc_component_read32(ep92->component, EP92_BI_DEVICE_ID_1);
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%02x%02x/%02x%02x\n",
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%02x%02x/%02x%02x\n",
 		reg0, reg1, reg2, reg3);
 	dev_dbg(dev, "%s: '%s'\n", __func__, buf);
 
@@ -998,7 +998,7 @@ static ssize_t ep92_sysfs_rda_version(struct device *dev,
 	reg3 = snd_soc_component_read32(ep92->component,
 				EP92_BI_VERSION_NUM);
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%02d/%02d/%02d %d\n",
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%02d/%02d/%02d %d\n",
 		reg0, reg1, reg2, reg3);
 	dev_dbg(dev, "%s: '%s'\n", __func__, buf);
 
@@ -1020,7 +1020,7 @@ static ssize_t ep92_sysfs_rda_audio_state(struct device *dev,
 	val = (ep92->ai.system_status_0 & EP92_AI_MCLK_ON_MASK) >>
 		EP92_AI_MCLK_ON_SHIFT;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1040,7 +1040,7 @@ static ssize_t ep92_sysfs_rda_audio_format(struct device *dev,
 
 	val = ep92->old_mode;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1061,7 +1061,7 @@ static ssize_t ep92_sysfs_rda_dsd_rate(struct device *dev,
 	val = ep92_dsd_freq_table[(ep92->ai.system_status_1 &
 			EP92_AI_DSD_RATE_MASK) >> EP92_AI_DSD_RATE_SHIFT];
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1081,7 +1081,7 @@ static ssize_t ep92_sysfs_rda_audio_rate(struct device *dev,
 
 	val = ep92_samp_freq_table[(ep92->ai.audio_status) &
 				   EP92_AI_RATE_MASK];
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1102,7 +1102,7 @@ static ssize_t ep92_sysfs_rda_audio_layout(struct device *dev,
 	val = (ep92->ai.system_status_0 & EP92_AI_LAYOUT_MASK) >>
 		EP92_AI_LAYOUT_SHIFT;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1125,7 +1125,7 @@ static ssize_t ep92_sysfs_rda_audio_ch_count(struct device *dev,
 	if (val > 0)
 		val += 1;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1145,7 +1145,7 @@ static ssize_t ep92_sysfs_rda_audio_ch_alloc(struct device *dev,
 
 	val = ep92->ai.ca & EP92_AI_CH_ALLOC_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1166,7 +1166,7 @@ static ssize_t ep92_sysfs_rda_audio_preemph(struct device *dev,
 	val = (ep92->ai.cs[0] & EP92_AI_PREEMPH_MASK) >>
 		EP92_AI_PREEMPH_SHIFT;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1187,7 +1187,7 @@ static ssize_t ep92_sysfs_rda_avmute(struct device *dev,
 	val = (ep92->ai.system_status_0 >> EP92_AI_AVMUTE_SHIFT) &
 		EP92_2CHOICE_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1207,7 +1207,7 @@ static ssize_t ep92_sysfs_rda_link_on0(struct device *dev,
 
 	val = ep92->filt_link_on0;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1227,7 +1227,7 @@ static ssize_t ep92_sysfs_rda_link_on1(struct device *dev,
 
 	val = ep92->filt_link_on1;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1247,7 +1247,7 @@ static ssize_t ep92_sysfs_rda_link_on2(struct device *dev,
 
 	val = ep92->filt_link_on2;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1267,7 +1267,7 @@ static ssize_t ep92_sysfs_rda_out_plug(struct device *dev,
 
 	val = ep92->filt_tx_plug;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1289,7 +1289,7 @@ static ssize_t ep92_sysfs_rda_video_latency(struct device *dev,
 	if (val > 0)
 		val = (val - 1) * 2;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1310,7 +1310,7 @@ static ssize_t ep92_sysfs_rda_arc_disable(struct device *dev,
 	val = (ep92->gc.ctl2 >> EP92_GC_ARC_DIS_SHIFT) &
 		EP92_2CHOICE_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1365,7 +1365,7 @@ static ssize_t ep92_sysfs_rda_power(struct device *dev,
 
 	val = (ep92->gc.ctl >> EP92_GC_POWER_SHIFT) & EP92_2CHOICE_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1424,7 +1424,7 @@ static ssize_t ep92_sysfs_rda_audio_path(struct device *dev,
 
 	val = (ep92->gc.ctl >> EP92_GC_AUDIO_PATH_SHIFT) & EP92_2CHOICE_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1480,7 +1480,7 @@ static ssize_t ep92_sysfs_rda_src_sel(struct device *dev,
 
 	val = ep92->gc.rx_sel & EP92_GC_RX_SEL_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1535,7 +1535,7 @@ static ssize_t ep92_sysfs_rda_arc_enable(struct device *dev,
 
 	val = (ep92->gc.ctl >> EP92_GC_ARC_EN_SHIFT) & EP92_2CHOICE_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1590,7 +1590,7 @@ static ssize_t ep92_sysfs_rda_cec_mute(struct device *dev,
 
 	val = (ep92->gc.ctl >> EP92_GC_CEC_MUTE_SHIFT) & EP92_2CHOICE_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1646,7 +1646,7 @@ static ssize_t ep92_sysfs_rda_cec_volume(struct device *dev,
 	val = (ep92->gc.cec_volume >> EP92_GC_CEC_VOLUME_SHIFT) &
 		EP92_GC_CEC_VOLUME_MASK;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1697,7 +1697,7 @@ static ssize_t ep92_sysfs_rda_runout(struct device *dev,
 
 	val = ep92->poll_rem;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1717,7 +1717,7 @@ static ssize_t ep92_sysfs_rda_force_inactive(struct device *dev,
 
 	val = ep92->force_inactive;
 
-	ret = snprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
+	ret = scnprintf(buf, EP92_SYSFS_ENTRY_MAX_LEN, "%d\n", val);
 	dev_dbg(dev, "%s: '%d'\n", __func__, val);
 
 	return ret;
@@ -1887,7 +1887,7 @@ static int ep92_i2c_probe(struct i2c_client *client,
 
 #if IS_ENABLED(CONFIG_DEBUG_FS)
 	/* debugfs interface */
-	snprintf(debugfs_dir_name, sizeof(debugfs_dir_name), "%s-%s",
+	scnprintf(debugfs_dir_name, sizeof(debugfs_dir_name), "%s-%s",
 		client->name, dev_name(&client->dev));
 	ep92->debugfs_dir = debugfs_create_dir(debugfs_dir_name, NULL);
 	if (!ep92->debugfs_dir) {

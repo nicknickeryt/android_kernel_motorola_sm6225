@@ -24,7 +24,7 @@ static int msm_cdc_dt_parse_vreg_info(struct device *dev,
 	u32 prop_val;
 
 	/* Parse supply name */
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "%s-supply", name);
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "%s-supply", name);
 
 	regulator_node = of_parse_phandle(dev->of_node, prop_name, 0);
 	if (!regulator_node) {
@@ -37,7 +37,7 @@ static int msm_cdc_dt_parse_vreg_info(struct device *dev,
 	cdc_vreg->ondemand = is_ond;
 
 	/* Parse supply - voltage */
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "qcom,%s-voltage", name);
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "qcom,%s-voltage", name);
 	prop = of_get_property(dev->of_node, prop_name, &len);
 	if (!prop || (len != (2 * sizeof(__be32)))) {
 		dev_err(dev, "%s: %s %s property\n", __func__,
@@ -50,7 +50,7 @@ static int msm_cdc_dt_parse_vreg_info(struct device *dev,
 	}
 
 	/* Parse supply - current */
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "qcom,%s-current", name);
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "qcom,%s-current", name);
 	rc = of_property_read_u32(dev->of_node, prop_name, &prop_val);
 	if (rc) {
 		dev_err(dev, "%s: Looking up %s property in node %s failed",
@@ -60,7 +60,7 @@ static int msm_cdc_dt_parse_vreg_info(struct device *dev,
 	cdc_vreg->optimum_uA = prop_val;
 
 	/* Parse supply - LPM or NOM mode(default NOM) */
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "qcom,%s-lpm-supported", name);
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "qcom,%s-lpm-supported", name);
 	rc = of_property_read_u32(dev->of_node, prop_name, &prop_val);
 	if (rc) {
 		dev_dbg(dev, "%s: Looking up %s property in node %s failed",

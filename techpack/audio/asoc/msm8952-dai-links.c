@@ -1562,7 +1562,7 @@ int msm8952_init_wsa_dev(struct platform_device *pdev,
 			goto err_free_dev_name_str;
 		}
 
-		snprintf(dev_name_str, strlen("wsa881x.%d"), "wsa881x.%d", i);
+		scnprintf(dev_name_str, strlen("wsa881x.%d"), "wsa881x.%d", i);
 		msm895x_aux_dev[i].name = dev_name_str;
 		msm895x_aux_dev[i].codec_name = NULL;
 		msm895x_aux_dev[i].codec_of_node =

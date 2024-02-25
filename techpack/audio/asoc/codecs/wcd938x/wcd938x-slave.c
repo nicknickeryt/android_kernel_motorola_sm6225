@@ -114,7 +114,7 @@ static ssize_t wcd938x_swrslave_reg_show(struct swr_device *pdev,
 		if (!is_swr_slv_reg_readable(i))
 			continue;
 		swr_read(pdev, pdev->dev_num, i, &reg_val, 1);
-		len = snprintf(tmp_buf, sizeof(tmp_buf), "0x%.3x: 0x%.2x\n", i,
+		len = scnprintf(tmp_buf, sizeof(tmp_buf), "0x%.3x: 0x%.2x\n", i,
 			       (reg_val & 0xFF));
 		if (((total + len) >= count - 1) || (len < 0))
 			break;
@@ -171,7 +171,7 @@ static ssize_t codec_debug_read(struct file *file, char __user *ubuf,
 	if (*ppos < 0)
 		return -EINVAL;
 
-	snprintf(lbuf, sizeof(lbuf), "0x%x\n",
+	scnprintf(lbuf, sizeof(lbuf), "0x%x\n",
 			(wcd938x_slave->read_data & 0xFF));
 
 	return simple_read_from_buffer(ubuf, count, ppos, lbuf,

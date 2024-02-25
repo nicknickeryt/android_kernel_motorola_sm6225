@@ -443,7 +443,7 @@ static ssize_t debugfs_csra66x0_reg_show(struct csra66x0_priv *csra66x0,
 	for (i = ((int) *ppos + addr_min);
 		i <= addr_max; i++) {
 		reg_val = snd_soc_component_read32(component, i);
-		len = snprintf(tmp_buf, 20, "0x%04X: 0x%02X\n", i, (reg_val & 0xFF));
+		len = scnprintf(tmp_buf, 20, "0x%04X: 0x%02X\n", i, (reg_val & 0xFF));
 		if ((total + len) >= count - 1)
 			break;
 		if (copy_to_user((ubuf + total), tmp_buf, len)) {
@@ -1147,7 +1147,7 @@ static ssize_t csra66x0_sysfs_read2reg_addr_get(struct device *dev,
 
 	reg_addr = csra66x0->sysfs_reg_addr;
 
-	ret = snprintf(buf, CSRA66X0_SYSFS_ENTRY_MAX_LEN,
+	ret = scnprintf(buf, CSRA66X0_SYSFS_ENTRY_MAX_LEN,
 		"0x%04X\n", reg_addr);
 	pr_debug("%s: 0x%04X\n", __func__, reg_addr);
 
@@ -1174,13 +1174,13 @@ static ssize_t csra66x0_sysfs_read2reg_value(struct device *dev,
 		CSRA66X0_COEFF_BASE, CSRA66X0_MAX_COEFF_ADDR))) {
 		pr_debug("%s: 0x%04X: register address out of range\n",
 			__func__, reg_addr);
-		ret = snprintf(buf, CSRA66X0_SYSFS_ENTRY_MAX_LEN,
+		ret = scnprintf(buf, CSRA66X0_SYSFS_ENTRY_MAX_LEN,
 			"0x%04X: register address out of range\n", reg_addr);
 		goto end;
 	}
 
 	reg_val = snd_soc_component_read32(component, csra66x0->sysfs_reg_addr);
-	ret = snprintf(buf, CSRA66X0_SYSFS_ENTRY_MAX_LEN,
+	ret = scnprintf(buf, CSRA66X0_SYSFS_ENTRY_MAX_LEN,
 		"0x%04X:	0x%02X\n", csra66x0->sysfs_reg_addr, reg_val);
 	pr_debug("%s: 0x%04X: 0x%02X\n", __func__,
 		csra66x0->sysfs_reg_addr, reg_val);
@@ -1395,7 +1395,7 @@ static int csra66x0_i2c_probe(struct i2c_client *client_i2c,
 
 #if IS_ENABLED(CONFIG_DEBUG_FS)
 	/* debugfs interface */
-	snprintf(debugfs_dir_name, sizeof(debugfs_dir_name), "%s-%s",
+	scnprintf(debugfs_dir_name, sizeof(debugfs_dir_name), "%s-%s",
 		client_i2c->name, dev_name(&client_i2c->dev));
 	csra66x0->debugfs_dir = debugfs_create_dir(debugfs_dir_name, NULL);
 	if (!csra66x0->debugfs_dir) {

@@ -1412,23 +1412,23 @@ static ssize_t debugfs_dump_info_read(struct file *file,
 	if (!buf)
 		return -ENOMEM;
 
-	len += snprintf(buf + len, (SZ_4K - len), "name = %s\n", display->name);
-	len += snprintf(buf + len, (SZ_4K - len),
+	len += scnprintf(buf + len, (SZ_4K - len), "name = %s\n", display->name);
+	len += scnprintf(buf + len, (SZ_4K - len),
 			"\tResolution = %dx%d\n",
 			display->config.video_timing.h_active,
 			display->config.video_timing.v_active);
 
 	display_for_each_ctrl(i, display) {
-		len += snprintf(buf + len, (SZ_4K - len),
+		len += scnprintf(buf + len, (SZ_4K - len),
 				"\tCTRL_%d:\n\t\tctrl = %s\n\t\tphy = %s\n",
 				i, display->ctrl[i].ctrl->name,
 				display->ctrl[i].phy->name);
 	}
 
-	len += snprintf(buf + len, (SZ_4K - len),
+	len += scnprintf(buf + len, (SZ_4K - len),
 			"\tPanel = %s\n", display->panel->name);
 
-	len += snprintf(buf + len, (SZ_4K - len),
+	len += scnprintf(buf + len, (SZ_4K - len),
 			"\tClock master = %s\n",
 			display->ctrl[display->clk_master_idx].ctrl->name);
 
@@ -1548,7 +1548,7 @@ static ssize_t debugfs_misr_read(struct file *file,
 		dsi_ctrl = display->ctrl[i].ctrl;
 		misr = dsi_ctrl_collect_misr(display->ctrl[i].ctrl);
 
-		len += snprintf((buf + len), max_len - len,
+		len += scnprintf((buf + len), max_len - len,
 			"DSI_%d MISR: 0x%x\n", dsi_ctrl->cell_index, misr);
 
 		if (len >= max_len)
@@ -1762,25 +1762,25 @@ static ssize_t debugfs_read_esd_check_mode(struct file *file,
 
 	len = min_t(size_t, user_len, ESD_MODE_STRING_MAX_LEN - 1);
 	if (!esd_config->esd_enabled) {
-		rc = snprintf(buf, len, "ESD feature not enabled");
+		rc = scnprintf(buf, len, "ESD feature not enabled");
 		goto output_mode;
 	}
 
 	switch (esd_config->status_mode) {
 	case ESD_MODE_REG_READ:
-		rc = snprintf(buf, len, "reg_read");
+		rc = scnprintf(buf, len, "reg_read");
 		break;
 	case ESD_MODE_PANEL_TE:
-		rc = snprintf(buf, len, "te_signal_check");
+		rc = scnprintf(buf, len, "te_signal_check");
 		break;
 	case ESD_MODE_SW_SIM_FAILURE:
-		rc = snprintf(buf, len, "esd_sw_sim_failure");
+		rc = scnprintf(buf, len, "esd_sw_sim_failure");
 		break;
 	case ESD_MODE_SW_SIM_SUCCESS:
-		rc = snprintf(buf, len, "esd_sw_sim_success");
+		rc = scnprintf(buf, len, "esd_sw_sim_success");
 		break;
 	default:
-		rc = snprintf(buf, len, "invalid");
+		rc = scnprintf(buf, len, "invalid");
 		break;
 	}
 
@@ -1893,7 +1893,7 @@ static int dsi_display_debugfs_init(struct dsi_display *display)
 		if (!phy || !phy->name)
 			continue;
 
-		snprintf(name, ARRAY_SIZE(name),
+		scnprintf(name, ARRAY_SIZE(name),
 				"%s_allow_phy_power_off", phy->name);
 		dump_file = debugfs_create_bool(name, 0600, dir,
 				&phy->allow_phy_power_off);
@@ -1904,7 +1904,7 @@ static int dsi_display_debugfs_init(struct dsi_display *display)
 			goto error_remove_dir;
 		}
 
-		snprintf(name, ARRAY_SIZE(name),
+		scnprintf(name, ARRAY_SIZE(name),
 				"%s_regulator_min_datarate_bps", phy->name);
 		dump_file = debugfs_create_u32(name, 0600, dir,
 				&phy->regulator_min_datarate_bps);
@@ -5523,7 +5523,7 @@ static int dsi_display_bind(struct device *dev,
 	info.priv_data = display;
 	info.master_ndx = display->clk_master_idx;
 	info.dsi_ctrl_count = display->ctrl_count;
-	snprintf(info.name, MAX_STRING_LEN,
+	scnprintf(info.name, MAX_STRING_LEN,
 			"DSI_MNGR-%s", display->name);
 
 	display->clk_mngr = dsi_display_clk_mngr_register(&info);

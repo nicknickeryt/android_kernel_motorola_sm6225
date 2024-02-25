@@ -178,7 +178,7 @@ ssize_t sde_evtlog_dump_to_buffer(struct sde_dbg_evtlog *evtlog,
 
 	prev_log = &evtlog->logs[(evtlog->first - 1) % SDE_EVTLOG_ENTRY];
 
-	off = snprintf((evtlog_buf + off), (evtlog_buf_size - off), "%s:%-4d",
+	off = scnprintf((evtlog_buf + off), (evtlog_buf_size - off), "%s:%-4d",
 		log->name, log->line);
 
 	if (off < SDE_EVTLOG_BUF_ALIGN) {
@@ -186,15 +186,15 @@ ssize_t sde_evtlog_dump_to_buffer(struct sde_dbg_evtlog *evtlog,
 		off = SDE_EVTLOG_BUF_ALIGN;
 	}
 
-	off += snprintf((evtlog_buf + off), (evtlog_buf_size - off),
+	off += scnprintf((evtlog_buf + off), (evtlog_buf_size - off),
 		"=>[%-8d:%-11llu:%9llu][%-4d]:[%-4d]:", evtlog->first,
 		log->time, (log->time - prev_log->time), log->pid, log->cpu);
 
 	for (i = 0; i < log->data_cnt; i++)
-		off += snprintf((evtlog_buf + off), (evtlog_buf_size - off),
+		off += scnprintf((evtlog_buf + off), (evtlog_buf_size - off),
 			"%x ", log->data[i]);
 
-	off += snprintf((evtlog_buf + off), (evtlog_buf_size - off), "\n");
+	off += scnprintf((evtlog_buf + off), (evtlog_buf_size - off), "\n");
 exit:
 	spin_unlock_irqrestore(&evtlog->spin_lock, flags);
 

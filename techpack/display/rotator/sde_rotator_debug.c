@@ -495,7 +495,7 @@ static ssize_t sde_rot_evtlog_dump_entry(char *evtlog_buf,
 	prev_log = &sde_rot_dbg_evtlog.logs[(sde_rot_dbg_evtlog.first - 1) %
 		SDE_ROT_EVTLOG_ENTRY];
 
-	off = snprintf((evtlog_buf + off), (evtlog_buf_size - off), "%s:%-4d",
+	off = scnprintf((evtlog_buf + off), (evtlog_buf_size - off), "%s:%-4d",
 		log->name, log->line);
 
 	if (off < SDE_ROT_EVTLOG_BUF_ALIGN) {
@@ -504,15 +504,15 @@ static ssize_t sde_rot_evtlog_dump_entry(char *evtlog_buf,
 		off = SDE_ROT_EVTLOG_BUF_ALIGN;
 	}
 
-	off += snprintf((evtlog_buf + off), (evtlog_buf_size - off),
+	off += scnprintf((evtlog_buf + off), (evtlog_buf_size - off),
 		"=>[%-8d:%-11llu:%9llu][%-4d]:", sde_rot_dbg_evtlog.first,
 		log->time, (log->time - prev_log->time), log->pid);
 
 	for (i = 0; i < log->data_cnt; i++)
-		off += snprintf((evtlog_buf + off), (evtlog_buf_size - off),
+		off += scnprintf((evtlog_buf + off), (evtlog_buf_size - off),
 			"%x ", log->data[i]);
 
-	off += snprintf((evtlog_buf + off), (evtlog_buf_size - off), "\n");
+	off += scnprintf((evtlog_buf + off), (evtlog_buf_size - off), "\n");
 
 	spin_unlock_irqrestore(&sde_rot_xlock, flags);
 
@@ -1090,7 +1090,7 @@ static ssize_t sde_rotator_debug_base_offset_read(struct file *file,
 		return 0;	/* the end */
 
 	mutex_lock(&dbg->buflock);
-	len = snprintf(buf, sizeof(buf), "0x%08zx %zx\n", dbg->off, dbg->cnt);
+	len = scnprintf(buf, sizeof(buf), "0x%08zx %zx\n", dbg->off, dbg->cnt);
 	mutex_unlock(&dbg->buflock);
 
 	if (len < 0 || len >= sizeof(buf))
@@ -1275,7 +1275,7 @@ struct dentry *sde_rotator_create_debugfs(
 	struct dentry *debugfs_root;
 	char dirname[32] = {0};
 
-	snprintf(dirname, sizeof(dirname), "%s%d",
+	scnprintf(dirname, sizeof(dirname), "%s%d",
 			SDE_ROTATOR_DRV_NAME, rot_dev->dev->id);
 	debugfs_root = debugfs_create_dir(dirname, NULL);
 	if (!debugfs_root) {

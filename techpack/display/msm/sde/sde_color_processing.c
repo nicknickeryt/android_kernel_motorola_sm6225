@@ -2201,7 +2201,7 @@ static void dspp_pcc_install_property(struct drm_crtc *crtc)
 	catalog = kms->catalog;
 
 	version = catalog->dspp[0].sblk->pcc.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_PCC_V", version);
 	switch (version) {
 	case 1:
@@ -2227,7 +2227,7 @@ static void dspp_hsic_install_property(struct drm_crtc *crtc)
 	version = catalog->dspp[0].sblk->hsic.version >> 16;
 	switch (version) {
 	case 1:
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 			"SDE_DSPP_PA_HSIC_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 			SDE_CP_CRTC_DSPP_HSIC, sizeof(struct drm_msm_pa_hsic));
@@ -2250,22 +2250,22 @@ static void dspp_memcolor_install_property(struct drm_crtc *crtc)
 	version = catalog->dspp[0].sblk->memcolor.version >> 16;
 	switch (version) {
 	case 1:
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 			"SDE_DSPP_PA_MEMCOL_SKIN_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 			SDE_CP_CRTC_DSPP_MEMCOL_SKIN,
 			sizeof(struct drm_msm_memcol));
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 			"SDE_DSPP_PA_MEMCOL_SKY_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 			SDE_CP_CRTC_DSPP_MEMCOL_SKY,
 			sizeof(struct drm_msm_memcol));
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 			"SDE_DSPP_PA_MEMCOL_FOLIAGE_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 			SDE_CP_CRTC_DSPP_MEMCOL_FOLIAGE,
 			sizeof(struct drm_msm_memcol));
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 			"SDE_DSPP_PA_MEMCOL_PROT_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 			SDE_CP_CRTC_DSPP_MEMCOL_PROT,
@@ -2289,7 +2289,7 @@ static void dspp_sixzone_install_property(struct drm_crtc *crtc)
 	version = catalog->dspp[0].sblk->sixzone.version >> 16;
 	switch (version) {
 	case 1:
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 			"SDE_DSPP_PA_SIXZONE_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 			SDE_CP_CRTC_DSPP_SIXZONE,
@@ -2311,7 +2311,7 @@ static void dspp_vlut_install_property(struct drm_crtc *crtc)
 	kms = get_kms(crtc);
 	catalog = kms->catalog;
 	version = catalog->dspp[0].sblk->vlut.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_VLUT_V", version);
 	switch (version) {
 	case 1:
@@ -2337,7 +2337,7 @@ static void dspp_ad_install_property(struct drm_crtc *crtc)
 	kms = get_kms(crtc);
 	catalog = kms->catalog;
 	version = catalog->dspp[0].sblk->ad.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_AD_V", version);
 	switch (version) {
 	case 3:
@@ -2397,7 +2397,7 @@ static void dspp_ltm_install_property(struct drm_crtc *crtc)
 	kms = get_kms(crtc);
 	catalog = kms->catalog;
 	version = catalog->dspp[0].sblk->ltm.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_LTM_V", version);
 	switch (version) {
 	case 1:
@@ -2478,7 +2478,7 @@ static void dspp_rc_install_property(struct drm_crtc *crtc)
 	version = catalog->dspp[0].sblk->rc.version >> 16;
 	switch (version) {
 	case 1:
-		snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+		scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 				"SDE_DSPP_RC_MASK_V", version);
 		sde_cp_crtc_install_blob_property(crtc, feature_name,
 				SDE_CP_CRTC_DSPP_RC_MASK,
@@ -2514,7 +2514,7 @@ static void lm_gc_install_property(struct drm_crtc *crtc)
 	kms = get_kms(crtc);
 	catalog = kms->catalog;
 	version = catalog->mixer[0].sblk->gc.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		 "SDE_LM_GC_V", version);
 	switch (version) {
 	case 1:
@@ -2538,7 +2538,7 @@ static void dspp_gamut_install_property(struct drm_crtc *crtc)
 	catalog = kms->catalog;
 
 	version = catalog->dspp[0].sblk->gamut.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_GAMUT_V", version);
 	switch (version) {
 	case 4:
@@ -2563,7 +2563,7 @@ static void dspp_gc_install_property(struct drm_crtc *crtc)
 	catalog = kms->catalog;
 
 	version = catalog->dspp[0].sblk->gc.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_GC_V", version);
 	switch (version) {
 	case 1:
@@ -2587,7 +2587,7 @@ static void dspp_igc_install_property(struct drm_crtc *crtc)
 	catalog = kms->catalog;
 
 	version = catalog->dspp[0].sblk->igc.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_IGC_V", version);
 	switch (version) {
 	case 3:
@@ -2635,7 +2635,7 @@ static void dspp_dither_install_property(struct drm_crtc *crtc)
 	catalog = kms->catalog;
 
 	version = catalog->dspp[0].sblk->dither.version >> 16;
-	snprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
+	scnprintf(feature_name, ARRAY_SIZE(feature_name), "%s%d",
 		"SDE_DSPP_PA_DITHER_V", version);
 	switch (version) {
 	case 1:
@@ -3948,7 +3948,7 @@ static void rc_caps_update(struct sde_crtc *crtc, struct sde_kms_info *info)
 
 		if (!dspp || (dspp->idx - DSPP_0) >= catalog->rc_count)
 			continue;
-		snprintf(blk_name, sizeof(blk_name), "rc%u",
+		scnprintf(blk_name, sizeof(blk_name), "rc%u",
 				(dspp->idx - DSPP_0));
 		sde_kms_info_add_keyint(info, blk_name, 1);
 	}

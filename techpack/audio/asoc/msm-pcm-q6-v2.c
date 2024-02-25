@@ -1425,7 +1425,7 @@ static int msm_pcm_add_audio_adsp_stream_cmd_control(
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 	fe_audio_adsp_stream_cmd_config_control[0].name = mixer_str;
 	fe_audio_adsp_stream_cmd_config_control[0].private_value =
 		rtd->dai_link->id;
@@ -1485,7 +1485,7 @@ static int msm_pcm_add_audio_adsp_stream_callback_control(
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 	fe_audio_adsp_callback_config_control[0].name = mixer_str;
 	fe_audio_adsp_callback_config_control[0].private_value =
 		rtd->dai_link->id;
@@ -1777,7 +1777,7 @@ static int msm_pcm_add_compress_control(struct snd_soc_pcm_runtime *rtd)
 	if (!mixer_str)
 		return -ENOMEM;
 
-	snprintf(mixer_str, ctl_len, "%s%d%s", mixer_ctl_name,
+	scnprintf(mixer_str, ctl_len, "%s%d%s", mixer_ctl_name,
 			rtd->pcm->device, mixer_ctl_end_name);
 
 	pcm_compress_control[0].name = mixer_str;
@@ -1955,7 +1955,7 @@ static int msm_pcm_add_chmap_controls(struct snd_soc_pcm_runtime *rtd)
 	kctl = chmap_info->kctl;
 	for (i = 0; i < kctl->count; i++)
 		kctl->vd[i].access |= SNDRV_CTL_ELEM_ACCESS_WRITE;
-	snprintf(device_num, sizeof(device_num), "%d", pcm->device);
+	scnprintf(device_num, sizeof(device_num), "%d", pcm->device);
 	strlcat(kctl->id.name, device_num, sizeof(kctl->id.name));
 	pr_debug("%s, Overwriting channel map control name to: %s\n",
 		__func__, kctl->id.name);
@@ -2094,7 +2094,7 @@ static int msm_pcm_add_app_type_controls(struct snd_soc_pcm_runtime *rtd)
 			return ret;
 		}
 		kctl = app_type_info->kctl;
-		snprintf(kctl->id.name, ctl_len, "%s %d %s",
+		scnprintf(kctl->id.name, ctl_len, "%s %d %s",
 			playback_mixer_ctl_name, rtd->pcm->device, suffix);
 		kctl->put = msm_pcm_playback_app_type_cfg_ctl_put;
 		kctl->get = msm_pcm_playback_app_type_cfg_ctl_get;
@@ -2113,7 +2113,7 @@ static int msm_pcm_add_app_type_controls(struct snd_soc_pcm_runtime *rtd)
 			return ret;
 		}
 		kctl = app_type_info->kctl;
-		snprintf(kctl->id.name, ctl_len, "%s %d %s",
+		scnprintf(kctl->id.name, ctl_len, "%s %d %s",
 			capture_mixer_ctl_name, rtd->pcm->device, suffix);
 		kctl->put = msm_pcm_capture_app_type_cfg_ctl_put;
 		kctl->get = msm_pcm_capture_app_type_cfg_ctl_get;
@@ -2468,12 +2468,12 @@ static int msm_pcm_add_platform_controls(struct snd_kcontrol_new *kctl,
 		return -ENOMEM;
 
 	if (channels >= 0) {
-		snprintf(mixer_name, ctl_len, "%s %d %s %d",
+		scnprintf(mixer_name, ctl_len, "%s %d %s %d",
 			name_prefix, pcm->device, name_suffix, channels);
 		kctl->private_value = (rtd->dai_link->id) | (session_type << 8) |
 							(channels << 16);
 	} else {
-		snprintf(mixer_name, ctl_len, "%s %d %s",
+		scnprintf(mixer_name, ctl_len, "%s %d %s",
 			name_prefix, pcm->device, name_suffix);
 		kctl->private_value = (rtd->dai_link->id) | (session_type << 8);
 	}

@@ -1468,10 +1468,10 @@ static ssize_t msm_sdw_codec_version_read(struct snd_info_entry *entry,
 
 	switch (msm_sdw->version) {
 	case MSM_SDW_VERSION_1_0:
-		len = snprintf(buffer, sizeof(buffer), "SDW-CDC_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "SDW-CDC_1_0\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	}
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);
@@ -1505,7 +1505,7 @@ int msm_sdw_codec_info_create_codec_entry(struct snd_info_entry *codec_root,
 	msm_sdw = snd_soc_component_get_drvdata(component);
 	card = component->card;
 
-	snprintf(name, sizeof(name), "%x.%s", (u32)msm_sdw->sdw_base_addr,
+	scnprintf(name, sizeof(name), "%x.%s", (u32)msm_sdw->sdw_base_addr,
 			"msm-sdw-codec");
 	msm_sdw->entry = snd_info_create_subdir(codec_root->module,
 						(const char *)name,

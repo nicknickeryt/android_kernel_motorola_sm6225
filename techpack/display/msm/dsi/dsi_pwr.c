@@ -32,7 +32,7 @@ static int dsi_pwr_parse_supply_node(struct dsi_parser_utils *utils,
 			goto error;
 		}
 
-		snprintf(regs->vregs[i].vreg_name,
+		scnprintf(regs->vregs[i].vreg_name,
 			 ARRAY_SIZE(regs->vregs[i].vreg_name),
 			 "%s", st);
 

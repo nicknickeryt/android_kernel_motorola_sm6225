@@ -137,7 +137,7 @@ static ssize_t wcd_spi_ac_status_read(struct file *file,
 	rmb();
 	dev_dbg(ac->dev, "%s: offline = %sline\n",
 		__func__, offline ? "off" : "on");
-	len = snprintf(buf, sizeof(buf), "%s\n",
+	len = scnprintf(buf, sizeof(buf), "%s\n",
 		       offline ? "OFFLINE" : "ONLINE");
 	ret = simple_read_from_buffer(buffer, count, offset, buf, len);
 	WCD_SPI_AC_MUTEX_UNLOCK(ac->dev, ac->status_lock);

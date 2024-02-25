@@ -154,7 +154,7 @@ static void sde_rot_fence_release(struct dma_fence *fence)
 static void sde_rot_fence_value_str(struct dma_fence *fence, char *str,
 		int size)
 {
-	snprintf(str, size, "%u", fence->seqno);
+	scnprintf(str, size, "%u", fence->seqno);
 }
 
 static void sde_rot_fence_timeline_value_str(struct dma_fence *fence,
@@ -162,7 +162,7 @@ static void sde_rot_fence_timeline_value_str(struct dma_fence *fence,
 {
 	struct sde_rot_timeline *tl = to_sde_rot_timeline(fence);
 
-	snprintf(str, size, "%u", tl->curr_value);
+	scnprintf(str, size, "%u", tl->curr_value);
 }
 
 static struct dma_fence_ops sde_rot_fence_ops = {
@@ -194,8 +194,8 @@ struct sde_rot_timeline *sde_rotator_create_timeline(const char *name)
 		return NULL;
 
 	kref_init(&tl->kref);
-	snprintf(tl->name, sizeof(tl->name), "rot_timeline_%s", name);
-	snprintf(tl->fence_name, sizeof(tl->fence_name), "rot_fence_%s", name);
+	scnprintf(tl->name, sizeof(tl->name), "rot_timeline_%s", name);
+	scnprintf(tl->fence_name, sizeof(tl->fence_name), "rot_fence_%s", name);
 	spin_lock_init(&tl->lock);
 	tl->context = dma_fence_context_alloc(1);
 	INIT_LIST_HEAD(&tl->fence_list_head);
@@ -287,7 +287,7 @@ struct sde_rot_sync_fence *sde_rotator_get_sync_fence(
 	list_add_tail(&f->fence_list, &tl->fence_list_head);
 	sde_rotator_get_timeline(tl);
 	spin_unlock_irqrestore(&tl->lock, flags);
-	snprintf(f->name, sizeof(f->name), "%s_%u", tl->fence_name, val);
+	scnprintf(f->name, sizeof(f->name), "%s_%u", tl->fence_name, val);
 
 	if (fence_fd)
 		*fence_fd = sde_rotator_get_sync_fence_fd(

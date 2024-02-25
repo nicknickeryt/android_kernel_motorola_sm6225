@@ -5437,7 +5437,7 @@ static int _sde_encoder_init_debugfs(struct drm_encoder *drm_enc)
 	priv = drm_enc->dev->dev_private;
 	sde_kms = to_sde_kms(priv->kms);
 
-	snprintf(name, SDE_NAME_SIZE, "encoder%u", drm_enc->base.id);
+	scnprintf(name, SDE_NAME_SIZE, "encoder%u", drm_enc->base.id);
 
 	/* create overall sub-directory for the encoder */
 	sde_enc->debugfs_root = debugfs_create_dir(name,
@@ -5808,7 +5808,7 @@ struct drm_encoder *sde_encoder_init_with_ops(
 		if (phys->ops.is_master && phys->ops.is_master(phys))
 			intf_index = phys->intf_idx - INTF_0;
 	}
-	snprintf(name, SDE_NAME_SIZE, "rsc_enc%u", drm_enc->base.id);
+	scnprintf(name, SDE_NAME_SIZE, "rsc_enc%u", drm_enc->base.id);
 	sde_enc->rsc_client = sde_rsc_client_create(SDE_RSC_INDEX, name,
 		(disp_info->display_type == SDE_CONNECTOR_PRIMARY) ?
 		SDE_RSC_PRIMARY_DISP_CLIENT :
@@ -5900,7 +5900,7 @@ int sde_encoder_wait_for_event(struct drm_encoder *drm_enc,
 		}
 
 		if (phys && fn_wait) {
-			snprintf(atrace_buf, sizeof(atrace_buf),
+			scnprintf(atrace_buf, sizeof(atrace_buf),
 				"wait_completion_event_%d", event);
 			SDE_ATRACE_BEGIN(atrace_buf);
 			ret = fn_wait(phys);

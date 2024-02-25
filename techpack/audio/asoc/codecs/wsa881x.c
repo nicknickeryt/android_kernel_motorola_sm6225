@@ -306,7 +306,7 @@ static ssize_t wsa881x_codec_version_read(struct snd_info_entry *entry,
 		return -EINVAL;
 	}
 
-	len = snprintf(buffer, sizeof(buffer), "WSA881X-SOUNDWIRE_2_0\n");
+	len = scnprintf(buffer, sizeof(buffer), "WSA881X-SOUNDWIRE_2_0\n");
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);
 }
@@ -338,7 +338,7 @@ int wsa881x_codec_info_create_codec_entry(struct snd_info_entry *codec_root,
 
 	wsa881x = snd_soc_component_get_drvdata(component);
 	card = component->card;
-	snprintf(name, sizeof(name), "%s.%x", "wsa881x",
+	scnprintf(name, sizeof(name), "%s.%x", "wsa881x",
 		 (u32)wsa881x->swr_slave->addr);
 
 	wsa881x->entry = snd_info_create_subdir(codec_root->module,
@@ -413,7 +413,7 @@ static ssize_t wsa881x_swrslave_reg_show(struct swr_device *pdev, char __user *u
 		if (!is_swr_slv_reg_readable(i))
 			continue;
 		swr_read(pdev, pdev->dev_num, i, &reg_val, 1);
-		len = snprintf(tmp_buf, sizeof(tmp_buf), "0x%.3x: 0x%.2x\n", i,
+		len = scnprintf(tmp_buf, sizeof(tmp_buf), "0x%.3x: 0x%.2x\n", i,
 				(reg_val & 0xFF));
 		if (len < 0) {
 			pr_err("%s: fail to fill the buffer\n", __func__);
@@ -475,7 +475,7 @@ static ssize_t codec_debug_read(struct file *file, char __user *ubuf,
 	if (*ppos < 0)
 		return -EINVAL;
 
-	snprintf(lbuf, sizeof(lbuf), "0x%x\n",
+	scnprintf(lbuf, sizeof(lbuf), "0x%x\n",
 			(wsa881x->read_data & 0xFF));
 
 	return simple_read_from_buffer(ubuf, count, ppos, lbuf,
@@ -1333,7 +1333,7 @@ static int wsa881x_probe(struct snd_soc_component *component)
 	wsa881x->component = component;
 	mutex_init(&wsa881x->bg_lock);
 	wsa881x_init(component);
-	snprintf(wsa881x->tz_pdata.name, sizeof(wsa881x->tz_pdata.name),
+	scnprintf(wsa881x->tz_pdata.name, sizeof(wsa881x->tz_pdata.name),
 		"%s.%x", "wsatz", (u8)dev->addr);
 	wsa881x->bg_cnt = 0;
 	wsa881x->clk_cnt = 0;

@@ -1535,7 +1535,7 @@ void *sde_hdcp_1x_init(struct sde_hdcp_init_data *init_data)
 	hdcp->init_data = *init_data;
 	hdcp->ops = &ops;
 
-	snprintf(name, sizeof(name), "hdcp_1x_%d",
+	scnprintf(name, sizeof(name), "hdcp_1x_%d",
 		hdcp->init_data.client_id);
 
 	hdcp->workq = create_workqueue(name);

@@ -1240,10 +1240,10 @@ static ssize_t msm_dig_codec_version_read(struct snd_info_entry *entry,
 	case CONGA:
 	case TOMBAK_2_0:
 	case TOMBAK_1_0:
-		len = snprintf(buffer, sizeof(buffer), "SDM660-CDC_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "SDM660-CDC_1_0\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	}
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);
@@ -2262,7 +2262,7 @@ static int msm_digital_cdc_dt_parse_vreg_info(struct device *dev,
 	struct device_node *regnode = NULL;
 	u32 prop_val;
 
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "%s-supply",
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE, "%s-supply",
 			vreg_name);
 	regnode = of_parse_phandle(dev->of_node, prop_name, 0);
 
@@ -2277,7 +2277,7 @@ static int msm_digital_cdc_dt_parse_vreg_info(struct device *dev,
 
 	vreg->name = vreg_name;
 
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE,
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE,
 		"qcom,%s-voltage", vreg_name);
 	prop = of_get_property(dev->of_node, prop_name, &len);
 
@@ -2289,7 +2289,7 @@ static int msm_digital_cdc_dt_parse_vreg_info(struct device *dev,
 	vreg->min_uv = be32_to_cpup(&prop[0]);
 	vreg->max_uv = be32_to_cpup(&prop[1]);
 
-	snprintf(prop_name, CODEC_DT_MAX_PROP_SIZE,
+	scnprintf(prop_name, CODEC_DT_MAX_PROP_SIZE,
 		"qcom,%s-current", vreg_name);
 
 	ret = of_property_read_u32(dev->of_node, prop_name, &prop_val);

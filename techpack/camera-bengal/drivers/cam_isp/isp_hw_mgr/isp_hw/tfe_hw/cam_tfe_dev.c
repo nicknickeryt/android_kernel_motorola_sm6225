@@ -40,7 +40,7 @@ int cam_tfe_probe(struct platform_device *pdev)
 	}
 
 	memset(tfe_dev_name, 0, sizeof(tfe_dev_name));
-	snprintf(tfe_dev_name, sizeof(tfe_dev_name),
+	scnprintf(tfe_dev_name, sizeof(tfe_dev_name),
 		"tfe%1u", tfe_hw_intf->hw_idx);
 
 	tfe_hw->soc_info.pdev = pdev;

@@ -80,8 +80,8 @@ static int get_cdm_index_by_id(char *identifier,
 	int rc = -EPERM, i, j;
 	char client_name[128], name_index[160];
 
-	snprintf(client_name, sizeof(client_name), "%s", identifier);
-	snprintf(name_index, sizeof(name_index), "%s%d",
+	scnprintf(client_name, sizeof(client_name), "%s", identifier);
+	scnprintf(name_index, sizeof(name_index), "%s%d",
 		identifier, cell_index);
 
 	CAM_DBG(CAM_CDM,

@@ -467,7 +467,7 @@ int cam_jpeg_enc_hw_dump(
 
 	dst = (uint8_t *)dump_args->cpu_addr + dump_args->offset;
 	hdr = (struct cam_jpeg_hw_dump_header *)dst;
-	snprintf(hdr->tag, CAM_JPEG_HW_DUMP_TAG_MAX_LEN,
+	scnprintf(hdr->tag, CAM_JPEG_HW_DUMP_TAG_MAX_LEN,
 		"JPEG_REG:");
 	hdr->word_size = sizeof(uint32_t);
 	addr = (uint32_t *)(dst + sizeof(struct cam_jpeg_hw_dump_header));

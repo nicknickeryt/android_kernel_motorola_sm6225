@@ -243,7 +243,7 @@ static ssize_t swr_slave_reg_show(struct swr_device *pdev, char __user *ubuf,
 		if (!is_swr_slave_reg_readable(i))
 			continue;
 		swr_read(pdev, pdev->dev_num, i, &reg_val, 1);
-		len = snprintf(tmp_buf, sizeof(tmp_buf), "0x%.3x: 0x%.2x\n", i,
+		len = scnprintf(tmp_buf, sizeof(tmp_buf), "0x%.3x: 0x%.2x\n", i,
 			       (reg_val & 0xFF));
 		if (len < 0) {
 			pr_err("%s: fail to fill the buffer\n", __func__);
@@ -305,7 +305,7 @@ static ssize_t codec_debug_read(struct file *file, char __user *ubuf,
 	if (*ppos < 0)
 		return -EINVAL;
 
-	snprintf(lbuf, sizeof(lbuf), "0x%x\n",
+	scnprintf(lbuf, sizeof(lbuf), "0x%x\n",
 			(wsa883x->read_data & 0xFF));
 
 	return simple_read_from_buffer(ubuf, count, ppos, lbuf,
@@ -644,13 +644,13 @@ static ssize_t wsa883x_codec_version_read(struct snd_info_entry *entry,
 
 	switch (wsa883x->version) {
 	case WSA883X_VERSION_1_0:
-		len = snprintf(buffer, sizeof(buffer), "WSA883X_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "WSA883X_1_0\n");
 		break;
 	case WSA883X_VERSION_1_1:
-		len = snprintf(buffer, sizeof(buffer), "WSA883X_1_1\n");
+		len = scnprintf(buffer, sizeof(buffer), "WSA883X_1_1\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 		break;
 	}
 
@@ -679,13 +679,13 @@ static ssize_t wsa883x_variant_read(struct snd_info_entry *entry,
 
 	switch (wsa883x->variant) {
 	case WSA8830:
-		len = snprintf(buffer, sizeof(buffer), "WSA8830\n");
+		len = scnprintf(buffer, sizeof(buffer), "WSA8830\n");
 		break;
 	case WSA8835:
-		len = snprintf(buffer, sizeof(buffer), "WSA8835\n");
+		len = scnprintf(buffer, sizeof(buffer), "WSA8835\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "UNDEFINED\n");
 		break;
 	}
 
@@ -726,7 +726,7 @@ int wsa883x_codec_info_create_codec_entry(struct snd_info_entry *codec_root,
 	}
 	card = component->card;
 
-	snprintf(name, sizeof(name), "%s.%llx", "wsa883x",
+	scnprintf(name, sizeof(name), "%s.%llx", "wsa883x",
 		 wsa883x->swr_slave->addr);
 
 	wsa883x->entry = snd_info_create_module_entry(codec_root->module,

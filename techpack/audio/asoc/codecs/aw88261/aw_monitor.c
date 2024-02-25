@@ -1059,7 +1059,7 @@ static ssize_t aw_vol_show(struct device *dev,
 	struct aw_device *aw_dev = aw882xx->aw_pa;
 	ssize_t len = 0;
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"vol: %d\n",
 		aw_dev->monitor_desc.test_vol);
 	return len;
@@ -1094,7 +1094,7 @@ static ssize_t aw_temp_show(struct device *dev,
 	struct aw_device *aw_dev = aw882xx->aw_pa;
 	ssize_t len = 0;
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"aw882xx temp: %d\n",
 		aw_dev->monitor_desc.test_temp);
 
@@ -1143,7 +1143,7 @@ static ssize_t aw_monitor_show(struct device *dev,
 	ssize_t len = 0;
 
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"monitor enable: %d\n",
 		aw_dev->monitor_desc.monitor_cfg.monitor_switch);
 	return len;

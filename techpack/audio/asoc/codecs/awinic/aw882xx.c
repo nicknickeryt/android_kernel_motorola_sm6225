@@ -1783,7 +1783,7 @@ int aw882xx_parse_low_vol_cfg(struct device *dev, struct aw882xx *aw882xx,
 	char cfg_name[32] = {0};
 	int cfg_len;
 
-	snprintf(cfg_name, sizeof(cfg_name), "low-vol-table-%s", dir);
+	scnprintf(cfg_name, sizeof(cfg_name), "low-vol-table-%s", dir);
 
 	cfg_len = of_property_count_u32_elems(np, cfg_name);
 	if (cfg_len <= 0) {
@@ -1851,7 +1851,7 @@ int aw882xx_parse_low_temp_cfg(struct device *dev, struct aw882xx *aw882xx,
 	char cfg_name[32] = {0};
 	int cfg_len;
 
-	snprintf(cfg_name, sizeof(cfg_name), "low-temp-table-%s", dir);
+	scnprintf(cfg_name, sizeof(cfg_name), "low-temp-table-%s", dir);
 
 	cfg_len = of_property_count_u32_elems(np, cfg_name);
 	if (cfg_len <= 0) {
@@ -2181,7 +2181,7 @@ static ssize_t aw882xx_monitor_show(struct device *dev,
 	uint32_t local_enable;
 
 	local_enable = aw882xx->monitor.is_enable;
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"aw882xx monitor enable: %d\n", local_enable);
 	return len;
 }
@@ -2214,7 +2214,7 @@ static ssize_t aw882xx_reg_show(struct device *dev,
 	for (i = 0; i < AW882XX_REG_MAX; i++) {
 		if (aw882xx_reg_access[i]&REG_RD_ACCESS) {
 			aw882xx_i2c_read(aw882xx, i, &reg_val);
-			len += snprintf(buf+len, PAGE_SIZE-len,
+			len += scnprintf(buf+len, PAGE_SIZE-len,
 				"reg:0x%02x=0x%04x\n", i, reg_val);
 		}
 	}
@@ -2247,7 +2247,7 @@ static ssize_t aw882xx_rw_show(struct device *dev,
 
 	if (aw882xx_reg_access[aw882xx->reg_addr] & REG_RD_ACCESS) {
 		aw882xx_i2c_read(aw882xx, aw882xx->reg_addr, &reg_val);
-		len += snprintf(buf+len, PAGE_SIZE-len,
+		len += scnprintf(buf+len, PAGE_SIZE-len,
 			"reg:0x%02x=0x%04x\n", aw882xx->reg_addr, reg_val);
 	}
 	return len;
@@ -2277,15 +2277,15 @@ static ssize_t aw882xx_spk_rcv_show(struct device *dev,
 	ssize_t len = 0;
 
 	if (aw882xx->spk_rcv_mode == AW882XX_SPEAKER_MODE)
-		len += snprintf(buf+len, PAGE_SIZE-len,
+		len += scnprintf(buf+len, PAGE_SIZE-len,
 			"aw882xx spk_rcv: %d, speaker mode\n",
 			aw882xx->spk_rcv_mode);
 	else if (aw882xx->spk_rcv_mode == AW882XX_RECEIVER_MODE)
-		len += snprintf(buf+len, PAGE_SIZE-len,
+		len += scnprintf(buf+len, PAGE_SIZE-len,
 			"aw882xx spk_rcv: %d, receiver mode\n",
 			aw882xx->spk_rcv_mode);
 	else
-		len += snprintf(buf+len, PAGE_SIZE-len,
+		len += scnprintf(buf+len, PAGE_SIZE-len,
 			"aw882xx spk_rcv: %d, unknown mode\n",
 			aw882xx->spk_rcv_mode);
 
@@ -2345,7 +2345,7 @@ static ssize_t aw882xx_mec_show(struct device *dev,
 
 	memcpy(&mec_ctr, buffer, sizeof(uint32_t));
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"aw882xx mec: %d\n", mec_ctr);
 
 	kfree(buffer);
@@ -2370,7 +2370,7 @@ static ssize_t aw882xx_default_re_show(struct device *dev,
 		}
 	}
 	if(aw882xx != NULL) {
-		len += snprintf(buf+len, PAGE_SIZE-len,
+		len += scnprintf(buf+len, PAGE_SIZE-len,
 			"aw882xx default_re: %d\n", aw882xx->default_re);
 	}
 	return len;
@@ -2412,14 +2412,14 @@ static ssize_t aw882xx_spk_temp_show(struct device *dev,
 	}
 
 	memcpy(&spk_temp, data_ptr + sizeof(int32_t), sizeof(int32_t));
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 			"aw882xx spk_temp: %d\n", spk_temp);
 	return len;
 
 exit_temp:
 	kfree(data_ptr);
 fail_temp:
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 			"aw882xx spk_temp: fail\n");
 	return len;
 }
@@ -2452,7 +2452,7 @@ static ssize_t aw882xx_vol_show(struct device *dev,
 	ssize_t len = 0;
 	uint32_t local_vol = aw882xx->monitor.test_vol;
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"aw882xx vol: %d\n", local_vol);
 	return len;
 }
@@ -2483,7 +2483,7 @@ static ssize_t aw882xx_temp_show(struct device *dev,
 	ssize_t len = 0;
 	int32_t local_temp = aw882xx->monitor.test_temp;
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"aw882xx vol: %d\n", local_temp);
 	return len;
 }

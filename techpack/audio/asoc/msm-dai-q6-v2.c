@@ -1330,7 +1330,7 @@ static int msm_dai_q6_add_island_mx_ctls(struct snd_card *card,
 	if (!mixer_str)
 		return -ENOMEM;
 
-	snprintf(mixer_str, ctl_len, "%s %s", dai_name, mx_ctl_name);
+	scnprintf(mixer_str, ctl_len, "%s %s", dai_name, mx_ctl_name);
 
 	knew = kzalloc(sizeof(struct snd_kcontrol_new), GFP_KERNEL);
 	if (!knew) {
@@ -1881,7 +1881,7 @@ static ssize_t msm_dai_q6_spdif_sysfs_rda_audio_state(struct device *dev,
 		return -EINVAL;
 	}
 
-	ret = snprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n",
+	ret = scnprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n",
 		dai_data->fmt_event.status);
 	pr_debug("%s: '%d'\n", __func__, dai_data->fmt_event.status);
 
@@ -1899,7 +1899,7 @@ static ssize_t msm_dai_q6_spdif_sysfs_rda_audio_format(struct device *dev,
 		return -EINVAL;
 	}
 
-	ret = snprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n",
+	ret = scnprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n",
 		dai_data->fmt_event.data_format);
 	pr_debug("%s: '%d'\n", __func__, dai_data->fmt_event.data_format);
 
@@ -1917,7 +1917,7 @@ static ssize_t msm_dai_q6_spdif_sysfs_rda_audio_rate(struct device *dev,
 		return -EINVAL;
 	}
 
-	ret = snprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n",
+	ret = scnprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n",
 		dai_data->fmt_event.sample_rate);
 	pr_debug("%s: '%d'\n", __func__, dai_data->fmt_event.sample_rate);
 
@@ -1938,7 +1938,7 @@ static ssize_t msm_dai_q6_spdif_sysfs_rda_audio_preemph(struct device *dev,
 
 	preemph = GET_PREEMPH(dai_data->fmt_event.channel_status[0]);
 
-	ret = snprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n", preemph);
+	ret = scnprintf(buf, MSM_DAI_SYSFS_ENTRY_MAX_LEN, "%d\n", preemph);
 	pr_debug("%s: '%d'\n", __func__, preemph);
 
 	return ret;

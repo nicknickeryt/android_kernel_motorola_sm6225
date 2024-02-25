@@ -842,7 +842,7 @@ static int aw882xx_dynamic_create_controls(struct aw882xx *aw882xx)
 	if (!kctl_name)
 		return -ENOMEM;
 
-	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_prof", aw882xx->index);
+	scnprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_prof", aw882xx->index);
 
 	aw882xx_dev_control[0].name = kctl_name;
 	aw882xx_dev_control[0].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
@@ -854,7 +854,7 @@ static int aw882xx_dynamic_create_controls(struct aw882xx *aw882xx)
 	if (!kctl_name)
 		return -ENOMEM;
 
-	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_switch", aw882xx->index);
+	scnprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_switch", aw882xx->index);
 
 	aw882xx_dev_control[1].name = kctl_name;
 	aw882xx_dev_control[1].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
@@ -867,7 +867,7 @@ static int aw882xx_dynamic_create_controls(struct aw882xx *aw882xx)
 	if (!kctl_name)
 		return -ENOMEM;
 
-	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_ramp_status_switch", aw882xx->index);
+	scnprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_ramp_status_switch", aw882xx->index);
 
 	aw882xx_dev_control[2].name = kctl_name;
 	aw882xx_dev_control[2].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
@@ -881,7 +881,7 @@ static int aw882xx_dynamic_create_controls(struct aw882xx *aw882xx)
 	if (!kctl_name)
 		return -ENOMEM;
 
-	snprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_gain_ctl", aw882xx->index);
+	scnprintf(kctl_name, AW_NAME_BUF_MAX, "aw_dev_%d_gain_ctl", aw882xx->index);
 
 	aw882xx_dev_control[3].name = kctl_name;
 	aw882xx_dev_control[3].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
@@ -2147,7 +2147,7 @@ static int aw882xx_name_append_suffix(struct aw882xx *aw882xx, const char **name
 	int i2cbus = aw882xx->i2c->adapter->nr;
 	int i2caddr = aw882xx->i2c->addr;
 
-	snprintf(buf, 50, "%s-%x-%x", *name, i2cbus, i2caddr);
+	scnprintf(buf, 50, "%s-%x-%x", *name, i2cbus, i2caddr);
 	(*name) = aw882xx_devm_kstrdup(aw882xx->dev, buf);
 	if (!(*name))
 		return -ENOMEM;
@@ -2335,16 +2335,16 @@ static int aw882xx_dai_drv_append_suffix(struct aw882xx *aw882xx,
 
 	if ((dai_drv != NULL) && (num_dai > 0))
 		for (i = 0; i < num_dai; i++) {
-			snprintf(buf, 50, "%s-%x-%x", dai_drv[i].name, i2cbus,
+			scnprintf(buf, 50, "%s-%x-%x", dai_drv[i].name, i2cbus,
 				addr);
 			dai_drv[i].name = aw882xx_devm_kstrdup(aw882xx->dev, buf);
 
-			snprintf(buf, 50, "%s-%x-%x",
+			scnprintf(buf, 50, "%s-%x-%x",
 						dai_drv[i].playback.stream_name,
 						i2cbus, addr);
 			dai_drv[i].playback.stream_name = aw882xx_devm_kstrdup(aw882xx->dev, buf);
 
-			snprintf(buf, 50, "%s-%x-%x",
+			scnprintf(buf, 50, "%s-%x-%x",
 						dai_drv[i].capture.stream_name,
 						i2cbus, addr);
 			dai_drv[i].capture.stream_name = aw882xx_devm_kstrdup(aw882xx->dev, buf);
@@ -2694,7 +2694,7 @@ static ssize_t aw882xx_reg_show(struct device *dev,
 	for (i = 0; i < reg_num; i++) {
 		if (aw882xx->aw_pa->ops.aw_check_rd_access(i)) {
 			aw882xx_i2c_read(aw882xx, i, &reg_val);
-			len += snprintf(buf+len, PAGE_SIZE-len,
+			len += scnprintf(buf+len, PAGE_SIZE-len,
 				"reg:0x%02x=0x%04x\n", i, reg_val);
 		}
 	}
@@ -2729,7 +2729,7 @@ static ssize_t aw882xx_rw_show(struct device *dev,
 
 	if (aw882xx->aw_pa->ops.aw_check_rd_access(aw882xx->rw_reg_addr)) {
 		aw882xx_i2c_read(aw882xx, aw882xx->rw_reg_addr, &reg_val);
-		len += snprintf(buf + len, PAGE_SIZE - len,
+		len += scnprintf(buf + len, PAGE_SIZE - len,
 			"reg:0x%02x=0x%04x\n", aw882xx->rw_reg_addr, reg_val);
 	}
 	return len;
@@ -2899,7 +2899,7 @@ static ssize_t aw882xx_awrw_show(struct device *dev,
 			packet->reg_addr, packet->reg_num);
 
 	for (i = 0; i < data_len; i++) {
-		len += snprintf(buf + len, PAGE_SIZE - len,
+		len += scnprintf(buf + len, PAGE_SIZE - len,
 			"0x%02x,", reg_data[i]);
 		aw_dev_dbg(aw882xx->dev, "0x%02x", reg_data[i]);
 	}
@@ -2920,7 +2920,7 @@ static ssize_t aw882xx_drv_ver_show(struct device *dev,
 {
 	ssize_t len = 0;
 
-	len += snprintf(buf + len, PAGE_SIZE - len,
+	len += scnprintf(buf + len, PAGE_SIZE - len,
 		"driver_ver: %s \n", AW882XX_DRIVER_VERSION);
 
 	return len;
@@ -2936,12 +2936,12 @@ static ssize_t aw882xx_dsp_re_show(struct device *dev,
 
 	ret = aw_dev_get_cali_re(aw882xx->aw_pa, &cali_re);
 	if (ret) {
-		len += snprintf(buf + len, PAGE_SIZE - len,
+		len += scnprintf(buf + len, PAGE_SIZE - len,
 			"read dsp_re failed!\n");
 		return len;
 	}
 
-	len += snprintf(buf + len, PAGE_SIZE - len,
+	len += scnprintf(buf + len, PAGE_SIZE - len,
 		"%d \n", cali_re);
 
 	return len;
@@ -2973,7 +2973,7 @@ static ssize_t aw882xx_fade_step_show(struct device *dev,
 	ssize_t len = 0;
 	struct aw882xx *aw882xx = dev_get_drvdata(dev);
 
-	len += snprintf(buf + len, PAGE_SIZE - len,
+	len += scnprintf(buf + len, PAGE_SIZE - len,
 		"step: %d \n", aw_dev_get_fade_vol_step(aw882xx->aw_pa));
 
 	return len;
@@ -3003,7 +3003,7 @@ static ssize_t aw882xx_dbg_prof_show(struct device *dev,
 	struct aw882xx *aw882xx = dev_get_drvdata(dev);
 	ssize_t len = 0;
 
-	len += snprintf(buf + len, PAGE_SIZE - len,
+	len += scnprintf(buf + len, PAGE_SIZE - len,
 		" %d \n", aw882xx->dbg_en_prof);
 
 	return len;
@@ -3036,7 +3036,7 @@ static ssize_t aw882xx_sync_flag_show(struct device *dev,
 	struct aw882xx *aw882xx = dev_get_drvdata(dev);
 	ssize_t len = 0;
 
-	len += snprintf(buf + len, PAGE_SIZE - len,
+	len += scnprintf(buf + len, PAGE_SIZE - len,
 				"sync flag : %d\n", aw882xx->phase_sync);
 
 	return len;
@@ -3065,7 +3065,7 @@ static ssize_t aw882xx_print_dbg_show(struct device *dev,
 {
 	ssize_t len = 0;
 
-	len += snprintf(buf + len, PAGE_SIZE - len,
+	len += scnprintf(buf + len, PAGE_SIZE - len,
 				"g_print_dbg : %d\n", g_print_dbg);
 
 	return len;
@@ -3081,11 +3081,11 @@ static ssize_t aw882xx_algo_ver_show(struct device *dev,
 
 	ret = aw_get_algo_version(aw882xx->aw_pa, algo_ver_buf);
 	if (ret < 0) {
-		len += snprintf(buf + len, PAGE_SIZE - len,
+		len += scnprintf(buf + len, PAGE_SIZE - len,
 				"read algo version failed!\n");
 		return len;
 	}
-	len += snprintf(buf + len, PAGE_SIZE - len, "%s\n", algo_ver_buf);
+	len += scnprintf(buf + len, PAGE_SIZE - len, "%s\n", algo_ver_buf);
 
 	return len;
 }

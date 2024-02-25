@@ -1101,7 +1101,7 @@ int msm_adsp_init_mixer_ctl_pp_event_queue(struct snd_soc_pcm_runtime *rtd)
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name,
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name,
 		rtd->pcm->device);
 	kctl = snd_soc_card_get_kcontrol(rtd->card, mixer_str);
 	kfree(mixer_str);
@@ -1157,7 +1157,7 @@ int msm_adsp_clean_mixer_ctl_pp_event_queue(struct snd_soc_pcm_runtime *rtd)
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name,
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name,
 		rtd->pcm->device);
 	kctl = snd_soc_card_get_kcontrol(rtd->card, mixer_str);
 	kfree(mixer_str);
@@ -1227,7 +1227,7 @@ int msm_adsp_inform_mixer_ctl(struct snd_soc_pcm_runtime *rtd,
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name,
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name,
 		rtd->pcm->device);
 	kctl = snd_soc_card_get_kcontrol(rtd->card, mixer_str);
 	kfree(mixer_str);

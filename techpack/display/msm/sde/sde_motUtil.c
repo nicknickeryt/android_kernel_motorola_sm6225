@@ -348,12 +348,12 @@ static ssize_t _sde_debugfs_motUtil_dispUtil_read(char *buffer)
 	int blen = 0, i;
 
 	if (motUtil_data.read_len) {
-		blen = snprintf(buffer, 16, "motUtil_read: ");
+		blen = scnprintf(buffer, 16, "motUtil_read: ");
 		for (i = 0; i < motUtil_data.read_len; i ++)
-			blen += snprintf((buffer + blen) , 6, "0x%02x ",
+			blen += scnprintf((buffer + blen) , 6, "0x%02x ",
 					*motUtil_data.rd_buf++);
 
-			blen += snprintf((buffer + blen), 2, "\n");
+			blen += scnprintf((buffer + blen), 2, "\n");
 	} else
 		SDE_ERROR("motUtil failed to read from panel\n");
 
@@ -371,23 +371,23 @@ static ssize_t _sde_debugfs_motUtil_read(struct file *file,
 
 	mutex_lock(&motUtil_data.lock);
 	if (motUtil_data.cmd_status < 0 || !motUtil_data.read_cmd) {
-		blen = snprintf(buffer, MAX_CMD_PAYLOAD_SIZE,
+		blen = scnprintf(buffer, MAX_CMD_PAYLOAD_SIZE,
 					"motUtil_status: %d\n",
 					motUtil_data.cmd_status);
 	} else if (motUtil_data.motUtil_type == MOTUTIL_DISP_UTIL) {
 			blen = _sde_debugfs_motUtil_dispUtil_read(buffer);
 	} else if (motUtil_data.motUtil_type == MOTUTIL_KMS_PROP_TEST) {
-                blen = snprintf(buffer, 16, "motUtil_read: ");
-                blen += snprintf((buffer + blen), 12, "0x%08x ",
+                blen = scnprintf(buffer, 16, "motUtil_read: ");
+                blen += scnprintf((buffer + blen), 12, "0x%08x ",
                                                         motUtil_data.val);
-                blen += snprintf((buffer + blen), 2, "\n");
+                blen += scnprintf((buffer + blen), 2, "\n");
         }
 
 
         SDE_INFO("%s\n", buffer);
 
         if (blen <= 0) {
-                SDE_ERROR("snprintf failed, blen %d\n", blen);
+                SDE_ERROR("scnprintf failed, blen %d\n", blen);
                 return 0;
         }
 

@@ -361,7 +361,7 @@ static int dp_parser_get_vreg(struct dp_parser *parser,
 				 rc);
 			goto error;
 		}
-		snprintf(mp->vreg_config[i].vreg_name,
+		scnprintf(mp->vreg_config[i].vreg_name,
 			ARRAY_SIZE((mp->vreg_config[i].vreg_name)), "%s", st);
 		/* vreg-min-voltage */
 		rc = of_property_read_u32(supply_node,

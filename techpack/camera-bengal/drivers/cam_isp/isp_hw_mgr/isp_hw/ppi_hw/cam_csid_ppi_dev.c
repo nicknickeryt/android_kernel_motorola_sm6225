@@ -59,7 +59,7 @@ int cam_csid_ppi_probe(struct platform_device *pdev)
 	}
 
 	memset(ppi_dev_name, 0, sizeof(ppi_dev_name));
-	snprintf(ppi_dev_name, sizeof(ppi_dev_name), "ppi%1u", ppi_dev_idx);
+	scnprintf(ppi_dev_name, sizeof(ppi_dev_name), "ppi%1u", ppi_dev_idx);
 
 	ppi_hw_intf->hw_idx  = ppi_dev_idx;
 	ppi_hw_intf->hw_priv = ppi_hw_info;

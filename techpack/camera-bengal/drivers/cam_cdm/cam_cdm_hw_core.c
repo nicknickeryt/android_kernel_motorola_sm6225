@@ -2110,7 +2110,7 @@ int cam_hw_cdm_probe(struct platform_device *pdev)
 
 	platform_set_drvdata(pdev, cdm_hw_intf);
 
-	snprintf(cdm_name, sizeof(cdm_name), "%s%d",
+	scnprintf(cdm_name, sizeof(cdm_name), "%s%d",
 		cdm_hw->soc_info.label_name, cdm_hw->soc_info.index);
 
 	rc = cam_smmu_get_handle(cdm_name, &cdm_core->iommu_hdl.non_secure);
@@ -2138,7 +2138,7 @@ int cam_hw_cdm_probe(struct platform_device *pdev)
 
 		len = strlcpy(work_q_name, cdm_core->name,
 				sizeof(cdm_core->name));
-		snprintf(work_q_name + len, sizeof(work_q_name) - len, "%d", i);
+		scnprintf(work_q_name + len, sizeof(work_q_name) - len, "%d", i);
 		cdm_core->bl_fifo[i].work_queue = alloc_workqueue(work_q_name,
 				WQ_UNBOUND | WQ_MEM_RECLAIM | WQ_SYSFS,
 				CAM_CDM_INFLIGHT_WORKS);

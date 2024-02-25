@@ -1109,7 +1109,7 @@ static int sde_rotator_init_queue(struct sde_rot_mgr *mgr)
 		return -ENOMEM;
 
 	for (i = 0; i < mgr->queue_count; i++) {
-		snprintf(name, sizeof(name), "rot_commitq_%d_%d",
+		scnprintf(name, sizeof(name), "rot_commitq_%d_%d",
 				mgr->device->id, i);
 		SDEROT_DBG("work queue name=%s\n", name);
 		kthread_init_worker(&mgr->commitq[i].rot_kw);
@@ -1140,7 +1140,7 @@ static int sde_rotator_init_queue(struct sde_rot_mgr *mgr)
 		return -ENOMEM;
 
 	for (i = 0; i < mgr->queue_count; i++) {
-		snprintf(name, sizeof(name), "rot_doneq_%d_%d",
+		scnprintf(name, sizeof(name), "rot_doneq_%d_%d",
 				mgr->device->id, i);
 		SDEROT_DBG("work queue name=%s\n", name);
 		kthread_init_worker(&mgr->doneq[i].rot_kw);
@@ -2911,7 +2911,7 @@ static int sde_rotator_get_dt_vreg_data(struct device *dev,
 				__func__, i, rc);
 			goto error;
 		}
-		snprintf(mp->vreg_config[i].vreg_name, 32, "%s", st);
+		scnprintf(mp->vreg_config[i].vreg_name, 32, "%s", st);
 	}
 	sde_rot_config_vreg(dev, mp->vreg_config, mp->num_vreg, 1);
 

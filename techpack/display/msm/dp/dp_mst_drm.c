@@ -2001,9 +2001,9 @@ static void dp_mst_hpd_event_notify(struct dp_mst_private *mst, bool hpd_status)
 	char *envp[3];
 
 	if (hpd_status)
-		snprintf(status, HPD_STRING_SIZE, "status=connected");
+		scnprintf(status, HPD_STRING_SIZE, "status=connected");
 	else
-		snprintf(status, HPD_STRING_SIZE, "status=disconnected");
+		scnprintf(status, HPD_STRING_SIZE, "status=disconnected");
 
 	envp[0] = event_string;
 	envp[1] = status;

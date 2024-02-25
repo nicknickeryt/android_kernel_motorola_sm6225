@@ -302,7 +302,7 @@ static int wcd_cpe_load_each_segment(struct wcd_cpe_core *core,
 	if (!segment)
 		return -ENOMEM;
 
-	snprintf(split_fname, sizeof(split_fname), "%s.b%02d",
+	scnprintf(split_fname, sizeof(split_fname), "%s.b%02d",
 		 core->fname, file_idx);
 
 	ret = request_firmware(&split_fw, split_fname, core->dev);
@@ -473,7 +473,7 @@ static int wcd_cpe_load_fw(struct wcd_cpe_core *core,
 	}
 	component = core->component;
 	wcd9xxx = dev_get_drvdata(component->dev->parent);
-	snprintf(mdt_name, sizeof(mdt_name), "%s.mdt", core->fname);
+	scnprintf(mdt_name, sizeof(mdt_name), "%s.mdt", core->fname);
 	ret = request_firmware(&fw, mdt_name, core->dev);
 	if (ret < 0) {
 		dev_err(core->dev, "firmware %s not found\n", mdt_name);
@@ -706,7 +706,7 @@ static ssize_t wcd_cpe_state_read(struct snd_info_entry *entry,
 		 ssr_entry->offline);
 
 	WCD_CPE_GRAB_LOCK(&core->ssr_lock, "SSR");
-	len = snprintf(buffer, sizeof(buffer), "%s\n",
+	len = scnprintf(buffer, sizeof(buffer), "%s\n",
 		       ssr_entry->offline ? "OFFLINE" : "ONLINE");
 	WCD_CPE_REL_LOCK(&core->ssr_lock, "SSR");
 
@@ -1714,7 +1714,7 @@ err_create_dir:
 
 static ssize_t fw_name_show(struct wcd_cpe_core *core, char *buf)
 {
-	return snprintf(buf, WCD_CPE_IMAGE_FNAME_MAX, "%s",
+	return scnprintf(buf, WCD_CPE_IMAGE_FNAME_MAX, "%s",
 			core->dyn_fname);
 }
 
@@ -1783,7 +1783,7 @@ static int wcd_cpe_sysfs_init(struct wcd_cpe_core *core, int id)
 	char sysfs_dir_name[WCD_CPE_SYSFS_DIR_MAX_LENGTH];
 	int rc = 0;
 
-	snprintf(sysfs_dir_name, WCD_CPE_SYSFS_DIR_MAX_LENGTH,
+	scnprintf(sysfs_dir_name, WCD_CPE_SYSFS_DIR_MAX_LENGTH,
 		 "%s%d", "wcd_cpe", id);
 
 	rc = kobject_init_and_add(&core->cpe_kobj, &wcd_cpe_ktype,
@@ -1913,7 +1913,7 @@ struct wcd_cpe_core *wcd_cpe_init(const char *img_fname,
 	if (!core)
 		return NULL;
 
-	snprintf(core->fname, sizeof(core->fname), "%s", img_fname);
+	scnprintf(core->fname, sizeof(core->fname), "%s", img_fname);
 	strlcpy(core->dyn_fname, core->fname, WCD_CPE_IMAGE_FNAME_MAX);
 
 	wcd_get_cpe_core = params->get_cpe_core;
@@ -1972,7 +1972,7 @@ struct wcd_cpe_core *wcd_cpe_init(const char *img_fname,
 	}
 
 	card = component->card->snd_card;
-	snprintf(proc_name, (sizeof("cpe") + sizeof("_state") +
+	scnprintf(proc_name, (sizeof("cpe") + sizeof("_state") +
 		 sizeof(id) - 2), "%s%d%s", cpe_name, id, state_name);
 	entry = snd_info_create_card_entry(card, proc_name,
 					   card->proc_root);

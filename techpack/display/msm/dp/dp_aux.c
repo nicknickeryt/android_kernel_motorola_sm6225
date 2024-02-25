@@ -56,7 +56,7 @@ static void dp_aux_hex_dump(struct drm_dp_aux *drm_aux,
 	struct dp_aux_private *aux = container_of(drm_aux,
 		struct dp_aux_private, drm_aux);
 
-	snprintf(prefix, sizeof(prefix), "%s %s %4xh(%2zu): ",
+	scnprintf(prefix, sizeof(prefix), "%s %s %4xh(%2zu): ",
 		aux->native ? "NAT" : "I2C",
 		aux->read ? "RD" : "WR",
 		msg->address, msg->size);

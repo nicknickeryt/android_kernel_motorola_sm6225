@@ -101,18 +101,18 @@ static ssize_t debugfs_state_info_read(struct file *file,
 		return -ENOMEM;
 
 	/* Dump current state */
-	len += snprintf((buf + len), (SZ_4K - len), "Current State:\n");
-	len += snprintf((buf + len), (SZ_4K - len),
+	len += scnprintf((buf + len), (SZ_4K - len), "Current State:\n");
+	len += scnprintf((buf + len), (SZ_4K - len),
 			"\tCTRL_ENGINE = %s\n",
 			TO_ON_OFF(dsi_ctrl->current_state.controller_state));
-	len += snprintf((buf + len), (SZ_4K - len),
+	len += scnprintf((buf + len), (SZ_4K - len),
 			"\tVIDEO_ENGINE = %s\n\tCOMMAND_ENGINE = %s\n",
 			TO_ON_OFF(dsi_ctrl->current_state.vid_engine_state),
 			TO_ON_OFF(dsi_ctrl->current_state.cmd_engine_state));
 
 	/* Dump clock information */
-	len += snprintf((buf + len), (SZ_4K - len), "\nClock Info:\n");
-	len += snprintf((buf + len), (SZ_4K - len),
+	len += scnprintf((buf + len), (SZ_4K - len), "\nClock Info:\n");
+	len += scnprintf((buf + len), (SZ_4K - len),
 			"\tBYTE_CLK = %u, PIXEL_CLK = %u, ESC_CLK = %u\n",
 			dsi_ctrl->clk_freq.byte_clk_rate,
 			dsi_ctrl->clk_freq.pix_clk_rate,
@@ -244,7 +244,7 @@ static int dsi_ctrl_debugfs_init(struct dsi_ctrl *dsi_ctrl,
 
 	dsi_ctrl->debugfs_root = dir;
 
-	snprintf(dbg_name, DSI_DEBUG_NAME_LEN, "dsi%d_ctrl",
+	scnprintf(dbg_name, DSI_DEBUG_NAME_LEN, "dsi%d_ctrl",
 						dsi_ctrl->cell_index);
 	sde_dbg_reg_register_base(dbg_name, dsi_ctrl->hw.base,
 				msm_iomap_size(dsi_ctrl->pdev, "dsi_ctrl"));
@@ -265,7 +265,7 @@ static int dsi_ctrl_debugfs_init(struct dsi_ctrl *dsi_ctrl,
 {
 	char dbg_name[DSI_DEBUG_NAME_LEN];
 
-	snprintf(dbg_name, DSI_DEBUG_NAME_LEN, "dsi%d_ctrl",
+	scnprintf(dbg_name, DSI_DEBUG_NAME_LEN, "dsi%d_ctrl",
 			dsi_ctrl->cell_index);
 	sde_dbg_reg_register_base(dbg_name,
 			dsi_ctrl->hw.base,

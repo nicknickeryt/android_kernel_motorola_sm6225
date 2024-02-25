@@ -24,50 +24,9 @@
 /* HTC Control message receive timeout msec */
 #define HTC_CONTROL_RX_TIMEOUT     6000
 
-#if defined(WLAN_DEBUG) || defined(DEBUG)
-void debug_dump_bytes(uint8_t *buffer, uint16_t length, char *pDescription)
-{
-	int8_t stream[60];
-	int8_t byteOffsetStr[10];
-	uint32_t i;
-	uint16_t offset, count, byteOffset;
-
-	A_PRINTF("<---------Dumping %d Bytes : %s ------>\n", length,
-		 pDescription);
-
-	count = 0;
-	offset = 0;
-	byteOffset = 0;
-	for (i = 0; i < length; i++) {
-		A_SNPRINTF(stream + offset, (sizeof(stream) - offset),
-			   "%02X ", buffer[i]);
-		count++;
-		offset += 3;
-
-		if (count == 16) {
-			count = 0;
-			offset = 0;
-			A_SNPRINTF(byteOffsetStr, sizeof(byteOffset), "%4.4X",
-				   byteOffset);
-			A_PRINTF("[%s]: %s\n", byteOffsetStr, stream);
-			qdf_mem_zero(stream, 60);
-			byteOffset += 16;
-		}
-	}
-
-	if (offset != 0) {
-		A_SNPRINTF(byteOffsetStr, sizeof(byteOffset), "%4.4X",
-			   byteOffset);
-		A_PRINTF("[%s]: %s\n", byteOffsetStr, stream);
-	}
-
-	A_PRINTF("<------------------------------------------------->\n");
-}
-#else
 void debug_dump_bytes(uint8_t *buffer, uint16_t length, char *pDescription)
 {
 }
-#endif
 
 static A_STATUS htc_process_trailer(HTC_TARGET *target,
 				    uint8_t *pBuffer,

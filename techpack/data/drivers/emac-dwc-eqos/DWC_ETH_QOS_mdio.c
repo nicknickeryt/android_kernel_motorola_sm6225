@@ -1323,7 +1323,7 @@ int DWC_ETH_QOS_mdio_register(struct net_device *dev)
 	new_bus->read = DWC_ETH_QOS_mdio_read;
 	new_bus->write = DWC_ETH_QOS_mdio_write;
 	new_bus->reset = DWC_ETH_QOS_mdio_reset;
-	snprintf(new_bus->id, MII_BUS_ID_SIZE, "%s-%x", new_bus->name,
+	scnprintf(new_bus->id, MII_BUS_ID_SIZE, "%s-%x", new_bus->name,
 		 pdata->bus_id);
 	new_bus->priv = dev;
 	new_bus->phy_mask = ~(1 << phyaddr);

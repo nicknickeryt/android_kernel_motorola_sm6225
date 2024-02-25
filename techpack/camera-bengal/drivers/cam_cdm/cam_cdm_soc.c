@@ -191,7 +191,7 @@ int cam_hw_cdm_soc_get_dt_properties(struct cam_hw_info *cdm_hw,
 
 	CAM_DBG(CAM_CDM, "name %s", cdm_core->name);
 
-	snprintf(cdm_core->name, sizeof(cdm_core->name) + 1, "%s%d",
+	scnprintf(cdm_core->name, sizeof(cdm_core->name) + 1, "%s%d",
 		id->compatible, soc_ptr->index);
 
 	CAM_DBG(CAM_CDM, "name %s", cdm_core->name);

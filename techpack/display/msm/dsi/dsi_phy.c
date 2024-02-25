@@ -163,7 +163,7 @@ static int dsi_phy_supplies_init(struct platform_device *pdev,
 		goto error;
 
 	regs->count = 1;
-	snprintf(regs->vregs->vreg_name,
+	scnprintf(regs->vregs->vreg_name,
 		 ARRAY_SIZE(regs->vregs[i].vreg_name),
 		 "%s", "gdsc");
 
@@ -599,7 +599,7 @@ int dsi_phy_drv_init(struct msm_dsi_phy *dsi_phy)
 {
 	char dbg_name[DSI_DEBUG_NAME_LEN];
 
-	snprintf(dbg_name, DSI_DEBUG_NAME_LEN, "dsi%d_phy", dsi_phy->index);
+	scnprintf(dbg_name, DSI_DEBUG_NAME_LEN, "dsi%d_phy", dsi_phy->index);
 	sde_dbg_reg_register_base(dbg_name, dsi_phy->hw.base,
 				msm_iomap_size(dsi_phy->pdev, "dsi_phy"));
 	return 0;

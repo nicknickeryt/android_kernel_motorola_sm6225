@@ -22,13 +22,13 @@ void sde_kms_info_add_keyint(struct sde_kms_info *info,
 	uint32_t len;
 
 	if (info && key) {
-		len = snprintf(info->data + info->len,
+		len = scnprintf(info->data + info->len,
 				SDE_KMS_INFO_MAX_SIZE - info->len,
 				"%s=%lld\n",
 				key,
 				value);
 
-		/* check if snprintf truncated the string */
+		/* check if scnprintf truncated the string */
 		if ((info->len + len) < SDE_KMS_INFO_MAX_SIZE)
 			info->len += len;
 	}
@@ -41,13 +41,13 @@ void sde_kms_info_add_keystr(struct sde_kms_info *info,
 	uint32_t len;
 
 	if (info && key && value) {
-		len = snprintf(info->data + info->len,
+		len = scnprintf(info->data + info->len,
 				SDE_KMS_INFO_MAX_SIZE - info->len,
 				"%s=%s\n",
 				key,
 				value);
 
-		/* check if snprintf truncated the string */
+		/* check if scnprintf truncated the string */
 		if ((info->len + len) < SDE_KMS_INFO_MAX_SIZE)
 			info->len += len;
 	}
@@ -59,14 +59,14 @@ void sde_kms_info_start(struct sde_kms_info *info,
 	uint32_t len;
 
 	if (info && key) {
-		len = snprintf(info->data + info->len,
+		len = scnprintf(info->data + info->len,
 				SDE_KMS_INFO_MAX_SIZE - info->len,
 				"%s=",
 				key);
 
 		info->start = true;
 
-		/* check if snprintf truncated the string */
+		/* check if scnprintf truncated the string */
 		if ((info->len + len) < SDE_KMS_INFO_MAX_SIZE)
 			info->staged_len = info->len + len;
 	}
@@ -78,12 +78,12 @@ void sde_kms_info_append(struct sde_kms_info *info,
 	uint32_t len;
 
 	if (info) {
-		len = snprintf(info->data + info->staged_len,
+		len = scnprintf(info->data + info->staged_len,
 				SDE_KMS_INFO_MAX_SIZE - info->staged_len,
 				"%s",
 				str);
 
-		/* check if snprintf truncated the string */
+		/* check if scnprintf truncated the string */
 		if ((info->staged_len + len) < SDE_KMS_INFO_MAX_SIZE) {
 			info->staged_len += len;
 			info->start = false;
@@ -101,7 +101,7 @@ void sde_kms_info_append_format(struct sde_kms_info *info,
 		return;
 
 	if (modifier) {
-		len = snprintf(info->data + info->staged_len,
+		len = scnprintf(info->data + info->staged_len,
 				SDE_KMS_INFO_MAX_SIZE - info->staged_len,
 				info->start ?
 				"%c%c%c%c/%llX/%llX" : " %c%c%c%c/%llX/%llX",
@@ -112,7 +112,7 @@ void sde_kms_info_append_format(struct sde_kms_info *info,
 				(modifier >> 56) & 0xFF,
 				modifier & ((1ULL << 56) - 1));
 	} else {
-		len = snprintf(info->data + info->staged_len,
+		len = scnprintf(info->data + info->staged_len,
 				SDE_KMS_INFO_MAX_SIZE - info->staged_len,
 				info->start ?
 				"%c%c%c%c" : " %c%c%c%c",
@@ -122,7 +122,7 @@ void sde_kms_info_append_format(struct sde_kms_info *info,
 				(pixel_format >> 24) & 0xFF);
 	}
 
-	/* check if snprintf truncated the string */
+	/* check if scnprintf truncated the string */
 	if ((info->staged_len + len) < SDE_KMS_INFO_MAX_SIZE) {
 		info->staged_len += len;
 		info->start = false;
@@ -135,11 +135,11 @@ void sde_kms_info_stop(struct sde_kms_info *info)
 
 	if (info) {
 		/* insert final delimiter */
-		len = snprintf(info->data + info->staged_len,
+		len = scnprintf(info->data + info->staged_len,
 				SDE_KMS_INFO_MAX_SIZE - info->staged_len,
 				"\n");
 
-		/* check if snprintf truncated the string */
+		/* check if scnprintf truncated the string */
 		if ((info->staged_len + len) < SDE_KMS_INFO_MAX_SIZE)
 			info->len = info->staged_len + len;
 	}

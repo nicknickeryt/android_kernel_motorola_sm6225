@@ -6189,7 +6189,7 @@ static int tavil_mad_input_put(struct snd_kcontrol *kcontrol,
 			component, WCD934X_TX_NEW_AMIC_4_5_SEL) & 0x10))
 			adc = 5;
 
-		snprintf(mad_amic_input_widget, 6, "%s%u", "AMIC", adc);
+		scnprintf(mad_amic_input_widget, 6, "%s%u", "AMIC", adc);
 
 		mad_input_widget = mad_amic_input_widget;
 		is_adc_input = true;
@@ -9441,19 +9441,19 @@ static ssize_t tavil_codec_version_read(struct snd_info_entry *entry,
 
 	switch (wcd9xxx->version) {
 	case TAVIL_VERSION_WCD9340_1_0:
-		len = snprintf(buffer, sizeof(buffer), "WCD9340_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9340_1_0\n");
 		break;
 	case TAVIL_VERSION_WCD9341_1_0:
-		len = snprintf(buffer, sizeof(buffer), "WCD9341_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9341_1_0\n");
 		break;
 	case TAVIL_VERSION_WCD9340_1_1:
-		len = snprintf(buffer, sizeof(buffer), "WCD9340_1_1\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9340_1_1\n");
 		break;
 	case TAVIL_VERSION_WCD9341_1_1:
-		len = snprintf(buffer, sizeof(buffer), "WCD9341_1_1\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9341_1_1\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	}
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);

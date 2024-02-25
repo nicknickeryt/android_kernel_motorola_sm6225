@@ -1279,7 +1279,7 @@ static int msm_transcode_add_audio_effects_control(struct snd_soc_pcm_runtime *r
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 
 	fe_audio_effects_config_control[0].name = mixer_str;
 	fe_audio_effects_config_control[0].private_value = rtd->dai_link->id;
@@ -1332,7 +1332,7 @@ static int msm_transcode_stream_cmd_control(
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 	fe_loopback_stream_cmd_config_control[0].name = mixer_str;
 	fe_loopback_stream_cmd_config_control[0].private_value =
 				rtd->dai_link->id;
@@ -1389,7 +1389,7 @@ static int msm_transcode_stream_callback_control(
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 	fe_loopback_callback_config_control[0].name = mixer_str;
 	fe_loopback_callback_config_control[0].private_value =
 					rtd->dai_link->id;
@@ -1455,7 +1455,7 @@ static int msm_transcode_add_ion_fd_cmd_control(struct snd_soc_pcm_runtime *rtd)
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 	fe_ion_fd_config_control[0].name = mixer_str;
 	fe_ion_fd_config_control[0].private_value = rtd->dai_link->id;
 	pr_debug("%s: Registering new mixer ctl %s\n", __func__, mixer_str);
@@ -1508,7 +1508,7 @@ static int msm_transcode_add_event_ack_cmd_control(
 		goto done;
 	}
 
-	snprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
+	scnprintf(mixer_str, ctl_len, "%s %d", mixer_ctl_name, rtd->pcm->device);
 	fe_event_ack_config_control[0].name = mixer_str;
 	fe_event_ack_config_control[0].private_value = rtd->dai_link->id;
 	pr_debug("%s: Registering new mixer ctl %s\n", __func__, mixer_str);
@@ -1559,7 +1559,7 @@ static int msm_transcode_add_app_type_cfg_control(
 	}
 
 	if (rtd->compr->direction == SND_COMPRESS_PLAYBACK) {
-		snprintf(mixer_str, sizeof(mixer_str),
+		scnprintf(mixer_str, sizeof(mixer_str),
 			"Audio Stream %d App Type Cfg",
 			 rtd->pcm->device);
 
@@ -1576,7 +1576,7 @@ static int msm_transcode_add_app_type_cfg_control(
 					fe_app_type_cfg_control,
 					ARRAY_SIZE(fe_app_type_cfg_control));
 	} else if (rtd->compr->direction == SND_COMPRESS_CAPTURE) {
-		snprintf(mixer_str, sizeof(mixer_str),
+		scnprintf(mixer_str, sizeof(mixer_str),
 			"Audio Stream Capture %d App Type Cfg",
 			 rtd->pcm->device);
 

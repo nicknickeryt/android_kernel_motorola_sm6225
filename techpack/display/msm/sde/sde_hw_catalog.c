@@ -1109,7 +1109,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 	sblk->maxupscale = MAX_UPSCALE_RATIO;
 	sblk->maxdwnscale = MAX_DOWNSCALE_RATIO;
 	sspp->id = SSPP_VIG0 + *vig_count;
-	snprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
+	scnprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
 			sspp->id - SSPP_VIG0);
 	sspp->clk_ctrl = SDE_CLK_CTRL_VIG0 + *vig_count;
 	sspp->type = SSPP_TYPE_VIG;
@@ -1131,7 +1131,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 			VIG_QSEED_OFF, 0);
 		sblk->scaler_blk.len = PROP_VALUE_ACCESS(prop_value,
 			VIG_QSEED_LEN, 0);
-		snprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
 				"sspp_scaler%u", sspp->id - SSPP_VIG0);
 	} else if (sde_cfg->qseed_type == SDE_SSPP_SCALER_QSEED3) {
 		set_bit(SDE_SSPP_SCALER_QSEED3, &sspp->features);
@@ -1140,7 +1140,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 			VIG_QSEED_OFF, 0);
 		sblk->scaler_blk.len = PROP_VALUE_ACCESS(prop_value,
 			VIG_QSEED_LEN, 0);
-		snprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_scaler%u", sspp->id - SSPP_VIG0);
 	} else if (sde_cfg->qseed_type == SDE_SSPP_SCALER_QSEED3LITE) {
 		set_bit(SDE_SSPP_SCALER_QSEED3LITE, &sspp->features);
@@ -1149,12 +1149,12 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 			VIG_QSEED_OFF, 0);
 		sblk->scaler_blk.len = PROP_VALUE_ACCESS(prop_value,
 			VIG_QSEED_LEN, 0);
-		snprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_scaler%u", sspp->id - SSPP_VIG0);
 	}
 
 	sblk->csc_blk.id = SDE_SSPP_CSC;
-	snprintf(sblk->csc_blk.name, SDE_HW_BLK_NAME_LEN,
+	scnprintf(sblk->csc_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_csc%u", sspp->id - SSPP_VIG0);
 	if (sde_cfg->csc_type == SDE_SSPP_CSC) {
 		set_bit(SDE_SSPP_CSC, &sspp->features);
@@ -1167,7 +1167,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 	}
 
 	sblk->hsic_blk.id = SDE_SSPP_HSIC;
-	snprintf(sblk->hsic_blk.name, SDE_HW_BLK_NAME_LEN,
+	scnprintf(sblk->hsic_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_hsic%u", sspp->id - SSPP_VIG0);
 	if (prop_exists[VIG_HSIC_PROP]) {
 		sblk->hsic_blk.base = PROP_VALUE_ACCESS(prop_value,
@@ -1179,7 +1179,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 	}
 
 	sblk->memcolor_blk.id = SDE_SSPP_MEMCOLOR;
-	snprintf(sblk->memcolor_blk.name, SDE_HW_BLK_NAME_LEN,
+	scnprintf(sblk->memcolor_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_memcolor%u", sspp->id - SSPP_VIG0);
 	if (prop_exists[VIG_MEMCOLOR_PROP]) {
 		sblk->memcolor_blk.base = PROP_VALUE_ACCESS(prop_value,
@@ -1191,7 +1191,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 	}
 
 	sblk->pcc_blk.id = SDE_SSPP_PCC;
-	snprintf(sblk->pcc_blk.name, SDE_HW_BLK_NAME_LEN,
+	scnprintf(sblk->pcc_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_pcc%u", sspp->id - SSPP_VIG0);
 	if (prop_exists[VIG_PCC_PROP]) {
 		sblk->pcc_blk.base = PROP_VALUE_ACCESS(prop_value,
@@ -1204,7 +1204,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 
 	if (prop_exists[VIG_GAMUT_PROP]) {
 		sblk->gamut_blk.id = SDE_SSPP_VIG_GAMUT;
-		snprintf(sblk->gamut_blk.name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->gamut_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_vig_gamut%u", sspp->id - SSPP_VIG0);
 		sblk->gamut_blk.base = PROP_VALUE_ACCESS(prop_value,
 			VIG_GAMUT_PROP, 0);
@@ -1216,7 +1216,7 @@ static void _sde_sspp_setup_vig(struct sde_mdss_cfg *sde_cfg,
 
 	if (prop_exists[VIG_IGC_PROP]) {
 		sblk->igc_blk[0].id = SDE_SSPP_VIG_IGC;
-		snprintf(sblk->igc_blk[0].name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->igc_blk[0].name, SDE_HW_BLK_NAME_LEN,
 			"sspp_vig_igc%u", sspp->id - SSPP_VIG0);
 		sblk->igc_blk[0].base = PROP_VALUE_ACCESS(prop_value,
 			VIG_IGC_PROP, 0);
@@ -1273,7 +1273,7 @@ static void _sde_sspp_setup_rgb(struct sde_mdss_cfg *sde_cfg,
 	sblk->maxupscale = MAX_UPSCALE_RATIO;
 	sblk->maxdwnscale = MAX_DOWNSCALE_RATIO;
 	sspp->id = SSPP_RGB0 + *rgb_count;
-	snprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
+	scnprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
 			sspp->id - SSPP_VIG0);
 	sspp->clk_ctrl = SDE_CLK_CTRL_RGB0 + *rgb_count;
 	sspp->type = SSPP_TYPE_RGB;
@@ -1292,7 +1292,7 @@ static void _sde_sspp_setup_rgb(struct sde_mdss_cfg *sde_cfg,
 			RGB_SCALER_OFF, 0);
 		sblk->scaler_blk.len = PROP_VALUE_ACCESS(prop_value,
 			RGB_SCALER_LEN, 0);
-		snprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_scaler%u", sspp->id - SSPP_VIG0);
 	} else if (sde_cfg->qseed_type == SDE_SSPP_SCALER_QSEED3) {
 		set_bit(SDE_SSPP_SCALER_RGB, &sspp->features);
@@ -1301,7 +1301,7 @@ static void _sde_sspp_setup_rgb(struct sde_mdss_cfg *sde_cfg,
 			RGB_SCALER_LEN, 0);
 		sblk->scaler_blk.len = PROP_VALUE_ACCESS(prop_value,
 			SSPP_SCALE_SIZE, 0);
-		snprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
+		scnprintf(sblk->scaler_blk.name, SDE_HW_BLK_NAME_LEN,
 			"sspp_scaler%u", sspp->id - SSPP_VIG0);
 	}
 
@@ -1332,7 +1332,7 @@ static void _sde_sspp_setup_cursor(struct sde_mdss_cfg *sde_cfg,
 	sblk->format_list = sde_cfg->cursor_formats;
 	sblk->virt_format_list = NULL;
 	sspp->id = SSPP_CURSOR0 + *cursor_count;
-	snprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
+	scnprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
 			sspp->id - SSPP_VIG0);
 	sspp->clk_ctrl = SDE_CLK_CTRL_CURSOR0 + *cursor_count;
 	sspp->type = SSPP_TYPE_CURSOR;
@@ -1352,7 +1352,7 @@ static void _sde_sspp_setup_dma(struct sde_mdss_cfg *sde_cfg,
 	sblk->virt_format_list = sde_cfg->dma_formats;
 	sspp->id = SSPP_DMA0 + *dma_count;
 	sspp->clk_ctrl = SDE_CLK_CTRL_DMA0 + *dma_count;
-	snprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
+	scnprintf(sspp->name, SDE_HW_BLK_NAME_LEN, "sspp_%u",
 			sspp->id - SSPP_VIG0);
 	sspp->type = SSPP_TYPE_DMA;
 	set_bit(SDE_PERF_SSPP_QOS, &sspp->perf_features);
@@ -1369,7 +1369,7 @@ static void _sde_sspp_setup_dma(struct sde_mdss_cfg *sde_cfg,
 	for (i = 0; i < dgm_count; i++) {
 		if (prop_exists[i][DMA_IGC_PROP]) {
 			sblk->igc_blk[i].id = SDE_SSPP_DMA_IGC;
-			snprintf(sblk->igc_blk[i].name, SDE_HW_BLK_NAME_LEN,
+			scnprintf(sblk->igc_blk[i].name, SDE_HW_BLK_NAME_LEN,
 				"sspp_dma_igc%u", sspp->id - SSPP_DMA0);
 			sblk->igc_blk[i].base = PROP_VALUE_ACCESS(
 				&prop_value[i * DMA_PROP_MAX], DMA_IGC_PROP, 0);
@@ -1381,7 +1381,7 @@ static void _sde_sspp_setup_dma(struct sde_mdss_cfg *sde_cfg,
 
 		if (prop_exists[i][DMA_GC_PROP]) {
 			sblk->gc_blk[i].id = SDE_SSPP_DMA_GC;
-			snprintf(sblk->gc_blk[0].name, SDE_HW_BLK_NAME_LEN,
+			scnprintf(sblk->gc_blk[0].name, SDE_HW_BLK_NAME_LEN,
 				"sspp_dma_gc%u", sspp->id - SSPP_DMA0);
 			sblk->gc_blk[i].base = PROP_VALUE_ACCESS(
 				&prop_value[i * DMA_PROP_MAX], DMA_GC_PROP, 0);
@@ -1397,7 +1397,7 @@ static void _sde_sspp_setup_dma(struct sde_mdss_cfg *sde_cfg,
 
 		if (prop_exists[i][DMA_CSC_OFF]) {
 			sblk->dgm_csc_blk[i].id = SDE_SSPP_DGM_CSC;
-			snprintf(sblk->csc_blk.name, SDE_HW_BLK_NAME_LEN,
+			scnprintf(sblk->csc_blk.name, SDE_HW_BLK_NAME_LEN,
 				"sspp_dgm_csc%u", sspp->id - SSPP_DMA0);
 			set_bit(SDE_SSPP_DGM_CSC, &sspp->features);
 			sblk->dgm_csc_blk[i].base = PROP_VALUE_ACCESS(
@@ -1582,7 +1582,7 @@ static int sde_sspp_parse_dt(struct device_node *np,
 		if (sde_cfg->uidle_cfg.uidle_rev)
 			set_bit(SDE_PERF_SSPP_UIDLE, &sspp->perf_features);
 
-		snprintf(sblk->src_blk.name, SDE_HW_BLK_NAME_LEN, "sspp_src_%u",
+		scnprintf(sblk->src_blk.name, SDE_HW_BLK_NAME_LEN, "sspp_src_%u",
 				sspp->id - SSPP_VIG0);
 
 		if (sspp->clk_ctrl >= SDE_CLK_CTRL_MAX) {
@@ -1687,7 +1687,7 @@ static int sde_ctl_parse_dt(struct device_node *np,
 		ctl->base = PROP_VALUE_ACCESS(prop_value, HW_OFF, i);
 		ctl->len = PROP_VALUE_ACCESS(prop_value, HW_LEN, 0);
 		ctl->id = CTL_0 + i;
-		snprintf(ctl->name, SDE_HW_BLK_NAME_LEN, "ctl_%u",
+		scnprintf(ctl->name, SDE_HW_BLK_NAME_LEN, "ctl_%u",
 				ctl->id - CTL_0);
 
 		of_property_read_string_index(np,
@@ -1882,7 +1882,7 @@ static int sde_mixer_parse_dt(struct device_node *np,
 		mixer->base = mixer_base;
 		mixer->len = PROP_VALUE_ACCESS(prop_value, MIXER_LEN, 0);
 		mixer->id = LM_0 + i;
-		snprintf(mixer->name, SDE_HW_BLK_NAME_LEN, "lm_%u",
+		scnprintf(mixer->name, SDE_HW_BLK_NAME_LEN, "lm_%u",
 				mixer->id - LM_0);
 
 		if (!prop_exists[MIXER_LEN])
@@ -1990,7 +1990,7 @@ static int sde_intf_parse_dt(struct device_node *np,
 		intf->base = PROP_VALUE_ACCESS(prop_value, INTF_OFF, i);
 		intf->len = PROP_VALUE_ACCESS(prop_value, INTF_LEN, 0);
 		intf->id = INTF_0 + i;
-		snprintf(intf->name, SDE_HW_BLK_NAME_LEN, "intf_%u",
+		scnprintf(intf->name, SDE_HW_BLK_NAME_LEN, "intf_%u",
 				intf->id - INTF_0);
 
 		if (!prop_exists[INTF_LEN])
@@ -2081,7 +2081,7 @@ static int sde_wb_parse_dt(struct device_node *np, struct sde_mdss_cfg *sde_cfg)
 
 		wb->base = PROP_VALUE_ACCESS(prop_value, WB_OFF, i);
 		wb->id = WB_0 + PROP_VALUE_ACCESS(prop_value, WB_ID, i);
-		snprintf(wb->name, SDE_HW_BLK_NAME_LEN, "wb_%u",
+		scnprintf(wb->name, SDE_HW_BLK_NAME_LEN, "wb_%u",
 				wb->id - WB_0);
 		wb->clk_ctrl = SDE_CLK_CTRL_WB0 +
 			PROP_VALUE_ACCESS(prop_value, WB_ID, i);
@@ -2360,7 +2360,7 @@ static int sde_dspp_top_parse_dt(struct device_node *np,
 		PROP_VALUE_ACCESS(prop_value, DSPP_TOP_OFF, 0);
 	sde_cfg->dspp_top.len =
 		PROP_VALUE_ACCESS(prop_value, DSPP_TOP_SIZE, 0);
-	snprintf(sde_cfg->dspp_top.name, SDE_HW_BLK_NAME_LEN, "dspp_top");
+	scnprintf(sde_cfg->dspp_top.name, SDE_HW_BLK_NAME_LEN, "dspp_top");
 
 end:
 	kfree(prop_value);
@@ -2484,7 +2484,7 @@ static int sde_dspp_parse_dt(struct device_node *np,
 		dspp->base = PROP_VALUE_ACCESS(prop_value, DSPP_OFF, i);
 		dspp->len = PROP_VALUE_ACCESS(prop_value, DSPP_SIZE, 0);
 		dspp->id = DSPP_0 + i;
-		snprintf(dspp->name, SDE_HW_BLK_NAME_LEN, "dspp_%u",
+		scnprintf(dspp->name, SDE_HW_BLK_NAME_LEN, "dspp_%u",
 				dspp->id - DSPP_0);
 
 		sblk = kzalloc(sizeof(*sblk), GFP_KERNEL);
@@ -2621,7 +2621,7 @@ static int sde_ds_parse_dt(struct device_node *np,
 	}
 
 	ds_top->id = DS_TOP;
-	snprintf(ds_top->name, SDE_HW_BLK_NAME_LEN, "ds_top_%u",
+	scnprintf(ds_top->name, SDE_HW_BLK_NAME_LEN, "ds_top_%u",
 		ds_top->id - DS_TOP);
 	ds_top->base = PROP_VALUE_ACCESS(top_prop_value, DS_TOP_OFF, 0);
 	ds_top->len = PROP_VALUE_ACCESS(top_prop_value, DS_TOP_LEN, 0);
@@ -2643,7 +2643,7 @@ static int sde_ds_parse_dt(struct device_node *np,
 		ds->base = PROP_VALUE_ACCESS(prop_value, DS_OFF, i);
 		ds->id = DS_0 + i;
 		ds->len = PROP_VALUE_ACCESS(prop_value, DS_LEN, 0);
-		snprintf(ds->name, SDE_HW_BLK_NAME_LEN, "ds_%u",
+		scnprintf(ds->name, SDE_HW_BLK_NAME_LEN, "ds_%u",
 			ds->id - DS_0);
 
 		if (!prop_exists[DS_LEN])
@@ -2701,7 +2701,7 @@ static int sde_dsc_parse_dt(struct device_node *np,
 		dsc->base = PROP_VALUE_ACCESS(prop_value, DSC_OFF, i);
 		dsc->id = DSC_0 + i;
 		dsc->len = PROP_VALUE_ACCESS(prop_value, DSC_LEN, 0);
-		snprintf(dsc->name, SDE_HW_BLK_NAME_LEN, "dsc_%u",
+		scnprintf(dsc->name, SDE_HW_BLK_NAME_LEN, "dsc_%u",
 				dsc->id - DSC_0);
 
 		if (!prop_exists[DSC_LEN])
@@ -2759,7 +2759,7 @@ static int sde_cdm_parse_dt(struct device_node *np,
 		cdm = sde_cfg->cdm + i;
 		cdm->base = PROP_VALUE_ACCESS(prop_value, HW_OFF, i);
 		cdm->id = CDM_0 + i;
-		snprintf(cdm->name, SDE_HW_BLK_NAME_LEN, "cdm_%u",
+		scnprintf(cdm->name, SDE_HW_BLK_NAME_LEN, "cdm_%u",
 				cdm->id - CDM_0);
 		cdm->len = PROP_VALUE_ACCESS(prop_value, HW_LEN, 0);
 
@@ -2963,7 +2963,7 @@ static int _sde_vbif_populate(struct sde_mdss_cfg *sde_cfg,
 	vbif->base = PROP_VALUE_ACCESS(prop_value, VBIF_OFF, i);
 	vbif->len = vbif_len;
 	vbif->id = VBIF_0 + PROP_VALUE_ACCESS(prop_value, VBIF_ID, i);
-	snprintf(vbif->name, SDE_HW_BLK_NAME_LEN, "vbif_%u",
+	scnprintf(vbif->name, SDE_HW_BLK_NAME_LEN, "vbif_%u",
 			vbif->id - VBIF_0);
 
 	SDE_DEBUG("vbif:%d\n", vbif->id - VBIF_0);
@@ -3131,13 +3131,13 @@ static int sde_pp_parse_dt(struct device_node *np, struct sde_mdss_cfg *sde_cfg)
 
 		pp->base = PROP_VALUE_ACCESS(prop_value, PP_OFF, i);
 		pp->id = PINGPONG_0 + i;
-		snprintf(pp->name, SDE_HW_BLK_NAME_LEN, "pingpong_%u",
+		scnprintf(pp->name, SDE_HW_BLK_NAME_LEN, "pingpong_%u",
 				pp->id - PINGPONG_0);
 		pp->len = PROP_VALUE_ACCESS(prop_value, PP_LEN, 0);
 
 		sblk->te.base = PROP_VALUE_ACCESS(prop_value, TE_OFF, i);
 		sblk->te.id = SDE_PINGPONG_TE;
-		snprintf(sblk->te.name, SDE_HW_BLK_NAME_LEN, "te_%u",
+		scnprintf(sblk->te.name, SDE_HW_BLK_NAME_LEN, "te_%u",
 				pp->id - PINGPONG_0);
 
 		major_version = SDE_HW_MAJOR(sde_cfg->hwversion);
@@ -3147,7 +3147,7 @@ static int sde_pp_parse_dt(struct device_node *np, struct sde_mdss_cfg *sde_cfg)
 		sblk->te2.base = PROP_VALUE_ACCESS(prop_value, TE2_OFF, i);
 		if (sblk->te2.base) {
 			sblk->te2.id = SDE_PINGPONG_TE2;
-			snprintf(sblk->te2.name, SDE_HW_BLK_NAME_LEN, "te2_%u",
+			scnprintf(sblk->te2.name, SDE_HW_BLK_NAME_LEN, "te2_%u",
 					pp->id - PINGPONG_0);
 			set_bit(SDE_PINGPONG_TE2, &pp->features);
 			set_bit(SDE_PINGPONG_SPLIT, &pp->features);
@@ -3159,7 +3159,7 @@ static int sde_pp_parse_dt(struct device_node *np, struct sde_mdss_cfg *sde_cfg)
 		sblk->dsc.base = PROP_VALUE_ACCESS(prop_value, DSC_OFF, i);
 		if (sblk->dsc.base) {
 			sblk->dsc.id = SDE_PINGPONG_DSC;
-			snprintf(sblk->dsc.name, SDE_HW_BLK_NAME_LEN, "dsc_%u",
+			scnprintf(sblk->dsc.name, SDE_HW_BLK_NAME_LEN, "dsc_%u",
 					pp->id - PINGPONG_0);
 			set_bit(SDE_PINGPONG_DSC, &pp->features);
 		}
@@ -3168,7 +3168,7 @@ static int sde_pp_parse_dt(struct device_node *np, struct sde_mdss_cfg *sde_cfg)
 							i);
 		if (sblk->dither.base) {
 			sblk->dither.id = SDE_PINGPONG_DITHER;
-			snprintf(sblk->dither.name, SDE_HW_BLK_NAME_LEN,
+			scnprintf(sblk->dither.name, SDE_HW_BLK_NAME_LEN,
 					"dither_%u", pp->id);
 			set_bit(SDE_PINGPONG_DITHER, &pp->features);
 		}
@@ -3505,12 +3505,12 @@ static int sde_top_parse_dt(struct device_node *np, struct sde_mdss_cfg *cfg)
 	cfg->mdss_count = 1;
 	cfg->mdss[0].base = MDSS_BASE_OFFSET;
 	cfg->mdss[0].id = MDP_TOP;
-	snprintf(cfg->mdss[0].name, SDE_HW_BLK_NAME_LEN, "mdss_%u",
+	scnprintf(cfg->mdss[0].name, SDE_HW_BLK_NAME_LEN, "mdss_%u",
 			cfg->mdss[0].id - MDP_TOP);
 
 	cfg->mdp_count = 1;
 	cfg->mdp[0].id = MDP_TOP;
-	snprintf(cfg->mdp[0].name, SDE_HW_BLK_NAME_LEN, "top_%u",
+	scnprintf(cfg->mdp[0].name, SDE_HW_BLK_NAME_LEN, "top_%u",
 		cfg->mdp[0].id - MDP_TOP);
 	cfg->mdp[0].base = PROP_VALUE_ACCESS(prop_value, SDE_OFF, 0);
 	cfg->mdp[0].len = PROP_VALUE_ACCESS(prop_value, SDE_LEN, 0);
@@ -4014,7 +4014,7 @@ static int sde_parse_merge_3d_dt(struct device_node *np,
 		merge_3d = sde_cfg->merge_3d + i;
 		merge_3d->base = PROP_VALUE_ACCESS(prop_value, HW_OFF, i);
 		merge_3d->id = MERGE_3D_0 + i;
-		snprintf(merge_3d->name, SDE_HW_BLK_NAME_LEN, "merge_3d_%u",
+		scnprintf(merge_3d->name, SDE_HW_BLK_NAME_LEN, "merge_3d_%u",
 				merge_3d->id -  MERGE_3D_0);
 		merge_3d->len = PROP_VALUE_ACCESS(prop_value, HW_LEN, 0);
 	}
@@ -4061,7 +4061,7 @@ static int sde_qdss_parse_dt(struct device_node *np,
 		qdss = sde_cfg->qdss + i;
 		qdss->base = PROP_VALUE_ACCESS(prop_value, HW_OFF, i);
 		qdss->id = QDSS_0 + i;
-		snprintf(qdss->name, SDE_HW_BLK_NAME_LEN, "qdss_%u",
+		scnprintf(qdss->name, SDE_HW_BLK_NAME_LEN, "qdss_%u",
 				qdss->id - QDSS_0);
 		qdss->len = PROP_VALUE_ACCESS(prop_value, HW_LEN, 0);
 	}

@@ -3854,7 +3854,7 @@ static int sde_hw_rotator_get_downscale_caps(struct sde_rot_mgr *mgr,
 
 	if (rot->downscale_caps) {
 		if (caps)
-			rc = snprintf(caps, len, "%s", rot->downscale_caps);
+			rc = scnprintf(caps, len, "%s", rot->downscale_caps);
 		else
 			rc = strlen(rot->downscale_caps);
 	}

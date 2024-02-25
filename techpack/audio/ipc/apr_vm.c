@@ -656,7 +656,7 @@ static int apr_vm_get_svc(const char *svc_name, int domain_id, int *client_id,
 
 				apr_len = sizeof(tx_data);
 				tx_data.cmd_id = APRV2_VM_CMDID_REGISTER;
-				tx_data.reg_cmd.name_size = snprintf(
+				tx_data.reg_cmd.name_size = scnprintf(
 						tx_data.reg_cmd.name,
 						APRV2_VM_MAX_DNS_SIZE,
 						"qcom.apps.lnx.%s",

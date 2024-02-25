@@ -8085,7 +8085,7 @@ static int tasha_mad_input_put(struct snd_kcontrol *kcontrol,
 			ret =  -EINVAL;
 		}
 
-		snprintf(mad_amic_input_widget, 6, "%s%u", "AMIC", adc);
+		scnprintf(mad_amic_input_widget, 6, "%s%u", "AMIC", adc);
 
 		mad_input_widget = mad_amic_input_widget;
 	} else {
@@ -12568,15 +12568,15 @@ static ssize_t tasha_codec_version_read(struct snd_info_entry *entry,
 
 	if (wcd9xxx->codec_type->id_major == TASHA_MAJOR) {
 		if (TASHA_IS_1_0(wcd9xxx))
-			len = snprintf(buffer, sizeof(buffer), "WCD9335_1_0\n");
+			len = scnprintf(buffer, sizeof(buffer), "WCD9335_1_0\n");
 		else if (TASHA_IS_1_1(wcd9xxx))
-			len = snprintf(buffer, sizeof(buffer), "WCD9335_1_1\n");
+			len = scnprintf(buffer, sizeof(buffer), "WCD9335_1_1\n");
 		else
-			snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+			scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	} else if (wcd9xxx->codec_type->id_major == TASHA2P0_MAJOR) {
-		len = snprintf(buffer, sizeof(buffer), "WCD9335_2_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9335_2_0\n");
 	} else
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);
 }

@@ -3124,7 +3124,7 @@ int msm8952_init_wsa_switch_supply(struct platform_device *pdev,
 	u32 prop_val;
 	int ret = 0;
 
-	snprintf(prop_name, MSM_DT_MAX_PROP_SIZE, "%s-supply",
+	scnprintf(prop_name, MSM_DT_MAX_PROP_SIZE, "%s-supply",
 		switch_supply_str);
 	regnode = of_parse_phandle(dev->of_node, prop_name, 0);
 	if (!regnode) {
@@ -3142,7 +3142,7 @@ int msm8952_init_wsa_switch_supply(struct platform_device *pdev,
 		return ret;
 	}
 
-	snprintf(prop_name, MSM_DT_MAX_PROP_SIZE,
+	scnprintf(prop_name, MSM_DT_MAX_PROP_SIZE,
 		"qcom,%s-voltage", switch_supply_str);
 	ret = of_property_read_u32(dev->of_node, prop_name,
 			&prop_val);
@@ -3168,7 +3168,7 @@ int msm8952_init_wsa_switch_supply(struct platform_device *pdev,
 		return ret;
 	}
 
-	snprintf(prop_name, MSM_DT_MAX_PROP_SIZE,
+	scnprintf(prop_name, MSM_DT_MAX_PROP_SIZE,
 		"qcom,%s-current", switch_supply_str);
 	ret = of_property_read_u32(dev->of_node, prop_name,
 			&prop_val);

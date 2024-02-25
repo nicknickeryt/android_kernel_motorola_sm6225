@@ -285,7 +285,7 @@ static void dp_display_update_hdcp_status(struct dp_display_private *dp,
 
 	memset(dp->debug->hdcp_status, 0, sizeof(dp->debug->hdcp_status));
 
-	snprintf(dp->debug->hdcp_status, sizeof(dp->debug->hdcp_status),
+	scnprintf(dp->debug->hdcp_status, sizeof(dp->debug->hdcp_status),
 		"%s: %s\ncaps: %d\n",
 		sde_hdcp_version(dp->link->hdcp_status.hdcp_version),
 		sde_hdcp_state_name(dp->link->hdcp_status.hdcp_state),
@@ -704,13 +704,13 @@ static void dp_display_send_hpd_event(struct dp_display_private *dp)
 
 	dev = connector->dev;
 
-	snprintf(name, HPD_STRING_SIZE, "name=%s", connector->name);
-	snprintf(status, HPD_STRING_SIZE, "status=%s",
+	scnprintf(name, HPD_STRING_SIZE, "name=%s", connector->name);
+	scnprintf(status, HPD_STRING_SIZE, "status=%s",
 		drm_get_connector_status_name(connector->status));
-	snprintf(bpp, HPD_STRING_SIZE, "bpp=%d",
+	scnprintf(bpp, HPD_STRING_SIZE, "bpp=%d",
 		dp_link_bit_depth_to_bpp(
 		dp->link->test_video.test_bit_depth));
-	snprintf(pattern, HPD_STRING_SIZE, "pattern=%d",
+	scnprintf(pattern, HPD_STRING_SIZE, "pattern=%d",
 		dp->link->test_video.test_video_pattern);
 
 	DP_INFO("[%s]:[%s] [%s] [%s]\n", name, status, bpp, pattern);

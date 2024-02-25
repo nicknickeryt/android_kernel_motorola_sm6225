@@ -1005,7 +1005,7 @@ int DWC_ETH_QOS_qmp_mailbox_send_message(struct DWC_ETH_QOS_prv_data *pdata)
 
 	memset(&qmp_buf[0], 0, MAX_QMP_MSG_SIZE + 1);
 
-	snprintf(qmp_buf, MAX_QMP_MSG_SIZE, "{class:ctile, pc:0}");
+	scnprintf(qmp_buf, MAX_QMP_MSG_SIZE, "{class:ctile, pc:0}");
 
 	pkt.size = ((size_t)strlen(qmp_buf) + 0x3) & ~0x3;
 	pkt.data = qmp_buf;

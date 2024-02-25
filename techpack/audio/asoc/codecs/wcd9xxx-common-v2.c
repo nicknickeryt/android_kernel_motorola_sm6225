@@ -351,7 +351,7 @@ static const char *state_to_str(u8 state, char *buf, size_t buflen)
 	};
 
 	if (state == WCD_CLSH_STATE_IDLE) {
-		snprintf(buf, buflen, "[STATE_IDLE]");
+		scnprintf(buf, buflen, "[STATE_IDLE]");
 		goto done;
 	}
 
@@ -359,7 +359,7 @@ static const char *state_to_str(u8 state, char *buf, size_t buflen)
 	for (i = 0; i < ARRAY_SIZE(states); i++) {
 		if (!(state & (1 << i)))
 			continue;
-		cnt = snprintf(buf, buflen - cnt - 1, "%s%s%s", buf,
+		cnt = scnprintf(buf, buflen - cnt - 1, "%s%s%s", buf,
 			       buf[0] == '\0' ? "[" : "|",
 			       states[i]);
 	}
@@ -368,7 +368,7 @@ static const char *state_to_str(u8 state, char *buf, size_t buflen)
 
 done:
 	if (buf[0] == '\0')
-		snprintf(buf, buflen, "[STATE_UNKNOWN]");
+		scnprintf(buf, buflen, "[STATE_UNKNOWN]");
 	return buf;
 }
 

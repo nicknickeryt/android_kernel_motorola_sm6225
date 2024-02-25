@@ -707,7 +707,7 @@ static ssize_t wcd9xxx_slimslave_reg_show(char __user *ubuf, size_t count,
 
 	for (i = (int) *ppos / 12; i <= SLIM_MAX_REG_ADDR; i++) {
 		reg_val = wcd9xxx_interface_reg_read(debugCodec, i);
-		len = snprintf(tmp_buf, sizeof(tmp_buf),
+		len = scnprintf(tmp_buf, sizeof(tmp_buf),
 			"0x%.3x: 0x%.2x\n", i, reg_val);
 		if (len < 0) {
 			pr_err("%s: fail to fill the buffer\n", __func__);
@@ -741,7 +741,7 @@ static ssize_t codec_debug_read(struct file *file, char __user *ubuf,
 		return -EINVAL;
 
 	if (!strcmp(access_str, "slimslave_peek")) {
-		snprintf(lbuf, sizeof(lbuf), "0x%x\n", read_data);
+		scnprintf(lbuf, sizeof(lbuf), "0x%x\n", read_data);
 		ret_cnt = simple_read_from_buffer(ubuf, count, ppos, lbuf,
 					       strnlen(lbuf, 7));
 	} else if (!strcmp(access_str, "slimslave_reg_dump")) {

@@ -340,7 +340,7 @@ static int wcd_pinctrl_probe(struct platform_device *pdev)
 		pad = &pads[i];
 		pindesc->drv_data = pad;
 		pindesc->number = i;
-		snprintf(name[i], (WCD_GPIO_STRING_LEN - 1), "gpio%d", (i+1));
+		scnprintf(name[i], (WCD_GPIO_STRING_LEN - 1), "gpio%d", (i+1));
 		pindesc->name = name[i];
 		pad->offset = i;
 		pad->is_valid  = true;

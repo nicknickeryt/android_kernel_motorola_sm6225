@@ -3341,7 +3341,7 @@ static ssize_t aqt_codec_version_read(struct snd_info_entry *entry,
 	char buffer[AQT_VERSION_ENTRY_SIZE];
 	int len = 0;
 
-	len = snprintf(buffer, sizeof(buffer), "AQT1000_1_0\n");
+	len = scnprintf(buffer, sizeof(buffer), "AQT1000_1_0\n");
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);
 }

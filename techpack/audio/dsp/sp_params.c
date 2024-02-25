@@ -33,7 +33,7 @@ static ssize_t sp_count_exceeded_temperature_l_show(struct device *dev,
 {
 	ssize_t ret = 0;
 
-	ret = snprintf(buf, BUF_SZ, "%d\n",
+	ret = scnprintf(buf, BUF_SZ, "%d\n",
 	this_afe_spk.xt_logging.count_exceeded_temperature[SP_V2_SPKR_1]);
 	this_afe_spk.xt_logging.count_exceeded_temperature[SP_V2_SPKR_1] = 0;
 	return ret;
@@ -47,7 +47,7 @@ static ssize_t sp_count_exceeded_temperature_r_show(struct device *dev,
 {
 	ssize_t ret = 0;
 
-	ret = snprintf(buf, BUF_SZ, "%d\n",
+	ret = scnprintf(buf, BUF_SZ, "%d\n",
 	this_afe_spk.xt_logging.count_exceeded_temperature[SP_V2_SPKR_2]);
 	this_afe_spk.xt_logging.count_exceeded_temperature[SP_V2_SPKR_2] = 0;
 	return ret;
@@ -61,7 +61,7 @@ static ssize_t sp_count_exceeded_excursion_l_show(struct device *dev,
 {
 	ssize_t ret = 0;
 
-	ret = snprintf(buf, BUF_SZ, "%d\n",
+	ret = scnprintf(buf, BUF_SZ, "%d\n",
 		this_afe_spk.xt_logging.count_exceeded_excursion[SP_V2_SPKR_1]);
 	this_afe_spk.xt_logging.count_exceeded_excursion[SP_V2_SPKR_1] = 0;
 	return ret;
@@ -75,7 +75,7 @@ static ssize_t sp_count_exceeded_excursion_r_show(struct device *dev,
 {
 	ssize_t ret = 0;
 
-	ret = snprintf(buf, BUF_SZ, "%d\n",
+	ret = scnprintf(buf, BUF_SZ, "%d\n",
 		this_afe_spk.xt_logging.count_exceeded_excursion[SP_V2_SPKR_2]);
 	this_afe_spk.xt_logging.count_exceeded_excursion[SP_V2_SPKR_2] = 0;
 	return ret;
@@ -94,7 +94,7 @@ static ssize_t sp_max_excursion_l_show(struct device *dev,
 	ex_val_frac = ex_q27/Q13;
 	ex_val_frac = (ex_val_frac * 10000)/(Q7 * Q7);
 	ex_val_frac /= 100;
-	ret = snprintf(buf, BUF_SZ, "%d.%02d\n", 0, ex_val_frac);
+	ret = scnprintf(buf, BUF_SZ, "%d.%02d\n", 0, ex_val_frac);
 	this_afe_spk.xt_logging.max_excursion[SP_V2_SPKR_1] = 0;
 	return ret;
 }
@@ -111,7 +111,7 @@ static ssize_t sp_max_excursion_r_show(struct device *dev,
 	ex_val_frac = ex_q27/Q13;
 	ex_val_frac = (ex_val_frac * 10000)/(Q7 * Q7);
 	ex_val_frac /= 100;
-	ret = snprintf(buf, BUF_SZ, "%d.%02d\n", 0, ex_val_frac);
+	ret = scnprintf(buf, BUF_SZ, "%d.%02d\n", 0, ex_val_frac);
 	this_afe_spk.xt_logging.max_excursion[SP_V2_SPKR_2] = 0;
 	return ret;
 }
@@ -123,7 +123,7 @@ static ssize_t sp_max_temperature_l_show(struct device *dev,
 {
 	ssize_t ret = 0;
 
-	ret = snprintf(buf, BUF_SZ, "%d\n",
+	ret = scnprintf(buf, BUF_SZ, "%d\n",
 		this_afe_spk.xt_logging.max_temperature[SP_V2_SPKR_1]/Q22);
 	this_afe_spk.xt_logging.max_temperature[SP_V2_SPKR_1] = 0;
 	return ret;
@@ -136,7 +136,7 @@ static ssize_t sp_max_temperature_r_show(struct device *dev,
 {
 	ssize_t ret = 0;
 
-	ret = snprintf(buf, BUF_SZ, "%d\n",
+	ret = scnprintf(buf, BUF_SZ, "%d\n",
 		this_afe_spk.xt_logging.max_temperature[SP_V2_SPKR_2]/Q22);
 	this_afe_spk.xt_logging.max_temperature[SP_V2_SPKR_2] = 0;
 	return ret;
@@ -147,7 +147,7 @@ static ssize_t sp_max_temperature_rd_l_show(struct device *dev,
 				struct device_attribute *attr,
 				char *buf)
 {
-	return snprintf(buf, BUF_SZ, "%d\n",
+	return scnprintf(buf, BUF_SZ, "%d\n",
 			this_afe_spk.max_temperature_rd[SP_V2_SPKR_1]/Q22);
 }
 static DEVICE_ATTR(max_temperature_rd, 0644,
@@ -157,7 +157,7 @@ static ssize_t sp_max_temperature_rd_r_show(struct device *dev,
 				struct device_attribute *attr,
 				char *buf)
 {
-	return snprintf(buf, BUF_SZ, "%d\n",
+	return scnprintf(buf, BUF_SZ, "%d\n",
 			this_afe_spk.max_temperature_rd[SP_V2_SPKR_2]/Q22);
 }
 static DEVICE_ATTR(max_temperature_rd_r, 0644,
@@ -167,7 +167,7 @@ static ssize_t q6afe_initial_cal_show(struct device *dev,
 				      struct device_attribute *attr,
 				      char *buf)
 {
-	return snprintf(buf, BUF_SZ, "%d\n", afe_get_spk_initial_cal());
+	return scnprintf(buf, BUF_SZ, "%d\n", afe_get_spk_initial_cal());
 }
 
 static ssize_t q6afe_initial_cal_store(struct device *dev,
@@ -194,7 +194,7 @@ static ssize_t q6afe_v_vali_flag_show(struct device *dev,
 				      struct device_attribute *attr,
 				      char *buf)
 {
-	return snprintf(buf, BUF_SZ, "%d\n", afe_get_spk_v_vali_flag());
+	return scnprintf(buf, BUF_SZ, "%d\n", afe_get_spk_v_vali_flag());
 }
 
 static ssize_t q6afe_v_vali_flag_store(struct device *dev,
@@ -224,7 +224,7 @@ static ssize_t q6afe_spk_r0_l_show(struct device *dev,
 	int r0[SP_V2_NUM_MAX_SPKRS];
 
 	afe_get_spk_r0(r0);
-	return snprintf(buf, BUF_SZ, "%d\n", r0[SP_V2_SPKR_1]);
+	return scnprintf(buf, BUF_SZ, "%d\n", r0[SP_V2_SPKR_1]);
 }
 
 static DEVICE_ATTR(spk_r0, 0644, q6afe_spk_r0_l_show, NULL);
@@ -236,7 +236,7 @@ static ssize_t q6afe_spk_t0_l_show(struct device *dev,
 	int t0[SP_V2_NUM_MAX_SPKRS];
 
 	afe_get_spk_t0(t0);
-	return snprintf(buf, BUF_SZ, "%d\n", t0[SP_V2_SPKR_1]);
+	return scnprintf(buf, BUF_SZ, "%d\n", t0[SP_V2_SPKR_1]);
 }
 
 static DEVICE_ATTR(spk_t0, 0644, q6afe_spk_t0_l_show, NULL);
@@ -248,7 +248,7 @@ static ssize_t q6afe_spk_r0_r_show(struct device *dev,
 	int r0[SP_V2_NUM_MAX_SPKRS];
 
 	afe_get_spk_r0(r0);
-	return snprintf(buf, BUF_SZ, "%d\n", r0[SP_V2_SPKR_2]);
+	return scnprintf(buf, BUF_SZ, "%d\n", r0[SP_V2_SPKR_2]);
 }
 
 static DEVICE_ATTR(spk_r0_r, 0644, q6afe_spk_r0_r_show, NULL);
@@ -260,7 +260,7 @@ static ssize_t q6afe_spk_t0_r_show(struct device *dev,
 	int t0[SP_V2_NUM_MAX_SPKRS];
 
 	afe_get_spk_t0(t0);
-	return snprintf(buf, BUF_SZ, "%d\n", t0[SP_V2_SPKR_2]);
+	return scnprintf(buf, BUF_SZ, "%d\n", t0[SP_V2_SPKR_2]);
 }
 
 static DEVICE_ATTR(spk_t0_r, 0644, q6afe_spk_t0_r_show, NULL);
@@ -272,7 +272,7 @@ static ssize_t q6afe_spk_v_vali_l_show(struct device *dev,
 	int v_vali_sts[SP_V2_NUM_MAX_SPKRS];
 
 	afe_get_spk_v_vali_sts(v_vali_sts);
-	return snprintf(buf, BUF_SZ, "%d\n", v_vali_sts[SP_V2_SPKR_1]);
+	return scnprintf(buf, BUF_SZ, "%d\n", v_vali_sts[SP_V2_SPKR_1]);
 }
 
 static DEVICE_ATTR(spk_v_vali_status, 0644, q6afe_spk_v_vali_l_show, NULL);
@@ -284,7 +284,7 @@ static ssize_t q6afe_spk_v_vali_r_show(struct device *dev,
 	int v_vali_sts[SP_V2_NUM_MAX_SPKRS];
 
 	afe_get_spk_v_vali_sts(v_vali_sts);
-	return snprintf(buf, BUF_SZ, "%d\n", v_vali_sts[SP_V2_SPKR_2]);
+	return scnprintf(buf, BUF_SZ, "%d\n", v_vali_sts[SP_V2_SPKR_2]);
 }
 
 static DEVICE_ATTR(spk_v_vali_r_status, 0644, q6afe_spk_v_vali_r_show, NULL);

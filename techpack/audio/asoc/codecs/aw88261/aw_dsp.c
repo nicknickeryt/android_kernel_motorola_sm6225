@@ -1184,7 +1184,7 @@ int aw_get_algo_version(struct aw_device *aw_dev, char *algo_ver_buf)
 			return ret;
 	} else {
 		algo_data = (char *)&algo_ver;
-		snprintf(algo_ver_buf, ALGO_VERSION_MAX, "aw_algo_v%d.%d.%d.%d",
+		scnprintf(algo_ver_buf, ALGO_VERSION_MAX, "aw_algo_v%d.%d.%d.%d",
 				algo_data[3], algo_data[2], algo_data[1], algo_data[0]);
 	}
 

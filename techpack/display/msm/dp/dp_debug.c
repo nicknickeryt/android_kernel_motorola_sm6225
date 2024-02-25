@@ -293,7 +293,7 @@ static ssize_t dp_debug_read_dpcd(struct file *file,
 	if (!buf)
 		goto end;
 
-	len += snprintf(buf, buf_size, "0x%x", debug->aux->reg);
+	len += scnprintf(buf, buf_size, "0x%x", debug->aux->reg);
 
 	if (!debug->aux->read) {
 		while (1) {
@@ -301,7 +301,7 @@ static ssize_t dp_debug_read_dpcd(struct file *file,
 			    offset >= debug->aux->size)
 				break;
 
-			len += snprintf(buf + len, buf_size - len, "0x%x",
+			len += scnprintf(buf + len, buf_size - len, "0x%x",
 				debug->dpcd[debug->aux->reg + offset++]);
 		}
 
@@ -733,7 +733,7 @@ static ssize_t dp_debug_max_pclk_khz_read(struct file *file,
 	if (ZERO_OR_NULL_PTR(buf))
 		return -ENOMEM;
 
-	len += snprintf(buf + len, (SZ_4K - len),
+	len += scnprintf(buf + len, (SZ_4K - len),
 			"max_pclk_khz = %d, org: %d\n",
 			debug->dp_debug.max_pclk_khz,
 			debug->parser->max_pclk_khz);
@@ -898,7 +898,7 @@ static ssize_t dp_debug_read_connected(struct file *file,
 	if (*ppos)
 		return 0;
 
-	len += snprintf(buf, SZ_8, "%d\n", debug->hpd->hpd_high);
+	len += scnprintf(buf, SZ_8, "%d\n", debug->hpd->hpd_high);
 
 	len = min_t(size_t, count, len);
 	if (copy_to_user(user_buff, buf, len))
@@ -1006,7 +1006,7 @@ static ssize_t dp_debug_read_edid_modes(struct file *file,
 
 	mutex_lock(&connector->dev->mode_config.mutex);
 	list_for_each_entry(mode, &connector->modes, head) {
-		ret = snprintf(buf + len, max_size,
+		ret = scnprintf(buf + len, max_size,
 		"%s %d %d %d %d %d 0x%x\n",
 		mode->name, mode->vrefresh, mode->picture_aspect_ratio,
 		mode->htotal, mode->vtotal, mode->clock, mode->flags);
@@ -1081,7 +1081,7 @@ static ssize_t dp_debug_read_edid_modes_mst(struct file *file,
 
 	mutex_lock(&connector->dev->mode_config.mutex);
 	list_for_each_entry(mode, &connector->modes, head) {
-		ret = snprintf(buf + len, max_size,
+		ret = scnprintf(buf + len, max_size,
 				"%s %d %d %d %d %d 0x%x\n",
 				mode->name, mode->vrefresh,
 				mode->picture_aspect_ratio, mode->htotal,
@@ -1129,7 +1129,7 @@ static ssize_t dp_debug_read_mst_con_id(struct file *file,
 		goto error;
 	}
 
-	ret = snprintf(buf, max_size, "%u\n", debug->mst_con_id);
+	ret = scnprintf(buf, max_size, "%u\n", debug->mst_con_id);
 	len += ret;
 
 	len = min_t(size_t, count, len);
@@ -1229,59 +1229,59 @@ static ssize_t dp_debug_read_info(struct file *file, char __user *user_buff,
 	if (ZERO_OR_NULL_PTR(buf))
 		return -ENOMEM;
 
-	rc = snprintf(buf + len, max_size, "\tstate=0x%x\n", debug->aux->state);
+	rc = scnprintf(buf + len, max_size, "\tstate=0x%x\n", debug->aux->state);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "\tlink_rate=%u\n",
+	rc = scnprintf(buf + len, max_size, "\tlink_rate=%u\n",
 		debug->panel->link_info.rate);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "\tnum_lanes=%u\n",
+	rc = scnprintf(buf + len, max_size, "\tnum_lanes=%u\n",
 		debug->panel->link_info.num_lanes);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "\tresolution=%dx%d@%dHz\n",
+	rc = scnprintf(buf + len, max_size, "\tresolution=%dx%d@%dHz\n",
 		debug->panel->pinfo.h_active,
 		debug->panel->pinfo.v_active,
 		debug->panel->pinfo.refresh_rate);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "\tpclock=%dKHz\n",
+	rc = scnprintf(buf + len, max_size, "\tpclock=%dKHz\n",
 		debug->panel->pinfo.pixel_clk_khz);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "\tbpp=%d\n",
+	rc = scnprintf(buf + len, max_size, "\tbpp=%d\n",
 		debug->panel->pinfo.bpp);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
 	/* Link Information */
-	rc = snprintf(buf + len, max_size, "\ttest_req=%s\n",
+	rc = scnprintf(buf + len, max_size, "\ttest_req=%s\n",
 		dp_link_get_test_name(debug->link->sink_request));
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size,
+	rc = scnprintf(buf + len, max_size,
 		"\tlane_count=%d\n", debug->link->link_params.lane_count);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size,
+	rc = scnprintf(buf + len, max_size,
 		"\tbw_code=%d\n", debug->link->link_params.bw_code);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size,
+	rc = scnprintf(buf + len, max_size,
 		"\tv_level=%d\n", debug->link->phy_params.v_level);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size,
+	rc = scnprintf(buf + len, max_size,
 		"\tp_level=%d\n", debug->link->phy_params.p_level);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
@@ -1316,7 +1316,7 @@ static ssize_t dp_debug_bw_code_read(struct file *file,
 	if (ZERO_OR_NULL_PTR(buf))
 		return -ENOMEM;
 
-	len += snprintf(buf + len, (SZ_4K - len),
+	len += scnprintf(buf + len, (SZ_4K - len),
 			"max_bw_code = %d\n", debug->panel->max_bw_code);
 
 	len = min_t(size_t, count, len);
@@ -1343,7 +1343,7 @@ static ssize_t dp_debug_tpg_read(struct file *file,
 	if (*ppos)
 		return 0;
 
-	len += snprintf(buf, SZ_8, "%d\n", debug->dp_debug.tpg_state);
+	len += scnprintf(buf, SZ_8, "%d\n", debug->dp_debug.tpg_state);
 
 	len = min_t(size_t, count, len);
 	if (copy_to_user(user_buff, buf, len))
@@ -1367,96 +1367,96 @@ static int dp_debug_print_hdr_params_to_buf(struct drm_connector *connector,
 
 	hdr = &c_state->hdr_meta;
 
-	rc = snprintf(buf + len, max_size,
+	rc = scnprintf(buf + len, max_size,
 		"============SINK HDR PARAMETERS===========\n");
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "eotf = %d\n",
+	rc = scnprintf(buf + len, max_size, "eotf = %d\n",
 		connector->hdr_eotf);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "type_one = %d\n",
+	rc = scnprintf(buf + len, max_size, "type_one = %d\n",
 		connector->hdr_metadata_type_one);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "hdr_plus_app_ver = %d\n",
+	rc = scnprintf(buf + len, max_size, "hdr_plus_app_ver = %d\n",
 		connector->hdr_plus_app_ver);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "max_luminance = %d\n",
+	rc = scnprintf(buf + len, max_size, "max_luminance = %d\n",
 		connector->hdr_max_luminance);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "avg_luminance = %d\n",
+	rc = scnprintf(buf + len, max_size, "avg_luminance = %d\n",
 		connector->hdr_avg_luminance);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "min_luminance = %d\n",
+	rc = scnprintf(buf + len, max_size, "min_luminance = %d\n",
 		connector->hdr_min_luminance);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size,
+	rc = scnprintf(buf + len, max_size,
 		"============VIDEO HDR PARAMETERS===========\n");
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "hdr_state = %d\n", hdr->hdr_state);
+	rc = scnprintf(buf + len, max_size, "hdr_state = %d\n", hdr->hdr_state);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "hdr_supported = %d\n",
+	rc = scnprintf(buf + len, max_size, "hdr_supported = %d\n",
 			hdr->hdr_supported);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "eotf = %d\n", hdr->eotf);
+	rc = scnprintf(buf + len, max_size, "eotf = %d\n", hdr->eotf);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "white_point_x = %d\n",
+	rc = scnprintf(buf + len, max_size, "white_point_x = %d\n",
 		hdr->white_point_x);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "white_point_y = %d\n",
+	rc = scnprintf(buf + len, max_size, "white_point_y = %d\n",
 		hdr->white_point_y);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "max_luminance = %d\n",
+	rc = scnprintf(buf + len, max_size, "max_luminance = %d\n",
 		hdr->max_luminance);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "min_luminance = %d\n",
+	rc = scnprintf(buf + len, max_size, "min_luminance = %d\n",
 		hdr->min_luminance);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "max_content_light_level = %d\n",
+	rc = scnprintf(buf + len, max_size, "max_content_light_level = %d\n",
 		hdr->max_content_light_level);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
-	rc = snprintf(buf + len, max_size, "min_content_light_level = %d\n",
+	rc = scnprintf(buf + len, max_size, "min_content_light_level = %d\n",
 		hdr->max_average_light_level);
 	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 		goto error;
 
 	for (i = 0; i < HDR_PRIMARIES_COUNT; i++) {
-		rc = snprintf(buf + len, max_size, "primaries_x[%d] = %d\n",
+		rc = scnprintf(buf + len, max_size, "primaries_x[%d] = %d\n",
 			i, hdr->display_primaries_x[i]);
 		if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 			goto error;
 
-		rc = snprintf(buf + len, max_size, "primaries_y[%d] = %d\n",
+		rc = scnprintf(buf + len, max_size, "primaries_y[%d] = %d\n",
 			i, hdr->display_primaries_y[i]);
 		if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
 			goto error;
@@ -1472,7 +1472,7 @@ static int dp_debug_print_hdr_params_to_buf(struct drm_connector *connector,
 		 * instead use kernel's cached copy of payload data.
 		 */
 		for (i = 0; i < dhdr->dynamic_hdr_payload_size; i += rowsize) {
-			rc = snprintf(buf + len, max_size, "DHDR: ");
+			rc = scnprintf(buf + len, max_size, "DHDR: ");
 			if (dp_debug_check_buffer_overflow(rc, &max_size,
 					&len))
 				goto error;
@@ -1485,7 +1485,7 @@ static int dp_debug_print_hdr_params_to_buf(struct drm_connector *connector,
 					&len))
 				goto error;
 
-			rc = snprintf(buf + len, max_size, "\n");
+			rc = scnprintf(buf + len, max_size, "\n");
 			if (dp_debug_check_buffer_overflow(rc, &max_size,
 					&len))
 				goto error;
@@ -1764,7 +1764,7 @@ static ssize_t dp_debug_read_dump(struct file *file,
 	if (rc)
 		goto end;
 
-	snprintf(prefix, sizeof(prefix), "%s: ", debug->reg_dump);
+	scnprintf(prefix, sizeof(prefix), "%s: ", debug->reg_dump);
 	print_hex_dump(KERN_DEBUG, prefix, DUMP_PREFIX_NONE,
 		16, 4, buf, len, false);
 

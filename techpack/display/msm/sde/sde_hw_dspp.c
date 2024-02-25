@@ -353,7 +353,7 @@ struct sde_hw_dspp *sde_hw_dspp_init(enum sde_dspp idx,
 	}
 
 	if ((cfg->sblk->rc.id == SDE_DSPP_RC) && cfg->sblk->rc.base) {
-		snprintf(buf, ARRAY_SIZE(buf), "%s_%d", "rc", c->idx - DSPP_0);
+		scnprintf(buf, ARRAY_SIZE(buf), "%s_%d", "rc", c->idx - DSPP_0);
 		sde_dbg_reg_register_dump_range(SDE_DBG_NAME, buf,
 				c->hw.blk_off + cfg->sblk->rc.base,
 				c->hw.blk_off + cfg->sblk->rc.base +

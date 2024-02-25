@@ -79,7 +79,7 @@ static int aw_cali_write_cali_re_to_file(int32_t cali_re, int channel)
 
 	pos = AW_INT_DEC_DIGIT * channel;
 
-	snprintf(buf, sizeof(buf), "%10d", cali_re);
+	scnprintf(buf, sizeof(buf), "%10d", cali_re);
 
 	fs = get_fs();
 	set_fs(KERNEL_DS);
@@ -896,7 +896,7 @@ static ssize_t aw_cali_attr_time_show(struct device *dev,
 {
 	ssize_t len = 0;
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"time: %d \n", g_cali_re_time);
 
 	return len;
@@ -976,21 +976,21 @@ static ssize_t aw_cali_attr_re_show(struct device *dev,
 
 	ret = aw_cali_svc_cali_cmd(aw_dev, AW_CALI_CMD_RE, is_single_cali, CALI_OPS_HMUTE);
 	if (ret < 0) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "cali Re cmd failed\n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, "cali Re cmd failed\n");
 		return len;
 	}
 
 	if (is_single_cali) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_re);
+		len += scnprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_re);
 	} else {
 		ret = aw_cali_svc_get_devs_cali_re(aw_dev, cali_re, AW_DEV_CH_MAX);
 		if (ret <= 0) {
 			aw_dev_err(aw_dev->dev, "get re failed ");
-			len += snprintf(buf+len, PAGE_SIZE-len, "get re failed\n");
+			len += scnprintf(buf+len, PAGE_SIZE-len, "get re failed\n");
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
-			len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+				len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
+			len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 		}
 	}
 
@@ -1018,21 +1018,21 @@ static ssize_t aw_cali_attr_f0_show(struct device *dev,
 
 	ret = aw_cali_svc_cali_cmd(aw_dev, AW_CALI_CMD_F0, is_single_cali, CALI_OPS_NOISE);
 	if (ret < 0) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "cali f0 cmd failed\n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, "cali f0 cmd failed\n");
 		return len;
 	}
 
 	if (is_single_cali) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_f0);
+		len += scnprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_f0);
 	} else {
 		ret = aw_cali_svc_get_devs_cali_f0(aw_dev, cali_f0, AW_DEV_CH_MAX);
 		if (ret <= 0) {
 			aw_dev_err(aw_dev->dev, "get f0 failed ");
-			len += snprintf(buf+len, PAGE_SIZE-len, "get f0 failed \n");
+			len += scnprintf(buf+len, PAGE_SIZE-len, "get f0 failed \n");
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
-			len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+				len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
+			len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 		}
 	}
 
@@ -1049,16 +1049,16 @@ static ssize_t aw_cali_attr_show_re(struct device *dev,
 	int32_t cali_re[AW_DEV_CH_MAX] = {0};
 
 	if (is_single_cali) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_re);
+		len += scnprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_re);
 	} else {
 		ret = aw_cali_svc_get_devs_cali_re(aw_dev, cali_re, AW_DEV_CH_MAX);
 		if (ret <= 0) {
 			aw_dev_err(aw_dev->dev, "get re failed ");
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
+				len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
 		}
-		len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 	}
 
 	return len;
@@ -1074,15 +1074,15 @@ static ssize_t aw_cali_attr_show_f0(struct device *dev,
 	int32_t cali_f0[AW_DEV_CH_MAX] = {0};
 
 	if (is_single_cali) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_f0);
+		len += scnprintf(buf+len, PAGE_SIZE-len, "%d\n", aw_dev->cali_desc.cali_f0);
 	} else {
 		ret = aw_cali_svc_get_devs_cali_f0(aw_dev, cali_f0, AW_DEV_CH_MAX);
 		if (ret <= 0) {
 			aw_dev_err(aw_dev->dev, "get f0 failed ");
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
-			len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+				len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
+			len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 		}
 	}
 
@@ -1147,7 +1147,7 @@ static ssize_t aw_cali_class_time_show(struct  class *class, struct class_attrib
 {
 	ssize_t len = 0;
 
-	len += snprintf(buf+len, PAGE_SIZE-len,
+	len += scnprintf(buf+len, PAGE_SIZE-len,
 		"time: %d \n", g_cali_re_time);
 
 	return len;
@@ -1196,18 +1196,18 @@ static ssize_t aw_cali_class_cali_re_show(struct  class *class, struct class_att
 
 	ret = aw_cali_svc_cali_cmd(local_dev, AW_CALI_CMD_RE, false, CALI_OPS_HMUTE);
 	if (ret < 0) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "cali Re cmd failed\n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, "cali Re cmd failed\n");
 		return len;
 	}
 
 	ret = aw_cali_svc_get_devs_cali_re(local_dev, cali_re, AW_DEV_CH_MAX);
 	if (ret <= 0) {
 		aw_dev_err(local_dev->dev, "get re failed ");
-		len += snprintf(buf+len, PAGE_SIZE-len, "get re failed \n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, "get re failed \n");
 	} else {
 		for (i = 0; i < ret; i++)
-			len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
-		len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+			len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
+		len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 	}
 
 	return len;
@@ -1255,18 +1255,18 @@ static ssize_t aw_cali_class_cali_f0_show(struct  class *class, struct class_att
 
 	ret = aw_cali_svc_cali_cmd(local_dev, AW_CALI_CMD_F0, false, CALI_OPS_NOISE);
 	if (ret < 0) {
-		len += snprintf(buf+len, PAGE_SIZE-len, "cali f0 cmd failed\n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, "cali f0 cmd failed\n");
 		return len;
 	}
 
 	ret = aw_cali_svc_get_devs_cali_f0(local_dev, cali_f0, AW_DEV_CH_MAX);
 	if (ret <= 0) {
 		aw_dev_err(local_dev->dev, "get f0 failed ");
-		len += snprintf(buf+len, PAGE_SIZE-len, "get f0 failed \n");
+		len += scnprintf(buf+len, PAGE_SIZE-len, "get f0 failed \n");
 	} else {
 		for (i = 0; i < ret; i++)
-			len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
-		len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+			len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
+		len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 	}
 
 	return len;
@@ -1313,8 +1313,8 @@ static ssize_t aw_cali_class_f0_show(struct  class *class, struct class_attribut
 		aw_dev_err(local_dev->dev, "get re failed ");
 	} else {
 		for (i = 0; i < ret; i++)
-			len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
-		len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+			len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d ", ch_name[i], cali_f0[i]);
+		len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 	}
 
 	return len;
@@ -1341,8 +1341,8 @@ static ssize_t aw_cali_class_re_show(struct  class *class, struct class_attribut
 		aw_dev_err(local_dev->dev, "get re failed ");
 	} else {
 		for (i = 0; i < ret; i++)
-			len += snprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
-		len += snprintf(buf+len, PAGE_SIZE-len, " \n");
+			len += scnprintf(buf+len, PAGE_SIZE-len, "%s:%d mOhms ", ch_name[i], cali_re[i]);
+		len += scnprintf(buf+len, PAGE_SIZE-len, " \n");
 	}
 
 	return len;
@@ -1819,10 +1819,10 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 			return ret;
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(local_buf+len, sizeof(local_buf)-len,
+				len += scnprintf(local_buf+len, sizeof(local_buf)-len,
 							"%s:%d mOhms ", ch_name[i], temp_data[i]);
 
-			len += snprintf(local_buf+len, sizeof(local_buf)-len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf)-len, "\n");
 		}
 	} break;
 	case CALI_STR_SHOW_CALI_F0: {
@@ -1832,10 +1832,10 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 			return ret;
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(local_buf+len, sizeof(local_buf)-len,
+				len += scnprintf(local_buf+len, sizeof(local_buf)-len,
 							"%s:%d ", ch_name[i], temp_data[i]);
 
-			len += snprintf(local_buf+len, sizeof(local_buf)-len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf)-len, "\n");
 		}
 	} break;
 	case CALI_STR_SHOW_R0: {
@@ -1845,9 +1845,9 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 			return ret;
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(local_buf+len, sizeof(local_buf)-len,
+				len += scnprintf(local_buf+len, sizeof(local_buf)-len,
 							"%s:%d mOhms ", ch_name[i], temp_data[i]);
-			len += snprintf(local_buf+len, sizeof(local_buf)-len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf)-len, "\n");
 		}
 	} break;
 	case CALI_STR_SHOW_TE: {
@@ -1857,9 +1857,9 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 			return ret;
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(local_buf+len, sizeof(local_buf)-len,
+				len += scnprintf(local_buf+len, sizeof(local_buf)-len,
 							"%s:%d ", ch_name[i], temp_data[i]);
-			len += snprintf(local_buf+len, sizeof(local_buf)-len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf)-len, "\n");
 		}
 	} break;
 	case CALI_STR_SHOW_ST: {
@@ -1869,11 +1869,11 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 			return ret;
 		} else {
 			for (i = 0; i < ret; i++) {
-				len += snprintf(local_buf+len, sizeof(local_buf)-len,
+				len += scnprintf(local_buf+len, sizeof(local_buf)-len,
 							"%s:R0 %d mOhms Te %d ",
 						ch_name[i], temp_data[i << 1], temp_data[(i << 1) + 1]);
 			}
-			len += snprintf(local_buf+len, sizeof(local_buf)-len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf)-len, "\n");
 		}
 	} break;
 	case CALI_STR_SHOW_F0: {
@@ -1883,10 +1883,10 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 			return ret;
 		} else {
 			for (i = 0; i < ret; i++)
-				len += snprintf(local_buf+len, sizeof(local_buf)-len,
+				len += scnprintf(local_buf+len, sizeof(local_buf)-len,
 							"%s:%d ", ch_name[i], temp_data[i]);
 
-			len += snprintf(local_buf+len, sizeof(local_buf) - len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf) - len, "\n");
 		}
 	} break;
 	case CALI_STR_VER: {
@@ -1896,7 +1896,7 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 				aw_dev_err(aw_dev->dev, "get version failed");
 				return -EINVAL;
 			}
-			len += snprintf(local_buf+len, sizeof(local_buf) - len, "\n");
+			len += scnprintf(local_buf+len, sizeof(local_buf) - len, "\n");
 		} else {
 			aw_dev_err(aw_dev->dev, "get version is NULL");
 			return -EINVAL;
@@ -1905,7 +1905,7 @@ static ssize_t aw_cali_misc_read(struct file *filp, char __user *buf, size_t siz
 	case CALI_STR_DEV_NUM: {
 		if (aw_dev->ops.aw_get_dev_num) {
 			dev_num = aw_dev->ops.aw_get_dev_num();
-			len += snprintf(local_buf + len, sizeof(local_buf) - len, "dev_num:%d\n", dev_num);
+			len += scnprintf(local_buf + len, sizeof(local_buf) - len, "dev_num:%d\n", dev_num);
 		} else {
 			aw_dev_err(aw_dev->dev, "get dev num is NULL");
 			return -EINVAL;

@@ -338,12 +338,12 @@ static int dsi_panel_get_cmd_pkt_count(const char *data, u32 length, u32 *cnt)
 		}
 #if 1 //print data
 		if (pbuf) {
-			snprintf(pbuf, PAGE_SIZE, "packet_data:   %2x  %2x  %2x  %2x  %2x   %2x  %2x  ",
+			scnprintf(pbuf, PAGE_SIZE, "packet_data:   %2x  %2x  %2x  %2x  %2x   %2x  %2x  ",
 				data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
 		}
 		for (i=0; i<tmp; i++) {
 			memset(tembuf, 0, 8);
-			snprintf(tembuf, 8, " %2x ", data[cmd_set_min_size+i]);
+			scnprintf(tembuf, 8, " %2x ", data[cmd_set_min_size+i]);
 			strcat(pbuf, tembuf);
 		}
 		strcat(pbuf, "\n");
@@ -930,7 +930,7 @@ static ssize_t dsi_display_early_power_read(struct device *dev,
 		return -EINVAL;
 	}
 
-	rc = snprintf(buf, PAGE_SIZE, "%d\n", display->dsi_mot_ext.early_power_state);
+	rc = scnprintf(buf, PAGE_SIZE, "%d\n", display->dsi_mot_ext.early_power_state);
 	pr_info("%s: early_power_state %d\n", __func__,
 		display->dsi_mot_ext.early_power_state);
 
@@ -966,7 +966,7 @@ static ssize_t dsi_display_wakup_get(struct device *dev,
 {
 	int rc = 0;
 
-	rc = snprintf(buf, PAGE_SIZE, "%s: timerhandle:%p\n",  (g_wakeup_timer_interval==0)? "Stopped":"Started", g_wakeup_timer);
+	rc = scnprintf(buf, PAGE_SIZE, "%s: timerhandle:%p\n",  (g_wakeup_timer_interval==0)? "Stopped":"Started", g_wakeup_timer);
 	pr_info("%s:  %s: timerhandle:%p\n", __func__,  (g_wakeup_timer_interval==0)? "Stopped":"Started", g_wakeup_timer);
 
 	return rc;
@@ -1021,7 +1021,7 @@ static ssize_t dsi_display_early_test_en_get(struct device *dev,
 {
 	int rc = 0;
 
-	rc = snprintf(buf, PAGE_SIZE, "g_early_power_test_en: %d\n",   g_early_power_test_en);
+	rc = scnprintf(buf, PAGE_SIZE, "g_early_power_test_en: %d\n",   g_early_power_test_en);
 	pr_info("g_early_power_test_en:%d\n", g_early_power_test_en);
 
 	return rc;
@@ -1056,11 +1056,11 @@ static void dsi_display_show_para(char* buf, char* pbuf, enum dsi_cmd_set_type t
 	int count = priv_info->cmd_sets[type].count;
 
 	memset(pbuf, 0, PAGE_SIZE);
-	rc = snprintf(pbuf, PAGE_SIZE, "##Command for %s: count:%d ====\n", cmd_set_prop_map[type], count);
+	rc = scnprintf(pbuf, PAGE_SIZE, "##Command for %s: count:%d ====\n", cmd_set_prop_map[type], count);
 	strcat(buf, pbuf);
 	memset(pbuf, 0, PAGE_SIZE);
 	for (i=0; i<count; i++) {
-	rc = snprintf(pbuf, PAGE_SIZE, "%2x %2x %2x %2x %2x %2x   %2x ",
+	rc = scnprintf(pbuf, PAGE_SIZE, "%2x %2x %2x %2x %2x %2x   %2x ",
 			priv_info->cmd_sets[type].cmds[i].msg.type, 		//data0
 			priv_info->cmd_sets[type].cmds[i].last_command, 	//data1
 			priv_info->cmd_sets[type].cmds[i].msg.channel,	//data2
@@ -1073,7 +1073,7 @@ static void dsi_display_show_para(char* buf, char* pbuf, enum dsi_cmd_set_type t
 		data = (u8*)priv_info->cmd_sets[type].cmds[i].msg.tx_buf;
 		for (j=0; j<priv_info->cmd_sets[type].cmds[i].msg.tx_len; j++) {
 			memset(pbuf, 0, PAGE_SIZE);
-			rc = snprintf(pbuf, PAGE_SIZE, " %2x ", data[j]);
+			rc = scnprintf(pbuf, PAGE_SIZE, " %2x ", data[j]);
 			strcat(buf, pbuf);
 		}
 		strcat(buf, "\n");
@@ -1106,22 +1106,22 @@ static ssize_t dsi_display_parse_para_get(struct device *dev,
 		psubbuf = kzalloc(PAGE_SIZE, GFP_KERNEL);
 		if (!psubbuf)
 			return rc;
-		rc = snprintf(psubbuf, PAGE_SIZE, "panel horz active:%d front_portch:%d back_porch:%d pulse_width:%d h_skew:%d\n",
+		rc = scnprintf(psubbuf, PAGE_SIZE, "panel horz active:%d front_portch:%d back_porch:%d pulse_width:%d h_skew:%d\n",
 			mode_timing->h_active, mode_timing->h_front_porch, mode_timing->h_back_porch, 	mode_timing->h_sync_width, mode_timing->h_skew);
 		strcat(pbuf, psubbuf);
 		memset(psubbuf, 0, PAGE_SIZE);
-		rc = snprintf(psubbuf, PAGE_SIZE, "panel vert active:%d front_portch:%d back_porch:%d pulse_width:%d\n",
+		rc = scnprintf(psubbuf, PAGE_SIZE, "panel vert active:%d front_portch:%d back_porch:%d pulse_width:%d\n",
 			mode_timing->v_active, mode_timing->v_front_porch, mode_timing->v_back_porch, 	mode_timing->v_sync_width);
 		strcat(pbuf, psubbuf);
 		memset(psubbuf, 0, PAGE_SIZE);
-		rc = snprintf(psubbuf, PAGE_SIZE, "panel clk rate:%d mdp_transfer_time_us:%d refresh_rate:%d\n",
+		rc = scnprintf(psubbuf, PAGE_SIZE, "panel clk rate:%d mdp_transfer_time_us:%d refresh_rate:%d\n",
 			display_mode->priv_info->clk_rate_hz , display_mode->priv_info->mdp_transfer_time_us, mode_timing->refresh_rate);
 		strcat(pbuf, psubbuf);
 		memset(psubbuf, 0, PAGE_SIZE);
 		dsi_display_show_para(pbuf, psubbuf, DSI_CMD_SET_ON, priv_info);
 		dsi_display_show_para(pbuf, psubbuf, DSI_CMD_SET_OFF, priv_info);
 		dsi_display_show_para(pbuf, psubbuf, DSI_CMD_SET_TIMING_SWITCH, priv_info);
-		rc = snprintf(buf, PAGE_SIZE, "%s\n", pbuf);
+		rc = scnprintf(buf, PAGE_SIZE, "%s\n", pbuf);
 		printk("%s\n", buf);
 
 	} else {

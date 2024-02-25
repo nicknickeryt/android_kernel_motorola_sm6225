@@ -4450,7 +4450,7 @@ static void voice_mic_break_work_fn(struct work_struct *work)
 	struct voice_data *v = container_of(work, struct voice_data,
 						voice_mic_break_work);
 
-	snprintf(event, sizeof(event), "MIC_BREAK_STATUS=%s",
+	scnprintf(event, sizeof(event), "MIC_BREAK_STATUS=%s",
 			v->mic_break_status ? "TRUE" : "FALSE");
 
 	mutex_lock(&common.common_lock);

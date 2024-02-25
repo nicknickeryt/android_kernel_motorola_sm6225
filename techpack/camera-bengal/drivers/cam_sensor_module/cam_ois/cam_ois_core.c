@@ -313,9 +313,9 @@ static int cam_ois_fw_download(struct cam_ois_ctrl_t *o_ctrl)
 		return -EINVAL;
 	}
 
-	snprintf(name_coeff, 32, "%s.coeff", o_ctrl->ois_name);
+	scnprintf(name_coeff, 32, "%s.coeff", o_ctrl->ois_name);
 
-	snprintf(name_prog, 32, "%s.prog", o_ctrl->ois_name);
+	scnprintf(name_prog, 32, "%s.prog", o_ctrl->ois_name);
 
 	/* cast pointer as const pointer*/
 	fw_name_prog = name_prog;

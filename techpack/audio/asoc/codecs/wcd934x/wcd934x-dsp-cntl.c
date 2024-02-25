@@ -165,7 +165,7 @@ static void wcd_cntl_collect_debug_dumps(struct wcd_dsp_cntl *cntl,
 
 static ssize_t wdsp_boot_show(struct wcd_dsp_cntl *cntl, char *buf)
 {
-	return snprintf(buf, WCD_SYSFS_ENTRY_MAX_LEN,
+	return scnprintf(buf, WCD_SYSFS_ENTRY_MAX_LEN,
 			"%u", cntl->boot_reqs);
 }
 
@@ -287,7 +287,7 @@ static ssize_t wdsp_ssr_entry_read(struct snd_info_entry *entry,
 	rmb();
 	dev_dbg(cntl->component->dev, "%s: offline = %s\n", __func__,
 		offline ? "true" : "false");
-	len = snprintf(buffer, sizeof(buffer), "%s\n",
+	len = scnprintf(buffer, sizeof(buffer), "%s\n",
 		       offline ? "OFFLINE" : "ONLINE");
 	ret = simple_read_from_buffer(buf, count, &pos, buffer, len);
 	WCD_CNTL_MUTEX_UNLOCK(cntl->component, cntl->ssr_mutex);
@@ -1122,7 +1122,7 @@ static const struct file_operations wcd_miscdev_fops = {
 
 static int wcd_cntl_miscdev_create(struct wcd_dsp_cntl *cntl)
 {
-	snprintf(cntl->miscdev_name, ARRAY_SIZE(cntl->miscdev_name),
+	scnprintf(cntl->miscdev_name, ARRAY_SIZE(cntl->miscdev_name),
 		"wcd_dsp%u_control", cntl->dsp_instance);
 	cntl->miscdev.minor = MISC_DYNAMIC_MINOR;
 	cntl->miscdev.name = cntl->miscdev_name;
@@ -1280,7 +1280,7 @@ static int wcd_ctrl_component_bind(struct device *dev,
 		goto done;
 	}
 
-	snprintf(wcd_cntl_dir_name, WCD_CNTL_DIR_NAME_LEN_MAX,
+	scnprintf(wcd_cntl_dir_name, WCD_CNTL_DIR_NAME_LEN_MAX,
 		 "%s%d", "wdsp", cntl->dsp_instance);
 	ret = wcd_cntl_sysfs_init(wcd_cntl_dir_name, cntl);
 	if (ret < 0) {
@@ -1293,7 +1293,7 @@ static int wcd_ctrl_component_bind(struct device *dev,
 
 	component = cntl->component;
 	card = component->card->snd_card;
-	snprintf(proc_name, WCD_PROCFS_ENTRY_MAX_LEN, "%s%d%s", "cpe",
+	scnprintf(proc_name, WCD_PROCFS_ENTRY_MAX_LEN, "%s%d%s", "cpe",
 		 cntl->dsp_instance, "_state");
 	entry = snd_info_create_card_entry(card, proc_name, card->proc_root);
 	if (!entry) {

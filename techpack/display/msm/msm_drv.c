@@ -205,7 +205,7 @@ struct clk *msm_clk_bulk_get_clock(struct clk_bulk_data *bulk, int count,
 	int i;
 	char n[32];
 
-	snprintf(n, sizeof(n), "%s_clk", name);
+	scnprintf(n, sizeof(n), "%s_clk", name);
 
 	for (i = 0; bulk && i < count; i++) {
 		if (!strcmp(bulk[i].id, name) || !strcmp(bulk[i].id, n))
@@ -225,7 +225,7 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
 	if (!IS_ERR(clk) || PTR_ERR(clk) == -EPROBE_DEFER)
 		return clk;
 
-	snprintf(name2, sizeof(name2), "%s_clk", name);
+	scnprintf(name2, sizeof(name2), "%s_clk", name);
 
 	clk = devm_clk_get(&pdev->dev, name2);
 	if (!IS_ERR(clk))
@@ -741,7 +741,7 @@ static ssize_t idle_encoder_mask_show(struct device *device,
 	struct msm_drm_private *priv = ddev->dev_private;
 	struct msm_idle *idle = &priv->idle;
 
-	return snprintf(buf, PAGE_SIZE, "0x%x\n", idle->encoder_mask);
+	return scnprintf(buf, PAGE_SIZE, "0x%x\n", idle->encoder_mask);
 }
 
 static ssize_t idle_timeout_ms_store(struct device *device,

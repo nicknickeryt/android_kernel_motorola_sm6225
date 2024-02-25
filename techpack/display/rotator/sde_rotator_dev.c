@@ -994,7 +994,7 @@ struct sde_rotator_ctx *sde_rotator_ctx_open(
 		goto error_alloc_kthread;
 	}
 
-	snprintf(name, sizeof(name), "%d_%d", rot_dev->dev->id,
+	scnprintf(name, sizeof(name), "%d_%d", rot_dev->dev->id,
 			ctx->session_id);
 	ctx->work_queue.timeline = sde_rotator_create_timeline(name);
 	if (!ctx->work_queue.timeline)
@@ -3637,7 +3637,7 @@ static int sde_rotator_probe(struct platform_device *pdev)
 	rot_dev->debugfs_root = sde_rotator_create_debugfs(rot_dev);
 
 	for (i = 0; i < MAX_ROT_OPEN_SESSION; i++) {
-		snprintf(name, sizeof(name), "rot_fenceq_%d_%d",
+		scnprintf(name, sizeof(name), "rot_fenceq_%d_%d",
 			rot_dev->dev->id, i);
 		kthread_init_worker(&rot_dev->rot_kw[i]);
 		rot_dev->rot_thread[i] = kthread_run(kthread_worker_fn,

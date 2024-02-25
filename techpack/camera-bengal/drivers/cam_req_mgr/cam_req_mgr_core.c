@@ -3381,7 +3381,7 @@ int cam_req_mgr_link(struct cam_req_mgr_ver_info *link_info)
 	spin_unlock_bh(&link->link_state_spin_lock);
 
 	/* Create worker for current link */
-	snprintf(buf, sizeof(buf), "%x-%x",
+	scnprintf(buf, sizeof(buf), "%x-%x",
 		link_info->u.link_info_v1.session_hdl, link->link_hdl);
 	wq_flag = CAM_WORKQ_FLAG_HIGH_PRIORITY | CAM_WORKQ_FLAG_SERIAL;
 	rc = cam_req_mgr_workq_create(buf, CRM_WORKQ_NUM_TASKS,
@@ -3492,7 +3492,7 @@ int cam_req_mgr_link_v2(struct cam_req_mgr_ver_info *link_info)
 	spin_unlock_bh(&link->link_state_spin_lock);
 
 	/* Create worker for current link */
-	snprintf(buf, sizeof(buf), "%x-%x",
+	scnprintf(buf, sizeof(buf), "%x-%x",
 		link_info->u.link_info_v2.session_hdl, link->link_hdl);
 	wq_flag = CAM_WORKQ_FLAG_HIGH_PRIORITY | CAM_WORKQ_FLAG_SERIAL;
 	rc = cam_req_mgr_workq_create(buf, CRM_WORKQ_NUM_TASKS,

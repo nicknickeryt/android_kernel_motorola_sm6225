@@ -1174,7 +1174,7 @@ static ssize_t _sde_debugfs_mode_ctrl_read(struct file *file, char __user *buf,
 	mutex_lock(&rsc->client_lock);
 	if (rsc->current_state == SDE_RSC_IDLE_STATE) {
 		pr_debug("debug node is not supported during idle state\n");
-		blen = snprintf(buffer, MAX_BUFFER_SIZE,
+		blen = scnprintf(buffer, MAX_BUFFER_SIZE,
 				"hw state is not supported during idle pc\n");
 		goto end;
 	}
@@ -1271,7 +1271,7 @@ static ssize_t _sde_debugfs_vsync_mode_read(struct file *file, char __user *buf,
 	mutex_lock(&rsc->client_lock);
 	if (rsc->current_state == SDE_RSC_IDLE_STATE) {
 		pr_debug("debug node is not supported during idle state\n");
-		blen = snprintf(buffer, MAX_BUFFER_SIZE,
+		blen = scnprintf(buffer, MAX_BUFFER_SIZE,
 				"hw state is not supported during idle pc\n");
 		goto end;
 	}
@@ -1594,7 +1594,7 @@ static int sde_rsc_probe(struct platform_device *pdev)
 				SDE_RSC_INDEX + counter);
 
 	rsc_prv_list[SDE_RSC_INDEX + counter] = rsc;
-	snprintf(name, MAX_RSC_CLIENT_NAME_LEN, "%s%d", "sde_rsc", counter);
+	scnprintf(name, MAX_RSC_CLIENT_NAME_LEN, "%s%d", "sde_rsc", counter);
 	_sde_rsc_init_debugfs(rsc, name);
 	counter++;
 

@@ -296,7 +296,7 @@ static ssize_t audio_output_latency_dbgfs_read(struct file *file,
 						OUT_BUFFER_SIZE, count);
 		return 0;
 	}
-	snprintf(out_buffer, OUT_BUFFER_SIZE, "%ld,%ld,%ld,%ld,%ld,%ld,",
+	scnprintf(out_buffer, OUT_BUFFER_SIZE, "%ld,%ld,%ld,%ld,%ld,%ld,",
 		out_cold_tv.tv_sec, out_cold_tv.tv_usec, out_warm_tv.tv_sec,
 		out_warm_tv.tv_usec, out_cont_tv.tv_sec, out_cont_tv.tv_usec);
 	return  simple_read_from_buffer(buf, OUT_BUFFER_SIZE, ppos,
@@ -353,7 +353,7 @@ static ssize_t audio_input_latency_dbgfs_read(struct file *file,
 						IN_BUFFER_SIZE, count);
 		return 0;
 	}
-	snprintf(in_buffer, IN_BUFFER_SIZE, "%ld,%ld,",
+	scnprintf(in_buffer, IN_BUFFER_SIZE, "%ld,%ld,",
 				in_cont_tv.tv_sec, in_cont_tv.tv_usec);
 	return  simple_read_from_buffer(buf, IN_BUFFER_SIZE, ppos,
 						in_buffer, IN_BUFFER_SIZE);

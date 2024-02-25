@@ -32,7 +32,7 @@ static void config_debug_fs(struct q6audio_aio *audio)
 	if (audio != NULL) {
 		char name[sizeof("msm_amrwbplus_") + 5];
 
-		snprintf(name, sizeof(name), "msm_amrwbplus_%04x",
+		scnprintf(name, sizeof(name), "msm_amrwbplus_%04x",
 			audio->ac->session);
 		audio->dentry = debugfs_create_file(name, S_IFREG | 0444,
 						NULL, (void *)audio,

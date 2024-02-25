@@ -3486,25 +3486,25 @@ static void _sde_plane_install_non_master_properties(struct sde_plane *psde)
 				0, ~0, 0, PLANE_PROP_CSC_V1);
 
 	if (psde->features & BIT(SDE_SSPP_HSIC)) {
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_HUE_V",
 			psde->pipe_sblk->hsic_blk.version >> 16);
 		msm_property_install_range(&psde->property_info,
 			feature_name, 0, 0, 0xFFFFFFFF, 0,
 			PLANE_PROP_HUE_ADJUST);
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_SATURATION_V",
 			psde->pipe_sblk->hsic_blk.version >> 16);
 		msm_property_install_range(&psde->property_info,
 			feature_name, 0, 0, 0xFFFFFFFF, 0,
 			PLANE_PROP_SATURATION_ADJUST);
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_VALUE_V",
 			psde->pipe_sblk->hsic_blk.version >> 16);
 		msm_property_install_range(&psde->property_info,
 			feature_name, 0, 0, 0xFFFFFFFF, 0,
 			PLANE_PROP_VALUE_ADJUST);
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_CONTRAST_V",
 			psde->pipe_sblk->hsic_blk.version >> 16);
 		msm_property_install_range(&psde->property_info,
@@ -3724,17 +3724,17 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 	vfree(info);
 
 	if (psde->features & BIT(SDE_SSPP_MEMCOLOR)) {
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_SKIN_COLOR_V",
 			psde->pipe_sblk->memcolor_blk.version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
 			PLANE_PROP_SKIN_COLOR);
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_SKY_COLOR_V",
 			psde->pipe_sblk->memcolor_blk.version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
 			PLANE_PROP_SKY_COLOR);
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_SSPP_FOLIAGE_COLOR_V",
 			psde->pipe_sblk->memcolor_blk.version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
@@ -3742,7 +3742,7 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 	}
 
 	if (psde->features & BIT(SDE_SSPP_VIG_GAMUT)) {
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_VIG_3D_LUT_GAMUT_V",
 			psde->pipe_sblk->gamut_blk.version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
@@ -3750,7 +3750,7 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 	}
 
 	if (psde->features & BIT(SDE_SSPP_VIG_IGC)) {
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_VIG_1D_LUT_IGC_V",
 			psde->pipe_sblk->igc_blk[0].version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
@@ -3758,7 +3758,7 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 	}
 
 	if (psde->features & BIT(SDE_SSPP_DMA_IGC)) {
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_DGM_1D_LUT_IGC_V",
 			psde->pipe_sblk->igc_blk[0].version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
@@ -3766,7 +3766,7 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 	}
 
 	if (psde->features & BIT(SDE_SSPP_DMA_GC)) {
-		snprintf(feature_name, sizeof(feature_name), "%s%d",
+		scnprintf(feature_name, sizeof(feature_name), "%s%d",
 			"SDE_DGM_1D_LUT_GC_V",
 			psde->pipe_sblk->gc_blk[0].version >> 16);
 		msm_property_install_blob(&psde->property_info, feature_name, 0,
@@ -4334,7 +4334,7 @@ static ssize_t _sde_plane_danger_read(struct file *file,
 	if (*ppos)
 		return 0; /* the end */
 
-	len = snprintf(buf, sizeof(buf), "%d\n", !kms->has_danger_ctrl);
+	len = scnprintf(buf, sizeof(buf), "%d\n", !kms->has_danger_ctrl);
 	if (len < 0 || len >= sizeof(buf))
 		return 0;
 
@@ -4680,7 +4680,7 @@ struct drm_plane *sde_plane_init(struct drm_device *dev,
 	_sde_plane_install_properties(plane, kms->catalog, master_plane_id);
 
 	/* save user friendly pipe name for later */
-	snprintf(psde->pipe_name, SDE_NAME_SIZE, "plane%u", plane->base.id);
+	scnprintf(psde->pipe_name, SDE_NAME_SIZE, "plane%u", plane->base.id);
 
 	mutex_init(&psde->lock);
 

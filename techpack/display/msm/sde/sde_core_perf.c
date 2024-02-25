@@ -1078,7 +1078,7 @@ static ssize_t _sde_core_perf_threshold_high_read(struct file *file,
 	if (*ppos)
 		return 0;	/* the end */
 
-	len = snprintf(buf, sizeof(buf),
+	len = scnprintf(buf, sizeof(buf),
 			"%d\n", perf->catalog->perf.max_bw_high);
 
 	if (len < 0 || len >= sizeof(buf))
@@ -1165,7 +1165,7 @@ static ssize_t _sde_core_perf_mode_read(struct file *file,
 	if (*ppos)
 		return 0;	/* the end */
 
-	len = snprintf(buf, sizeof(buf),
+	len = scnprintf(buf, sizeof(buf),
 			"mode %d min_mdp_clk %llu min_bus_vote %llu\n",
 			perf->perf_tune.mode,
 			perf->perf_tune.min_core_clk,

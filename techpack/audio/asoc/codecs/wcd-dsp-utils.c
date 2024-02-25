@@ -65,7 +65,7 @@ static int wdsp_add_segment_to_list(struct device *dev,
 		goto done;
 	}
 
-	snprintf(seg->split_fname, sizeof(seg->split_fname),
+	scnprintf(seg->split_fname, sizeof(seg->split_fname),
 		 "%s.b%02d", img_fname, phdr_idx);
 	ret = request_firmware(&seg->split_fw, seg->split_fname, dev);
 	if (ret < 0) {
@@ -163,7 +163,7 @@ int wdsp_get_segment_list(struct device *dev,
 		goto done;
 	}
 
-	snprintf(mdt_name, sizeof(mdt_name), "%s.mdt", img_fname);
+	scnprintf(mdt_name, sizeof(mdt_name), "%s.mdt", img_fname);
 	ret = request_firmware(&fw, mdt_name, dev);
 	if (ret < 0) {
 		dev_err(dev, "%s: firmware %s not found\n",

@@ -584,7 +584,7 @@ int sde_smmu_probe(struct platform_device *pdev)
 		goto disable_vreg;
 	}
 
-	snprintf(name, MAX_CLIENT_NAME_LEN, "smmu:%u", smmu_domain.domain);
+	scnprintf(name, MAX_CLIENT_NAME_LEN, "smmu:%u", smmu_domain.domain);
 	sde_smmu->reg_bus_clt = sde_reg_bus_vote_client_create(name);
 	if (IS_ERR_OR_NULL(sde_smmu->reg_bus_clt)) {
 		SDEROT_ERR("mdss bus client register failed\n");

@@ -842,19 +842,19 @@ static ssize_t bolero_version_read(struct snd_info_entry *entry,
 
 	switch (priv->version) {
 	case BOLERO_VERSION_1_0:
-		len = snprintf(buffer, sizeof(buffer), "BOLERO_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "BOLERO_1_0\n");
 		break;
 	case BOLERO_VERSION_1_1:
-		len = snprintf(buffer, sizeof(buffer), "BOLERO_1_1\n");
+		len = scnprintf(buffer, sizeof(buffer), "BOLERO_1_1\n");
 		break;
 	case BOLERO_VERSION_1_2:
-		len = snprintf(buffer, sizeof(buffer), "BOLERO_1_2\n");
+		len = scnprintf(buffer, sizeof(buffer), "BOLERO_1_2\n");
 		break;
 	case BOLERO_VERSION_2_1:
-		len = snprintf(buffer, sizeof(buffer), "BOLERO_2_1\n");
+		len = scnprintf(buffer, sizeof(buffer), "BOLERO_2_1\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	}
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);

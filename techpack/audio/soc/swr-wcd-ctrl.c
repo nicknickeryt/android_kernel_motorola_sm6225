@@ -264,7 +264,7 @@ static ssize_t swrm_reg_show(char __user *ubuf, size_t count,
 	for (i = (((int) *ppos / BYTES_PER_LINE) + SWR_MSTR_START_REG_ADDR);
 		i <= SWR_MSTR_MAX_REG_ADDR; i += 4) {
 		reg_val = dbgswrm->read(dbgswrm->handle, i);
-		len = snprintf(tmp_buf, 25, "0x%.3x: 0x%.2x\n", i, reg_val);
+		len = scnprintf(tmp_buf, 25, "0x%.3x: 0x%.2x\n", i, reg_val);
 		if (len < 0) {
 			pr_err("%s: fail to fill the buffer\n", __func__);
 			total = -EFAULT;
@@ -301,7 +301,7 @@ static ssize_t swrm_debug_read(struct file *file, char __user *ubuf,
 		return -EINVAL;
 
 	if (!strcmp(access_str, "swrm_peek")) {
-		snprintf(lbuf, sizeof(lbuf), "0x%x\n", read_data);
+		scnprintf(lbuf, sizeof(lbuf), "0x%x\n", read_data);
 		ret_cnt = simple_read_from_buffer(ubuf, count, ppos, lbuf,
 					       strnlen(lbuf, 7));
 	} else if (!strcmp(access_str, "swrm_reg_dump")) {

@@ -153,7 +153,7 @@ static int sde_backlight_setup(struct sde_connector *c_conn,
 	bl_config = &display->panel->bl_config;
 	props.max_brightness = bl_config->brightness_max_level;
 	props.brightness = bl_config->brightness_default_level;
-	snprintf(bl_node_name, BL_NODE_NAME_SIZE, "panel%u-backlight",
+	scnprintf(bl_node_name, BL_NODE_NAME_SIZE, "panel%u-backlight",
 							display_count);
 	c_conn->bl_device = backlight_device_register(bl_node_name, dev->dev,
 			c_conn, &sde_backlight_device_ops, &props);
@@ -309,7 +309,7 @@ static void _sde_connector_install_dither_property(struct drm_device *dev,
 	catalog = sde_kms->catalog;
 	version = SDE_COLOR_PROCESS_MAJOR(
 			catalog->pingpong[0].sblk->dither.version);
-	snprintf(prop_name, ARRAY_SIZE(prop_name), "%s%d",
+	scnprintf(prop_name, ARRAY_SIZE(prop_name), "%s%d",
 			"SDE_PP_DITHER_V", version);
 	switch (version) {
 	case 1:
@@ -1877,14 +1877,14 @@ static ssize_t _sde_debugfs_conn_cmd_tx_sts_read(struct file *file,
 	c_conn = to_sde_connector(connector);
 
 	mutex_lock(&c_conn->lock);
-	blen = snprintf(buffer, MAX_CMD_PAYLOAD_SIZE,
+	blen = scnprintf(buffer, MAX_CMD_PAYLOAD_SIZE,
 		"last_cmd_tx_sts:0x%x",
 		c_conn->last_cmd_tx_sts);
 	mutex_unlock(&c_conn->lock);
 
 	SDE_DEBUG("output: %s\n", buffer);
 	if (blen <= 0) {
-		SDE_ERROR("snprintf failed, blen %d\n", blen);
+		SDE_ERROR("scnprintf failed, blen %d\n", blen);
 		return 0;
 	}
 
@@ -2795,7 +2795,7 @@ struct drm_connector *sde_connector_init(struct drm_device *dev,
 	c_conn->base.interlace_allowed = 0;
 	c_conn->base.doublescan_allowed = 0;
 
-	snprintf(c_conn->name,
+	scnprintf(c_conn->name,
 			SDE_CONNECTOR_NAME_SIZE,
 			"conn%u",
 			c_conn->base.base.id);

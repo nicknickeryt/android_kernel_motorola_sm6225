@@ -197,7 +197,7 @@ static ssize_t swrm_reg_show(struct swr_mstr_ctrl *swrm, char __user *ubuf,
 	for (; i <= SWR_MSTR_MAX_REG_ADDR; i += 4) {
 		usleep_range(100, 150);
 		reg_val = swr_master_read(swrm, i);
-		len = snprintf(tmp_buf, 25, "0x%.3x: 0x%.2x\n", i, reg_val);
+		len = scnprintf(tmp_buf, 25, "0x%.3x: 0x%.2x\n", i, reg_val);
 		if (len < 0) {
 			pr_err("%s: fail to fill the buffer\n", __func__);
 			total = -EFAULT;
@@ -252,7 +252,7 @@ static ssize_t swrm_debug_read(struct file *file, char __user *ubuf,
 	if (*ppos < 0)
 		return -EINVAL;
 
-	snprintf(lbuf, sizeof(lbuf), "0x%x\n", swrm->read_data);
+	scnprintf(lbuf, sizeof(lbuf), "0x%x\n", swrm->read_data);
 
 	return simple_read_from_buffer(ubuf, count, ppos, lbuf,
 					       strnlen(lbuf, 7));

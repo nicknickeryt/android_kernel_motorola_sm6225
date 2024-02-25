@@ -1161,7 +1161,7 @@ static int wsa881x_probe(struct snd_soc_component *component)
 	}
 	mutex_init(&wsa_pdata[wsa881x_index].bg_lock);
 	mutex_init(&wsa_pdata[wsa881x_index].res_lock);
-	snprintf(wsa_pdata[wsa881x_index].tz_pdata.name, 100, "%s",
+	scnprintf(wsa_pdata[wsa881x_index].tz_pdata.name, 100, "%s",
 		wsa_tz_names[wsa881x_index]);
 	wsa_pdata[wsa881x_index].component = component;
 	wsa_pdata[wsa881x_index].spk_pa_gain = SPK_GAIN_12DB;
@@ -1180,10 +1180,10 @@ static int wsa881x_probe(struct snd_soc_component *component)
 		if (!widget_name)
 			return -ENOMEM;
 
-		snprintf(widget_name, WIDGET_NAME_MAX_SIZE,
+		scnprintf(widget_name, WIDGET_NAME_MAX_SIZE,
 			"%s WSA_SPKR", codec_conf->name_prefix);
 		snd_soc_dapm_ignore_suspend(dapm, widget_name);
-		snprintf(widget_name, WIDGET_NAME_MAX_SIZE,
+		scnprintf(widget_name, WIDGET_NAME_MAX_SIZE,
 			"%s WSA_IN", codec_conf->name_prefix);
 		snd_soc_dapm_ignore_suspend(dapm, widget_name);
 		kfree(widget_name);

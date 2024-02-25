@@ -59,7 +59,7 @@ int cam_top_tpg_probe(struct platform_device *pdev)
 	}
 
 	memset(tpg_dev_name, 0, sizeof(tpg_dev_name));
-	snprintf(tpg_dev_name, sizeof(tpg_dev_name),
+	scnprintf(tpg_dev_name, sizeof(tpg_dev_name),
 		"tpg%1u", tpg_dev_idx);
 
 	tpg_hw_intf->hw_idx = tpg_dev_idx;

@@ -177,14 +177,14 @@ int q6afe_cal_create_hwdep(void *data, int node, void *card)
 	}
 
 	fw = fw_data->fw;
-	snprintf(hwname, strlen("Q6AFE"), "Q6AFE");
+	scnprintf(hwname, strlen("Q6AFE"), "Q6AFE");
 	err = snd_hwdep_new(((struct snd_soc_card *)card)->snd_card,
 			    hwname, node, &hwdep);
 	if (err < 0) {
 		pr_err("%s: new hwdep for q6afe failed %d\n", __func__, err);
 		return err;
 	}
-	snprintf(hwdep->name, strlen("Q6AFECAL"), "Q6AFECAL");
+	scnprintf(hwdep->name, strlen("Q6AFECAL"), "Q6AFECAL");
 	hwdep->iface = SNDRV_HWDEP_IFACE_AUDIO_BE;
 	hwdep->private_data = fw_data;
 	hwdep->ops.ioctl_compat = q6afecal_hwdep_ioctl_compat;

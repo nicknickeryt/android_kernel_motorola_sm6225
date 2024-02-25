@@ -3239,7 +3239,7 @@ static int msm_lsm_add_app_type_controls(struct snd_soc_pcm_runtime *rtd)
 		return ret;
 	}
 	kctl = app_type_info->kctl;
-	snprintf(kctl->id.name, ctl_len, "%s %d %s",
+	scnprintf(kctl->id.name, ctl_len, "%s %d %s",
 		mixer_ctl_name, rtd->pcm->device, suffix);
 	kctl->put = msm_lsm_app_type_cfg_ctl_put;
 	kctl->get = msm_lsm_app_type_cfg_ctl_get;
@@ -3302,7 +3302,7 @@ static int msm_lsm_add_afe_data_controls(struct snd_soc_pcm_runtime *rtd)
 		return ret;
 	}
 	kctl = afe_data_info->kctl;
-	snprintf(kctl->id.name, ctl_len, "%s %d %s",
+	scnprintf(kctl->id.name, ctl_len, "%s %d %s",
 		 mixer_ctl_name, rtd->pcm->device, suffix);
 	kctl->put = msm_lsm_afe_data_ctl_put;
 	kctl->get = msm_lsm_afe_data_ctl_get;

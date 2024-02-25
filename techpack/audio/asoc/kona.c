@@ -4963,7 +4963,7 @@ static void set_cps_config(struct snd_soc_pcm_runtime *rtd,
 			continue;
 		}
 
-		snprintf(wsa_cdc_name, sizeof(wsa_cdc_name), "wsa-codec.%d",
+		scnprintf(wsa_cdc_name, sizeof(wsa_cdc_name), "wsa-codec.%d",
 			 i+1);
 
 		/* Use n to make sure both WSA components are retrieved */
@@ -8219,7 +8219,7 @@ aux_dev_register:
 			goto err;
 		}
 
-		snprintf(dev_name_str, strlen("wsa881x.%d"), "wsa881x.%d", i);
+		scnprintf(dev_name_str, strlen("wsa881x.%d"), "wsa881x.%d", i);
 		msm_aux_dev[i].name = dev_name_str;
 		msm_aux_dev[i].codec_name = NULL;
 		msm_aux_dev[i].codec_of_node =

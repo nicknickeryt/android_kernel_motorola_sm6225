@@ -324,7 +324,7 @@ static int audio_open(struct inode *inode, struct file *file)
 		goto fail;
 	}
 
-	snprintf(name, sizeof(name), "msm_alac_%04x", audio->ac->session);
+	scnprintf(name, sizeof(name), "msm_alac_%04x", audio->ac->session);
 #ifdef CONFIG_DEBUG_FS
 	audio->dentry = config_debugfs_create_file(name, (void *)audio);
 

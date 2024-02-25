@@ -145,7 +145,7 @@ static int audio_open(struct inode *inode, struct file *file)
 	}
 
 #ifdef CONFIG_DEBUG_FS
-	snprintf(name, sizeof(name), "msm_qcelp_%04x", audio->ac->session);
+	scnprintf(name, sizeof(name), "msm_qcelp_%04x", audio->ac->session);
 	audio->dentry = debugfs_create_file(name, S_IFREG | 0444,
 					    NULL, (void *)audio,
 					    &audio_qcelp_debug_fops);

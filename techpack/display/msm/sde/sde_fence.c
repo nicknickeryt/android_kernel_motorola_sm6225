@@ -153,7 +153,7 @@ static void sde_fence_value_str(struct dma_fence *fence, char *str, int size)
 	if (!fence || !str)
 		return;
 
-	snprintf(str, size, "%d", fence->seqno);
+	scnprintf(str, size, "%d", fence->seqno);
 }
 
 static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
@@ -164,7 +164,7 @@ static void sde_fence_timeline_value_str(struct dma_fence *fence, char *str,
 	if (!fence || !f->ctx || !str)
 		return;
 
-	snprintf(str, size, "%d", f->ctx->done_count);
+	scnprintf(str, size, "%d", f->ctx->done_count);
 }
 
 static struct dma_fence_ops sde_fence_ops = {
@@ -202,7 +202,7 @@ static int _sde_fence_create_fd(void *fence_ctx, uint32_t val)
 		return -ENOMEM;
 
 	sde_fence->ctx = fence_ctx;
-	snprintf(sde_fence->name, SDE_FENCE_NAME_SIZE, "sde_fence:%s:%u",
+	scnprintf(sde_fence->name, SDE_FENCE_NAME_SIZE, "sde_fence:%s:%u",
 						sde_fence->ctx->name, val);
 	dma_fence_init(&sde_fence->base, &sde_fence_ops, &ctx->lock,
 		ctx->context, val);

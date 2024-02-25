@@ -39,23 +39,23 @@ void __dump(struct dump dump[], int len, u32 sid)
 		char format_line[128] = "", formatted_line[128] = "";
 
 		if (dump[c].val == DUMP_HEADER_MAGIC) {
-			snprintf(formatted_line, sizeof(formatted_line), "%s\n",
+			scnprintf(formatted_line, sizeof(formatted_line), "%s\n",
 					dump[c].key);
 		} else {
 			bool fp_format = !strcmp(dump[c].format, DUMP_FP_FMT);
 
 			if (!fp_format) {
-				snprintf(format_line, sizeof(format_line),
+				scnprintf(format_line, sizeof(format_line),
 						"    %-35s: %s\n", dump[c].key,
 						dump[c].format);
-				snprintf(formatted_line, sizeof(formatted_line),
+				scnprintf(formatted_line, sizeof(formatted_line),
 						format_line, dump[c].val);
 			} else {
 				size_t integer_part, fractional_part;
 
 				integer_part = fp_int(dump[c].val);
 				fractional_part = fp_frac(dump[c].val);
-				snprintf(formatted_line, sizeof(formatted_line),
+				scnprintf(formatted_line, sizeof(formatted_line),
 						"    %-35s: %zd + %zd/%zd\n",
 						dump[c].key, integer_part,
 						fractional_part,

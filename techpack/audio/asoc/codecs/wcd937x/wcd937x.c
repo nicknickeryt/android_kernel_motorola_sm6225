@@ -2473,10 +2473,10 @@ static ssize_t wcd937x_version_read(struct snd_info_entry *entry,
 
 	switch (priv->version) {
 	case WCD937X_VERSION_1_0:
-		len = snprintf(buffer, sizeof(buffer), "WCD937X_1_0\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD937X_1_0\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	}
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);
@@ -2504,13 +2504,13 @@ static ssize_t wcd937x_variant_read(struct snd_info_entry *entry,
 
 	switch (priv->variant) {
 	case WCD9370_VARIANT:
-		len = snprintf(buffer, sizeof(buffer), "WCD9370\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9370\n");
 		break;
 	case WCD9375_VARIANT:
-		len = snprintf(buffer, sizeof(buffer), "WCD9375\n");
+		len = scnprintf(buffer, sizeof(buffer), "WCD9375\n");
 		break;
 	default:
-		len = snprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
+		len = scnprintf(buffer, sizeof(buffer), "VER_UNDEFINED\n");
 	}
 
 	return simple_read_from_buffer(buf, count, &pos, buffer, len);

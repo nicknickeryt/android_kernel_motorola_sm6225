@@ -1496,7 +1496,7 @@ static int fs16xx_set_codec_info(struct device *dev, struct snd_soc_dai_driver *
         return -EINVAL;
 
     /* sanitize component name for DAI link creation */
-    snprintf(tmp, 32, "%s.%s", dev->driver->name, name);
+    scnprintf(tmp, 32, "%s.%s", dev->driver->name, name);
     strlcpy(name, tmp, 32);
     printk("Codec: %s", name);
     printk("Codec DAI: %s", dai->name);

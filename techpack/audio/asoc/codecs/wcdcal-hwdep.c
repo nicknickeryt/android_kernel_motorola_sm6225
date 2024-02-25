@@ -167,7 +167,7 @@ int wcd_cal_create_hwdep(void *data, int node,
 	}
 
 	fw = fw_data->fw;
-	snprintf(hwname, strlen("Codec %s"), "Codec %s",
+	scnprintf(hwname, strlen("Codec %s"), "Codec %s",
 		 component->name);
 	err = snd_hwdep_new(component->card->snd_card,
 			    hwname, node, &hwdep);
@@ -176,7 +176,7 @@ int wcd_cal_create_hwdep(void *data, int node,
 				__func__, err);
 		return err;
 	}
-	snprintf(hwdep->name, strlen("Codec %s"), "Codec %s",
+	scnprintf(hwdep->name, strlen("Codec %s"), "Codec %s",
 		 component->name);
 	hwdep->iface = SNDRV_HWDEP_IFACE_AUDIO_CODEC;
 	hwdep->private_data = fw_data;
