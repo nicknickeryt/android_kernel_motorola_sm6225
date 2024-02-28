@@ -167,8 +167,6 @@ static int qpnp_vibrator_play_on(struct vib_ldo_chip *chip)
 
 	volt_uV = chip->vmax_uV;
 	if (chip->dis_short_long) {
-		pr_warn("vib in dis short and long, play ms=%d, dis_longms=%d, vmax_uV=%d, vmax_uV_long=%d\n",
-				chip->vib_play_ms, chip->dis_long_ms, chip->vmax_uV, chip->vmax_uV_long);
 		if (chip->vib_play_ms > chip->dis_long_ms) {
 			volt_uV = chip->vmax_uV_long;
 		}
