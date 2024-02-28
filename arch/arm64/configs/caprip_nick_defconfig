@@ -64,7 +64,7 @@ CONFIG_SETEND_EMULATION=y
 CONFIG_ARM64_SW_TTBR0_PAN=y
 # CONFIG_ARM64_VHE is not set
 CONFIG_RANDOMIZE_BASE=y
-CONFIG_CMDLINE="sched_enable_hmp=1 cgroup_disable=pressure mitigations=off nowatchdog quiet androidboot.selinux=permissive"
+CONFIG_CMDLINE="sched_enable_hmp=1 cgroup_disable=pressure mitigations=off nowatchdog quiet androidboot.selinux=permissive noirqdebug nosoftlockup mce=ignore_ce rcupdate.rcu_normal_after_boot=1 rcu_nocbs=0-3"
 CONFIG_CMDLINE_EXTEND=y
 CONFIG_COMPAT=y
 CONFIG_PM_WAKELOCKS=y
@@ -795,3 +795,5 @@ CONFIG_HAVE_KPROBES=y
 CONFIG_KPROBE_EVENTS=y
 
 CONFIG_DISABLE_TRACE_PRINTK=y
+CONFIG_ARM64_SVE=n
+CONFIG_WQ_POWER_EFFICIENT_DEFAULT=y
