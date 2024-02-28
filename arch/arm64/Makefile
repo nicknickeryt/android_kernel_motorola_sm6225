@@ -49,6 +49,10 @@ $(warning Detected assembler with broken .inst; disassembly will be unreliable)
   endif
 endif
 
+ifeq ($(CONFIG_ARCH_BENGAL), y)
+KBUILD_CFLAGS   += -mcpu=cortex-a53+crypto -mtune=cortex-a53
+endif
+
 ifeq ($(cc-name),clang)
 KBUILD_CFLAGS	+= -mno-implicit-float
 else
