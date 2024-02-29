@@ -341,6 +341,12 @@ const struct mtk_chip_config spi_ctrdata = {
 static bool time_flag = 1;
 #endif
 
+/* Double tap detection resources */
+#define DT2W_FEATHER        150
+#define DT2W_TIME         500
+static unsigned long long tap_time_pre = 0;
+static int touch_nr = 0, x_pre = 0, y_pre = 0;
+
 /*******************************************************
 Description:
 	Novatek touchscreen irq enable/disable function.
@@ -1332,17 +1338,10 @@ static void nvt_ts_wakeup_gesture_report_timer(struct timer_list __always_unused
 			return;
 		}
                 if (ts->report_gesture_key) {
-#ifdef CONFIG_BOARD_USES_DOUBLE_TAP_CTRL
-                        input_report_key(ts->sensor_pdata->input_sensor_dev, keycode, 1);
-                        input_sync(ts->sensor_pdata->input_sensor_dev);
-                        input_report_key(ts->sensor_pdata->input_sensor_dev, keycode, 0);
-                        input_sync(ts->sensor_pdata->input_sensor_dev);
-#else
-			input_report_key(ts->sensor_pdata->input_sensor_dev, KEY_F1, 1);
+			input_report_key(ts->sensor_pdata->input_sensor_dev, KEY_WAKEUP, 1);
 			input_sync(ts->sensor_pdata->input_sensor_dev);
-			input_report_key(ts->sensor_pdata->input_sensor_dev, KEY_F1, 0);
+			input_report_key(ts->sensor_pdata->input_sensor_dev, KEY_WAKEUP, 0);
 			input_sync(ts->sensor_pdata->input_sensor_dev);
-#endif
 			++report_cnt;
 		} else {
 			input_report_abs(ts->sensor_pdata->input_sensor_dev,
@@ -1830,6 +1829,55 @@ static int32_t nvt_ts_point_data_checksum(uint8_t *buf, uint8_t length)
 }
 #endif /* POINT_DATA_CHECKSUM */
 
+/* Doubletap2wake */
+static void doubletap2wake_reset(void) {
+	touch_nr = 0;
+	tap_time_pre = 0;
+	x_pre = 0;
+	y_pre = 0;
+}
+
+static unsigned int calc_feather(int coord, int prev_coord) {
+	int calc_coord = 0;
+	calc_coord = coord-prev_coord;
+	if (calc_coord < 0)
+		calc_coord = calc_coord * (-1);
+	return calc_coord;
+}
+
+static void new_touch(int x, int y) {
+	tap_time_pre = ktime_to_ms(ktime_get());
+	x_pre = x;
+	y_pre = y;
+	touch_nr++;
+}
+
+static bool detect_doubletap2wake(int x, int y)
+{
+	if (touch_nr == 0) {
+		new_touch(x, y);
+	} else if (touch_nr == 1) {
+		if ((calc_feather(x, x_pre) < DT2W_FEATHER) &&
+			(calc_feather(y, y_pre) < DT2W_FEATHER) &&
+			((ktime_to_ms(ktime_get())-tap_time_pre) < DT2W_TIME))
+			touch_nr++;
+		else {
+			doubletap2wake_reset();
+			new_touch(x, y);
+		}
+	} else {
+		doubletap2wake_reset();
+		new_touch(x, y);
+	}
+	if ((touch_nr > 1)) {
+		doubletap2wake_reset();
+		return true;
+	}
+	return false;
+}
+
+
+
 #define FINGER_ENTER 0x01
 #define FINGER_MOVING 0x02
 #ifdef PALM_GESTURE
@@ -1950,8 +1998,10 @@ static irqreturn_t nvt_ts_work_func(int irq, void *data)
 
 #if WAKEUP_GESTURE
 	if (ts->bTouchIsAwake == 0) {
-		input_id = (uint8_t)(point_data[1] >> 3);
-		nvt_ts_wakeup_gesture_report(input_id, point_data);
+		if (detect_doubletap2wake(input_x, input_y)) {
+			input_id = (uint8_t)(point_data[1] >> 3);
+			nvt_ts_wakeup_gesture_report(input_id, point_data);
+		}
 		mutex_unlock(&ts->lock);
 		return IRQ_HANDLED;
 	}
@@ -2324,7 +2374,7 @@ static int nvt_sensor_init(struct nvt_ts_data *data)
 #else
 	if (data->report_gesture_key) {
 		__set_bit(EV_KEY, sensor_input_dev->evbit);
-		__set_bit(KEY_F1, sensor_input_dev->keybit);
+		__set_bit(KEY_WAKEUP, sensor_input_dev->keybit);
 	} else {
 		__set_bit(EV_ABS, sensor_input_dev->evbit);
 		input_set_abs_params(sensor_input_dev, ABS_DISTANCE,
