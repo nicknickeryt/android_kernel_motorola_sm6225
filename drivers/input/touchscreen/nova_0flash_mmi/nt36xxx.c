@@ -342,7 +342,7 @@ Description:
 return:
 	n.a.
 *******************************************************/
-void nvt_irq_enable(bool enable)
+void __always_inline nvt_irq_enable(bool enable)
 {
 	struct irq_desc *desc;
 
@@ -3834,7 +3834,7 @@ Description:
 return:
 	Executive outcomes. 0---succeed.
 *******************************************************/
-int32_t nvt_ts_suspend(struct device *dev)
+int32_t __always_inline nvt_ts_suspend(struct device *dev)
 {
 	uint8_t buf[4] = {0};
 
@@ -3931,7 +3931,7 @@ Description:
 return:
 	Executive outcomes. 0---succeed.
 *******************************************************/
-int32_t nvt_ts_resume(struct device *dev)
+int32_t __always_inline nvt_ts_resume(struct device *dev)
 {
 
 #ifdef NVT_SENSOR_EN
@@ -4258,7 +4258,7 @@ static int nvt_drm_notifier_callback(struct notifier_block *self, unsigned long 
 	return 0;
 }
 #else
-static int nvt_fb_notifier_callback(struct notifier_block *self, unsigned long event, void *data)
+static int __always_inline nvt_fb_notifier_callback(struct notifier_block *self, unsigned long event, void *data)
 {
 	struct fb_event *evdata = data;
 	int *blank;
