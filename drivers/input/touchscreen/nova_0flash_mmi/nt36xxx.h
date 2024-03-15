@@ -25,6 +25,7 @@
 #include <linux/uaccess.h>
 #include <linux/version.h>
 #include <linux/mmi_kernel_common.h>
+#include <uapi/linux/sched/types.h>
 #ifdef NVT_TOUCH_LAST_TIME
 #include <linux/ktime.h>
 #endif
