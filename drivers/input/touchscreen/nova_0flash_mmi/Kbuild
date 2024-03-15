@@ -20,7 +20,6 @@ ccflags-$(CONFIG_NVT_WAKEUP_GESTURE_CTRL) += -DNVT_WAKEUP_GESTURE_CTRL
 nova_0flash_mmi-objs += nt36xxx.o
 nova_0flash_mmi-objs += nt36xxx_ext_proc.o
 nova_0flash_mmi-objs += nt36xxx_fw_update.o
-nova_0flash_mmi-objs += nt36xxx_mp_ctrlram.o
 
 ifneq ($(filter m y,$(CONFIG_INPUT_TOUCHSCREEN_MMI)),)
     ccflags-y += -DCONFIG_INPUT_TOUCHSCREEN_MMI
