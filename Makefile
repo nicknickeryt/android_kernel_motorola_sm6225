@@ -704,6 +704,17 @@ else
 KBUILD_CFLAGS   += -O3
 endif
 
+KBUILD_CFLAGS   += -mcpu=cortex-a53+crypto -mtune=cortex-a53
+ifdef CONFIG_LLVM_POLLY
+KBUILD_CFLAGS	+= -mllvm -polly \
+		   -mllvm -polly-run-inliner \
+		   -mllvm -polly-loopfusion-greedy \
+		   -mllvm -polly-ast-use-context \
+		   -mllvm -polly-detect-keep-going \
+		   -mllvm -polly-vectorizer=stripmine \
+		   -mllvm -polly-invariant-load-hoisting
+endif
+
 ifdef CONFIG_CC_WERROR
 KBUILD_CFLAGS  += -Werror
 endif
