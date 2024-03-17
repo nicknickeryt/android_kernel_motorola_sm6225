@@ -5453,7 +5453,7 @@ static void lim_tx_mgmt_frame(struct mac_context *mac_ctx, uint8_t vdev_id,
 		pe_err("*** Could not send Auth frame (subType: %d), retCode=%X ***",
 			fc->subType, qdf_status);
 #endif
-		mac_ctx->auth_ack_status = LIM_AUTH_ACK_RCD_FAILURE;
+		mac_ctx->auth_ack_status = LIM_ACK_RCD_FAILURE;
 		auth_ack_status = SENT_FAIL;
 		lim_diag_event_report(mac_ctx, WLAN_PE_DIAG_AUTH_ACK_EVENT,
 				session, auth_ack_status, QDF_STATUS_E_FAILURE);
