@@ -23,8 +23,10 @@ static int htc_recovery_notifier_call(struct notifier_block *block,
 				      unsigned long state,
 				      void *data)
 {
+        #if 0
 	htc_log_hang_credit_history(block, data);
-
+        #endif
+        
 	return NOTIFY_OK;
 }
 
