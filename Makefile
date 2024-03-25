@@ -372,10 +372,10 @@ else
 HOSTCC	= gcc
 HOSTCXX	= g++
 endif
-KBUILD_HOSTCFLAGS   := -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 \
+KBUILD_HOSTCFLAGS   := -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast \
 		-fomit-frame-pointer -std=gnu89 $(HOST_LFS_CFLAGS) \
 		$(HOSTCFLAGS)
-KBUILD_HOSTCXXFLAGS := -O3 $(HOST_LFS_CFLAGS) $(HOSTCXXFLAGS)
+KBUILD_HOSTCXXFLAGS := -Ofast $(HOST_LFS_CFLAGS) $(HOSTCXXFLAGS)
 KBUILD_HOSTLDFLAGS  := $(HOST_LFS_LDFLAGS) $(HOSTLDFLAGS)
 KBUILD_HOSTLDLIBS   := $(HOST_LFS_LIBS) $(HOSTLDLIBS)
 
@@ -423,8 +423,8 @@ LDFLAGS_MODULE  = --strip-debug
 CFLAGS_KERNEL	=
 AFLAGS_KERNEL	=
 LDFLAGS_vmlinux = --strip-debug
-LDFLAGS += -O3 --strip-debug
-KBUILD_LDFLAGS += -O3 --strip-debug
+LDFLAGS += -Ofast --strip-debug
+KBUILD_LDFLAGS += -Ofast --strip-debug
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE    := \
@@ -704,9 +704,12 @@ else
 KBUILD_CFLAGS   += -Ofast -ffast-math -funsafe-math-optimizations
 endif
 
-KBUILD_CFLAGS   += -mcpu=cortex-a53+crypto -mtune=cortex-a53
+KBUILD_CFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc -mllvm -regalloc-enable-advisor=release -Ofast -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast
+KBUILD_LDFLAGS  +=  -mllvm -regalloc-enable-advisor=release -O3  -mllvm -hot-cold-split=true 
+
 ifdef CONFIG_LLVM_POLLY
 KBUILD_CFLAGS	+= -mllvm -polly \
+		   -mllvm -polly-parallel \
 		   -mllvm -polly-omp-backend=LLVM \
 		   -mllvm -polly-num-threads=0 \
 		   -mllvm -polly-scheduling=dynamic \
@@ -729,8 +732,9 @@ KBUILD_CFLAGS  += -Werror
 endif
 
 ifdef CONFIG_INLINE_OPTIMIZATION
-INLINE_FLAGS	:= -mllvm -inline-threshold=4000 \
-		   -mllvm -inlinehint-threshold=3000
+INLINE_FLAGS	:= -mllvm -inline-threshold=2000 \
+		   -mllvm -inlinehint-threshold=3000 \
+		   -mllvm -unroll-threshold=1200 
 
 KBUILD_CFLAGS += $(INLINE_FLAGS)
 KBUILD_AFLAGS += $(INLINE_FLAGS)
