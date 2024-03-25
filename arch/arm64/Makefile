@@ -50,7 +50,7 @@ $(warning Detected assembler with broken .inst; disassembly will be unreliable)
 endif
 
 ifeq ($(CONFIG_ARCH_BENGAL), y)
-KBUILD_CFLAGS   += -mcpu=cortex-a53+crypto -mtune=cortex-a53
+KBUILD_CFLAGS   += -mcpu=cortex-a53+crypto -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc
 endif
 
 ifeq ($(cc-name),clang)
