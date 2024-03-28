@@ -558,7 +558,6 @@ unsigned int kgsl_pwrctrl_adjust_pwrlevel(struct kgsl_device *device,
 				unsigned int new_level)
 {
 	struct kgsl_pwrctrl *pwr = &device->pwrctrl;
-	unsigned int old_level = pwr->active_pwrlevel;
 
 	/* If a pwr constraint is expired, remove it */
 	if ((pwr->constraint.type != KGSL_CONSTRAINT_NONE) &&
@@ -648,13 +647,6 @@ void kgsl_pwrctrl_pwrlevel_change(struct kgsl_device *device,
 	kgsl_pwrctrl_pwrlevel_change_settings(device, 0);
 	kgsl_clk_set_rate(device, pwr->active_pwrlevel);
 	_isense_clk_set_rate(pwr, pwr->active_pwrlevel);
-
-	trace_kgsl_pwrlevel(device,
-			pwr->active_pwrlevel, pwrlevel->gpu_freq,
-			pwr->previous_pwrlevel,
-			pwr->pwrlevels[old_level].gpu_freq);
-
-	trace_gpu_frequency(pwrlevel->gpu_freq/1000, 0);
 
 	/*
 	 * Some targets do not support the bandwidth requirement of
@@ -2620,7 +2612,6 @@ static int _wake(struct kgsl_device *device)
 {
 	struct kgsl_pwrctrl *pwr = &device->pwrctrl;
 	int status = 0;
-	unsigned int state = device->state;
 
 	switch (device->state) {
 	case KGSL_STATE_SUSPEND:
@@ -2647,9 +2638,6 @@ static int _wake(struct kgsl_device *device)
 		/* Turn on the core clocks */
 		kgsl_pwrctrl_clk(device, KGSL_PWRFLAGS_ON, KGSL_STATE_ACTIVE);
 
-		if (state == KGSL_STATE_SLUMBER || state == KGSL_STATE_SUSPEND)
-			trace_gpu_frequency(
-			pwr->pwrlevels[pwr->active_pwrlevel].gpu_freq/1000, 0);
 		/*
 		 * No need to turn on/off irq here as it no longer affects
 		 * power collapse
@@ -2809,7 +2797,6 @@ _slumber(struct kgsl_device *device)
 		kgsl_pwrctrl_clk_set_options(device, false);
 		kgsl_pwrctrl_disable(device);
 		kgsl_pwrscale_sleep(device);
-		trace_gpu_frequency(0, 0);
 		kgsl_pwrctrl_set_state(device, KGSL_STATE_SLUMBER);
 		pm_qos_update_request(&device->pwrctrl.pm_qos_req_dma,
 						PM_QOS_DEFAULT_VALUE);
@@ -2821,7 +2808,6 @@ _slumber(struct kgsl_device *device)
 		break;
 	case KGSL_STATE_AWARE:
 		kgsl_pwrctrl_disable(device);
-		trace_gpu_frequency(0, 0);
 		kgsl_pwrctrl_set_state(device, KGSL_STATE_SLUMBER);
 		break;
 	case KGSL_STATE_RESET:
