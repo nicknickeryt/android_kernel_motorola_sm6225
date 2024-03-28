@@ -5273,7 +5273,7 @@ int kgsl_request_irq(struct platform_device *pdev, const  char *name,
 		irq_handler_t handler, void *data)
 {
 	int ret, num = platform_get_irq_byname(pdev, name);
-	unsigned long irqflags = IRQF_TRIGGER_HIGH;
+	unsigned long irqflags = IRQF_TRIGGER_HIGH | IRQF_PERF_SECOND_AFFINE;
 
 	if (num < 0)
 		return num;
@@ -5567,7 +5567,7 @@ static int __init kgsl_core_init(void)
 
 	kthread_init_worker(&kgsl_driver.worker);
 
-	kgsl_driver.worker_thread = kthread_run_perf_critical(cpu_perf_mask,
+	kgsl_driver.worker_thread = kthread_run_perf_critical(cpu_perf_second_mask,
 		kthread_worker_fn, &kgsl_driver.worker, "kgsl_worker_thread");
 
 	if (IS_ERR(kgsl_driver.worker_thread)) {
