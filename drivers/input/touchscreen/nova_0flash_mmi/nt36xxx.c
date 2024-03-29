@@ -4521,8 +4521,8 @@ static void __exit nvt_driver_exit(void)
 	spi_unregister_driver(&nvt_spi_driver);
 }
 
-//late_initcall(nvt_driver_init);
-module_init(nvt_driver_init);
+late_initcall(nvt_driver_init);
+//module_init(nvt_driver_init);
 module_exit(nvt_driver_exit);
 
 #if KERNEL_VERSION(5, 4, 0) <= LINUX_VERSION_CODE
