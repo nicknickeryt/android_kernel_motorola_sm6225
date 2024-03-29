@@ -458,6 +458,7 @@ KBUILD_LDFLAGS_MODULE := -T $(srctree)/scripts/module-common.lds
 KBUILD_LDFLAGS :=
 GCC_PLUGINS_CFLAGS :=
 CLANG_FLAGS :=
+TARGET_BUILD_VARIANT := user
 
 export ARCH SRCARCH CONFIG_SHELL HOSTCC KBUILD_HOSTCFLAGS CROSS_COMPILE LD CC
 export CPP AR NM STRIP OBJCOPY OBJDUMP OBJSIZE READELF KBUILD_HOSTLDFLAGS KBUILD_HOSTLDLIBS
@@ -471,6 +472,7 @@ export KBUILD_AFLAGS AFLAGS_KERNEL AFLAGS_MODULE
 export KBUILD_AFLAGS_MODULE KBUILD_CFLAGS_MODULE KBUILD_LDFLAGS_MODULE
 export KBUILD_AFLAGS_KERNEL KBUILD_CFLAGS_KERNEL
 export KBUILD_ARFLAGS
+export TARGET_BUILD_VARIANT
 
 # When compiling out-of-tree modules, put MODVERDIR in the module
 # tree rather than in the kernel tree. The kernel tree might
@@ -704,7 +706,8 @@ else
 KBUILD_CFLAGS   += -Ofast -ffast-math -funsafe-math-optimizations
 endif
 
-KBUILD_CFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc -mllvm -regalloc-enable-advisor=release -Ofast -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast
+KBUILD_CFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc -mllvm -regalloc-enable-advisor=release -Ofast -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast -pipe
+KBUILD_AFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc -mllvm -regalloc-enable-advisor=release -Ofast -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast -pipe
 KBUILD_LDFLAGS  +=  -mllvm -regalloc-enable-advisor=release -O3  -mllvm -hot-cold-split=true 
 
 ifdef CONFIG_LLVM_POLLY
