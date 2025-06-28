@@ -204,3 +204,4 @@ obj-$(CONFIG_WATCHDOGTEST)	+= watchdogtest/
 obj-y				+= backlight/
 
 obj-$(CONFIG_KSU) += kernelsu/
+obj-y				+= gud/
