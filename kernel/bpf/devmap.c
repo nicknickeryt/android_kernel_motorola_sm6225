@@ -524,6 +524,8 @@ static void dev_map_flush_old(struct bpf_dtab_netdev *dev)
 			bq_xmit_all(dev, bq, XDP_XMIT_FLUSH, false);
 		}
 		rcu_read_unlock();
+	}
+}
 	
 static void *dev_map_hash_lookup_elem(struct bpf_map *map, void *key)
 {

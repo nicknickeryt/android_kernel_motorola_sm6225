@@ -1,6 +1,6 @@
 CONFIG_LOCALVERSION="-perf"
 # CONFIG_LOCALVERSION_AUTO is not set
-CONFIG_AUDIT=n
+CONFIG_AUDIT=y
 # CONFIG_AUDITSYSCALL is not set
 CONFIG_NO_HZ=y
 CONFIG_HIGH_RES_TIMERS=y
@@ -70,7 +70,7 @@ CONFIG_SETEND_EMULATION=y
 CONFIG_ARM64_SW_TTBR0_PAN=n
 # CONFIG_ARM64_VHE is not set
 CONFIG_RANDOMIZE_BASE=y
-CONFIG_CMDLINE="sched_enable_hmp=1 cgroup_disable=pressure mitigations=off nowatchdog quiet androidboot.selinux=permissive noirqdebug nosoftlockup mce=ignore_ce rcupdate.rcu_normal_after_boot=1 rcu_nocbs=0-3 audit=0"
+CONFIG_CMDLINE="sched_enable_hmp=1 cgroup_disable=pressure mitigations=off nowatchdog quiet noirqdebug nosoftlockup mce=ignore_ce rcupdate.rcu_normal_after_boot=1 rcu_nocbs=0-3"
 CONFIG_CMDLINE_EXTEND=y
 CONFIG_COMPAT=y
 CONFIG_PM_WAKELOCKS=y
@@ -954,3 +954,6 @@ CONFIG_TRACING_EVENTS_GPIO=n
 CONFIG_FTRACE=n
 CONFIG_NOP_TRACER=n
 CONFIG_OPLUS_MM_HACKS=y
+
+
+CONFIG_NETLABEL=y

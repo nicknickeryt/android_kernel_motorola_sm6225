@@ -106,7 +106,7 @@ int ns_get_path_cb(struct path *path, ns_get_path_helper_t *ns_get_cb,
 		     void *private_data)
 {
 	struct ns_common *ns;
-	int *ret;
+	int ret;
 
 again:
 	ns = ns_get_cb(private_data);
@@ -114,7 +114,7 @@ again:
 		return -ENOENT;
 
 	ret = __ns_get_path(path, ns);
-	if (IS_ERR(ret) && PTR_ERR(ret) == -EAGAIN)
+	if (ret == -EAGAIN)
 		goto again;
 	return ret;
 }
@@ -163,11 +163,11 @@ int open_related_ns(struct ns_common *ns,
 		}
 
 		err = __ns_get_path(&path, relative);
-		if (IS_ERR(err) && PTR_ERR(err) == -EAGAIN)
+		if (err == -EAGAIN)
 			continue;
 		break;
 	}
-	if (IS_ERR(err)) {
+	if (err) {
 		put_unused_fd(fd);
 		return err;
 	}
