@@ -372,10 +372,10 @@ else
 HOSTCC	= gcc
 HOSTCXX	= g++
 endif
-KBUILD_HOSTCFLAGS   := -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast \
+KBUILD_HOSTCFLAGS   := -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -ffast-math \
 		-fomit-frame-pointer -std=gnu89 $(HOST_LFS_CFLAGS) \
 		$(HOSTCFLAGS)
-KBUILD_HOSTCXXFLAGS := -Ofast $(HOST_LFS_CFLAGS) $(HOSTCXXFLAGS)
+KBUILD_HOSTCXXFLAGS := -O3 -ffast-math $(HOST_LFS_CFLAGS) $(HOSTCXXFLAGS)
 KBUILD_HOSTLDFLAGS  := $(HOST_LFS_LDFLAGS) $(HOSTLDFLAGS)
 KBUILD_HOSTLDLIBS   := $(HOST_LFS_LIBS) $(HOSTLDLIBS)
 
@@ -423,8 +423,8 @@ LDFLAGS_MODULE  = --strip-debug
 CFLAGS_KERNEL	=
 AFLAGS_KERNEL	=
 LDFLAGS_vmlinux = --strip-debug
-LDFLAGS += -Ofast --strip-debug
-KBUILD_LDFLAGS += -Ofast --strip-debug
+LDFLAGS += -O3 -ffast-math --strip-debug
+KBUILD_LDFLAGS += -O3 -ffast-math --strip-debug
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE    := \
@@ -703,11 +703,11 @@ KBUILD_CFLAGS	+= $(call cc-disable-warning, address-of-packed-member)
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS   += -Os
 else
-KBUILD_CFLAGS   += -Ofast -ffast-math -funsafe-math-optimizations
+KBUILD_CFLAGS   += -O3 -ffast-math -ffast-math -funsafe-math-optimizations
 endif
 
-KBUILD_CFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc -mllvm -regalloc-enable-advisor=release -Ofast -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast -pipe
-KBUILD_AFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16+rcpc -mllvm -regalloc-enable-advisor=release -Ofast -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast -pipe
+KBUILD_CFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16 -mllvm -regalloc-enable-advisor=release -O3 -ffast-math -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast -pipe
+KBUILD_AFLAGS   += -mcpu=cortex-a53 -mtune=cortex-a53 -march=armv8.2-a+crypto+fp16 -mllvm -regalloc-enable-advisor=release -O3 -ffast-math -ffast-math -funsafe-math-optimizations -mllvm -hot-cold-split=true -ffp-contract=fast -pipe
 KBUILD_LDFLAGS  +=  -mllvm -regalloc-enable-advisor=release -O3  -mllvm -hot-cold-split=true 
 
 ifdef CONFIG_LLVM_POLLY
@@ -731,7 +731,7 @@ KBUILD_CFLAGS	+= -mllvm -polly \
 endif
 
 ifdef CONFIG_CC_WERROR
-KBUILD_CFLAGS  += -Werror
+KBUILD_CFLAGS  += -Werror -Wno-address-of-packed-member
 endif
 
 ifdef CONFIG_INLINE_OPTIMIZATION
